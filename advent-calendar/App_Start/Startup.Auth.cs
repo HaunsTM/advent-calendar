@@ -47,7 +47,7 @@ namespace advent_calendar
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            var googleClientID = new Business.GoogleClientID(@"C:\inetpub\sensitiveData\adventCalendar\google_client_id.json");
+            var googleClientID = new business.GoogleClientID(@"C:\inetpub\sensitiveData\adventCalendar\google_client_id.json");
             googleClientID.GetDataFromFile();
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

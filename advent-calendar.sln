@@ -5,10 +5,11 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{A6646DEA-EE93-4B11-BB6A-11D437FE1587}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{4748462A-088E-4DAB-BB4D-CA9A6275EBAA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{4748462A-088E-4DAB-BB4D-CA9A6275EBAA}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Code First, Cardinality and DataAnnotations.vsdx = Documentation\Code First, Cardinality and DataAnnotations.vsdx
 		Documentation\ER.vsdx = Documentation\ER.vsdx
+		documentation\Flow.vsdx = documentation\Flow.vsdx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "consoleForTestingBackend", "consoleForTestingBackend\consoleForTestingBackend.csproj", "{112BAD2C-FFBF-4230-91D0-62F66DF76B78}"

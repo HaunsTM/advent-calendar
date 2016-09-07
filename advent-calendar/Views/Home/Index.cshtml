@@ -1,32 +1,7 @@
-﻿@if (!Request.IsAuthenticated)
-{
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>Julkalendern 2016</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a href="@Url.Action("Login", "Account")" id="btnLogin" class="btn btn-primary btn-lg btn-block">Logga in</a>
-                <br />
-            </div>
-            <div class="col-md-4">
-                <a href="@Url.Action("Register", "Account")" id="btnRegister" class="btn btn-primary btn-lg btn-block">Registrera</a>
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    <div ng-view></div>
-}
-
-
-
+﻿<div ng-view></div>
 
 <div class="scaling-svg-container"
-     style="padding-bottom: 64%/* 100% * 1108/1708 */">
+     style="/*padding-bottom: 64% 100% * 1108/1708 */">
     <svg xmlns:svg="http://www.w3.org/2000/svg"
          xmlns="http://www.w3.org/2000/svg"
          version="1.1"

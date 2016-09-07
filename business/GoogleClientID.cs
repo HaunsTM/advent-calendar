@@ -1,4 +1,4 @@
-﻿namespace Business
+﻿namespace business
 {
     using System.IO;
     using Newtonsoft.Json.Linq;
