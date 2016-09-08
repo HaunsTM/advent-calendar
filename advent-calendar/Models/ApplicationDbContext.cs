@@ -27,6 +27,7 @@ namespace advent_calendar.Models
 
 
         public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<UserRole>  UserRoles { get; set; }
         public DbSet<Slot> Slots { get; set; }
     }
 }

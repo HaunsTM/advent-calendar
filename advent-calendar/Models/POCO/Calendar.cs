@@ -14,14 +14,16 @@ namespace advent_calendar.Models.POCO
         public int Year { get; set; }
 
         #region Navigation properties
-
-        public virtual ICollection<Slot> Slots { get; set; }
         
+        public virtual List<Slot> Slots { get; set; }
+        public virtual List<UserRole> Roles { get; set; }
+
         #endregion
 
         public Calendar()
         {
-            Slots = new Collection<Slot>();
+            this.Slots = new List<Slot>();
+            this.Roles = new List<UserRole>();
         }
     }
 }

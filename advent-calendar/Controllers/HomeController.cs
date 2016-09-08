@@ -19,7 +19,7 @@ namespace advent_calendar.Controllers
 
         public HomeController()
         {
-            var adventCalendarContext = new AdventCalendarContext();
+            var adventCalendarContext = new ApplicationDbContext();
             _slotRepository = new SlotRepository(adventCalendarContext);
         }
 

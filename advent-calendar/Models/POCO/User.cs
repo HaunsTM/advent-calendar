@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace advent_calendar.Models.POCO
 {
@@ -10,6 +11,17 @@ namespace advent_calendar.Models.POCO
 
         public string Name { get; set; }
         public string Phone { get; set; }
-        
+
+        #region Navigation properties
+
+        public virtual List<UserRole> Roles { get; set; }
+
+        #endregion
+
+        public User()
+        {
+            this.Roles = new List<UserRole>();
+        }
+
     }
 }

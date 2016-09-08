@@ -20,7 +20,6 @@ namespace advent_calendar.Models.POCO
         public Nullable<DateTime> Opened { get; set; }
 
         #region Navigation properties
-
         public virtual Calendar Calendar { get; set; }
         
         #endregion

@@ -180,11 +180,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventCalendarContext.cs" />
     <Compile Include="Models\Interfaces\ICalendar.cs" />
     <Compile Include="Models\Interfaces\IEntity.cs" />
+    <Compile Include="Models\Interfaces\IRole.cs" />
     <Compile Include="Models\Interfaces\ISlot.cs" />
     <Compile Include="Models\POCO\Calendar.cs" />
+    <Compile Include="Models\POCO\UserRole.cs" />
     <Compile Include="Models\POCO\Slot.cs" />
     <Compile Include="Models\POCO\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

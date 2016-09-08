@@ -1,6 +1,9 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using advent_calendar.Models.POCO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -18,6 +21,19 @@ namespace advent_calendar.Models
                 this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here 
             return userIdentity;
+        }
+
+        public bool Active { get; set; }
+        
+        #region Navigation properties
+
+        public virtual List<UserRole> UserRoles { get; set; }
+
+        #endregion
+
+        public ApplicationUser()
+        {
+            this.UserRoles = new List<UserRole>();
         }
     }
 
