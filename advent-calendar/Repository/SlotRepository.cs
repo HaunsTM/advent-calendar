@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using advent_calendar.Models;
-using model.POCO;
+using advent_calendar.Models.POCO;
 
 namespace advent_calendar.Repository
 {

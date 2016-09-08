@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using advent_calendar.Models.POCO;
 
 namespace advent_calendar.Models
 {
@@ -10,7 +11,7 @@ namespace advent_calendar.Models
             //Configuration.ProxyCreationEnabled = false;
         }
 
-        public DbSet<model.POCO.Calendar> Calendars { get; set; }
-        public DbSet<model.POCO.Slot> Slots { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<Slot> Slots { get; set; }
     }
 }

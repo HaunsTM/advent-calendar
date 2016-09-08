@@ -21,26 +21,7 @@ namespace advent_calendar.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
-    {
-        public ApplicationDbContext()
-            : base(DefaultConnection)
-        {
-        }
-
-        public static string DefaultConnection
-        {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString();
-            }
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
+    
 
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }

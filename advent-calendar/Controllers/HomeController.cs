@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using advent_calendar.Models;
+using advent_calendar.Models.Interfaces;
 using advent_calendar.Repository;
-using model.Interfaces;
-using model.POCO;
 
 namespace advent_calendar.Controllers
 {

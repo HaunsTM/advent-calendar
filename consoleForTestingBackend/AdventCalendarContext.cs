@@ -12,9 +12,10 @@ namespace consoleForTestingBackend
         {
             Configuration.ProxyCreationEnabled = false;
         }
-
+        /*
         public DbSet<model.POCO.Calendar> Calendars { get; set; }
         public DbSet<model.POCO.Slot> Slots { get; set; }
+        */
     }
 
     internal class MyDbConfiguration : DbConfiguration
