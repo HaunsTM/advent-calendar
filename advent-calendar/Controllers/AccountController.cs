@@ -362,7 +362,7 @@ namespace advent_calendar.Controllers
             }
             catch (Exception e)
             {
-                int i = 0;
+                //int i = 0;
                 throw e;
             }
         }

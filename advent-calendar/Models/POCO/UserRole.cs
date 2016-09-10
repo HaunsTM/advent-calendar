@@ -16,7 +16,7 @@ namespace advent_calendar.Models.POCO
 
         #region Navigation properties
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser AspNetUser { get; set; }
         public virtual Calendar Calendar { get; set; }
 
         #endregion
