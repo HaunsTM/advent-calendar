@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hauns™ Julkalender</title>
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/Content/Site.css">
-
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,9 +32,9 @@
             </footer>
         </div>
 
-        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        @RenderSection("scripts", required: false)
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: true)
 
     </body>
 </html>
