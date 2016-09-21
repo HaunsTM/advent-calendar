@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
-using model.POCO;
+using advent_calendar.Models.POCO;
 
 namespace consoleForTestingBackend
 {
@@ -10,7 +10,7 @@ namespace consoleForTestingBackend
     {
         protected override void Seed(AdventCalendarContext context)
         {
-            var calendar = new model.POCO.Calendar {Active = true, Name = "HaunsTM Top Secret Calendar"};
+            /*var calendar = new model.POCO.Calendar {Active = true};
 
             IEnumerable<model.POCO.Slot> slots;
 
@@ -22,7 +22,7 @@ namespace consoleForTestingBackend
             context.Configuration.AutoDetectChangesEnabled = false;
 
             context.Calendars.Add(calendar);
-
+            
             slots = new List<model.POCO.Slot>()
             {
                 new Slot {Number = 1, SlotMessage = "Bakom gardin [TV-rum, vänster väggfäste]",                                 ImageURL = "1.jpg", Active = active, Opened = opened, EarliestDateOfAllowedOpeningTime = new DateTime(2015, 12, 1)},
@@ -52,7 +52,7 @@ namespace consoleForTestingBackend
             };
 
             context.Slots.AddRange(slots);
-
+            */
             context.SaveChanges();
         }
     }

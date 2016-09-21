@@ -1,18 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{A6646DEA-EE93-4B11-BB6A-11D437FE1587}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{4748462A-088E-4DAB-BB4D-CA9A6275EBAA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{4748462A-088E-4DAB-BB4D-CA9A6275EBAA}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\Code First, Cardinality and DataAnnotations.vsdx = Documentation\Code First, Cardinality and DataAnnotations.vsdx
+		Documentation\ER.vsdx = Documentation\ER.vsdx
+		documentation\Flow.vsdx = documentation\Flow.vsdx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "consoleForTestingBackend", "consoleForTestingBackend\consoleForTestingBackend.csproj", "{112BAD2C-FFBF-4230-91D0-62F66DF76B78}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "advent-calendar", "advent-calendar\advent-calendar.csproj", "{8E638CC3-5C98-40D1-A314-2FFD15317614}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business", "business\business.csproj", "{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A6646DEA-EE93-4B11-BB6A-11D437FE1587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6646DEA-EE93-4B11-BB6A-11D437FE1587}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6646DEA-EE93-4B11-BB6A-11D437FE1587}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6646DEA-EE93-4B11-BB6A-11D437FE1587}.Release|Any CPU.Build.0 = Release|Any CPU
 		{112BAD2C-FFBF-4230-91D0-62F66DF76B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{112BAD2C-FFBF-4230-91D0-62F66DF76B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{112BAD2C-FFBF-4230-91D0-62F66DF76B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +30,10 @@ Global
 		{8E638CC3-5C98-40D1-A314-2FFD15317614}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E638CC3-5C98-40D1-A314-2FFD15317614}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E638CC3-5C98-40D1-A314-2FFD15317614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

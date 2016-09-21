@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using advent_calendar.Models;
-using model.POCO;
+using advent_calendar.Models.POCO;
 
 namespace advent_calendar.Repository
 {
@@ -11,10 +11,10 @@ namespace advent_calendar.Repository
     {
         //http://www.codeproject.com/Articles/631668/Learning-MVC-Part-Repository-Pattern-in-MVC-App
 
-        private AdventCalendarContext _context;
+        private ApplicationDbContext _context;
         private bool _disposed = false;
 
-        public SlotRepository(AdventCalendarContext context)
+        public SlotRepository(ApplicationDbContext context)
         {
             this._context = context;
         }
@@ -40,7 +40,7 @@ namespace advent_calendar.Repository
         public Slot GetBy(int slotNumber)
         {
             
-            using (var aCC = new AdventCalendarContext())
+            using (var aCC = new ApplicationDbContext())
             {
                 var entities = aCC.Database.SqlQuery<Slot>("select * from dbo.Slots where Number = @slotNumber", new SqlParameter("@slotNumber", slotNumber)).ToList();
                 var count = entities.Count;

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using advent_calendar.Models;
+using advent_calendar.Models.Interfaces;
 using advent_calendar.Repository;
-using model.Interfaces;
-using model.POCO;
 
 namespace advent_calendar.Controllers
 {
@@ -20,7 +19,7 @@ namespace advent_calendar.Controllers
 
         public HomeController()
         {
-            var adventCalendarContext = new AdventCalendarContext();
+            var adventCalendarContext = new ApplicationDbContext();
             _slotRepository = new SlotRepository(adventCalendarContext);
         }
 
@@ -33,7 +32,8 @@ namespace advent_calendar.Controllers
         [HttpPost]
         public JsonResult GiveMeSlotContent(string HTML_Id)
         {
-            
+            return null;
+            /*
             //find correstonding slotcontent in database
             var currentSlot = _slotRepository.GetBy(HTML_Id);
             
@@ -49,7 +49,7 @@ namespace advent_calendar.Controllers
                 {
                     //a bit too early
                     var dateDiff = Math.Ceiling((currentSlot.EarliestDateOfAllowedOpeningTime - new DateTime(2015, 12, 31)).TotalDays);
-                    currentSlot = new Slot { Active = false, Number = currentSlotNumber, ImageURL = "0.gif", SlotMessage = String.Format("Aja baja... Den här luckan får du öppna först om {0} dagar!", dateDiff.ToString())}; ;
+                    currentSlot = new Slot { Active = false, Number = currentSlotNumber,  ImageURL = "0.gif", SlotMessage = String.Format("Aja baja... Den här luckan får du öppna först om {0} dagar!", dateDiff.ToString())}; ;
                 }
             }
             else
@@ -57,6 +57,7 @@ namespace advent_calendar.Controllers
                 currentSlot = new Slot { Active = false, ImageURL = "0.gif", SlotMessage = "Hmmm... Något gick fel! Klickade du verkligen på en lucka?"};
             }
             return Json(currentSlot);
+            */
         }
 
         private bool SlotCanBeOpened(ISlot currentSlot)
