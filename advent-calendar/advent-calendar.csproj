@@ -324,8 +324,10 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AngularJS_app\" />
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Template\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\business\business.csproj">
