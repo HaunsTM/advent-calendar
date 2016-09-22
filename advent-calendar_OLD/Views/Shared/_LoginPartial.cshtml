@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" title="Inloggad: @User.Identity.GetUserName()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inloggad<span class="caret"></span></a>
+                @if (User.IsInRole("Admin")) {
+                    <!--Administrators menu-->
+                    <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administratör <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Koppla användare med kalender</a></li>
+                                <li><a href="#">Skapa kalender</a></li>
+                            </ul>
+                        </li>
+                    <ul class="dropdown-menu">
+                        <li>Roller</li>
+                        <li><a href="@Url.Action("RoleIndex", "Account")">Visa/editera roller</a></li>
+                        <li><a href="@Url.Action("RoleCreate", "Account")">Skapa roller i systemet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li>Registrerade anv&auml;ndare</li>
+                        <li><a href="@Url.Action("RoleAddToUser", "Account")">Koppla användare till roll</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
+                    </ul>
+                }
+                else {
+                    <!--Standard user's menu-->
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
+                    </ul>
+                }
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("Login", "Account")" id="lnkLogin">Logga in</a></li>
+        <li><a href="@Url.Action("Register", "Account")" id="lnkRegister">Registrera</a></li>
+    </ul>
+}

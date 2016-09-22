@@ -22,13 +22,3 @@ select,
 textarea {
     max-width: 280px;
 }
-
-    
-html, body {
-    height: 100%;
-}
-
-#imgCheater {
-    display: inline;
-    max-height: 40px;
-}

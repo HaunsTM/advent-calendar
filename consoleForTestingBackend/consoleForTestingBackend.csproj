@@ -90,12 +90,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\advent-calendar\advent-calendar.csproj">
-      <Project>{8e638cc3-5c98-40d1-a314-2ffd15317614}</Project>
-      <Name>advent-calendar</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

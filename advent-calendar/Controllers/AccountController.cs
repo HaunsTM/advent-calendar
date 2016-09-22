@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using advent_calendar.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using advent_calendar.Models;
 
 namespace advent_calendar.Controllers
 {
@@ -15,7 +17,6 @@ namespace advent_calendar.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -37,7 +38,7 @@ namespace advent_calendar.Controllers
             { 
                 _signInManager = value; 
             }
-        } 
+        }
 
         public ApplicationUserManager UserManager
         {
@@ -48,18 +49,6 @@ namespace advent_calendar.Controllers
             private set
             {
                 _userManager = value;
-            }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
             }
         }
 
@@ -186,9 +175,9 @@ namespace advent_calendar.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == default(int) || code == null)
+            if (userId == null || code == null)
             {
                 return View("Error");
             }
@@ -299,7 +288,7 @@ namespace advent_calendar.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == default(int))
+            if (userId == null)
             {
                 return View("Error");
             }
@@ -340,10 +329,7 @@ namespace advent_calendar.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            try
-            {
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-
             switch (result)
             {
                 case SignInStatus.Success:
@@ -358,12 +344,6 @@ namespace advent_calendar.Controllers
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
-            }
-            catch (Exception e)
-            {
-                //int i = 0;
-                throw e;
             }
         }
 
@@ -394,7 +374,7 @@ namespace advent_calendar.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: false);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -500,197 +480,6 @@ namespace advent_calendar.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
-
-        #region Simple Roles Management
-        /* https://andersnordby.wordpress.com/2014/11/28/asp-net-mvc-4-5-owin-simple-roles-management/ */
-
-        #region Create
-
-        //[Authorize(Roles = "Admin")]
-        public ActionResult RoleCreate()
-        {
-            return View();
-        }
-
-        //[Authorize(Roles = "Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RoleCreate(string roleName)
-        {
-          //RoleManager.CreateAsync(new CustomRole(roleName));
-            // Use ApplicationRole, not IdentityRole:
-            var role = new CustomRole(roleName);
-            var roleresult = await RoleManager.CreateAsync(role);
-
-            if (roleresult.Succeeded)
-            {
-                ViewBag.ResultMessage = "Role created successfully !";
-                return RedirectToAction("RoleIndex", "Account");
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        #endregion
-
-        #region Index
-
-        //[Authorize(Roles = "Admin")]
-        public ActionResult RoleIndex()
-        {
-            var roles = (from r in RoleManager.Roles select r.Name).ToList();
-            return View(roles.ToList());
-        }
-
-        #endregion
-
-        #region Delete
-
-        //[Authorize(Roles = "Admin")]
-        public async Task<ActionResult> RoleDelete(string roleName)
-        {
-            var role = await RoleManager.FindByNameAsync(roleName);
-
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                var deleteResult = await RoleManager.DeleteAsync(role);
-
-                if (deleteResult.Succeeded)
-                {
-                    ViewBag.ResultMessage = "Role deleted succesfully !";
-                    return RedirectToAction("RoleIndex", "Account");
-                }
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-        #endregion
-
-        #region RoleAddToUser
-
-        //[Authorize(Roles = "Admin")]
-        public ActionResult RoleAddToUser()
-        {
-            var users = (from u in UserManager.Users select u.UserName).ToList();
-            var roles = (from r in RoleManager.Roles select r.Name).ToList();
-
-            ViewBag.Roles = new SelectList(roles);
-            ViewBag.Users = new SelectList(users);
-            return View();
-        }
-
-        //[Authorize(Roles = "Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RoleAddToUser(string roleName, string userName)
-        {
-            var users = (from u in UserManager.Users select u.UserName).ToList();
-
-            var user = UserManager.FindByName(userName);
-            if (user == null)
-                throw new Exception("User not found!");
-
-            var role = RoleManager.FindByName(roleName);
-            if (role == null)
-                throw new Exception("Role not found!");
-
-            if (UserManager.IsInRole(user.Id, role.Name))
-            {
-                ViewBag.ResultMessage = "This user already has the role specified !";
-            }
-            else
-            {
-                UserManager.AddToRole(user.Id, role.Name);
-
-                ViewBag.ResultMessage = "Username added to the role succesfully !";
-            }
-
-            var roles = (from r in RoleManager.Roles select r.Name).ToList();
-
-            ViewBag.Roles = new SelectList(roles);
-            ViewBag.Users = new SelectList(users);
-            return View();
-        }
-
-        #endregion
-
-        #region GetRoles
-
-        //[Authorize(Roles = "Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult GetRoles(string userName)
-        {
-            if (!string.IsNullOrWhiteSpace(userName))
-            {
-                var roles = (from r in RoleManager.Roles select r.Name).ToList();
-                
-                var users = (from u in UserManager.Users select u.UserName).ToList();
-
-                var user = UserManager.FindByName(userName);
-                if (user == null)
-                    throw new Exception("User not found!");
-
-                var userRoleIds = (from r in user.Roles select r.RoleId);
-                var userRoles = (from id in userRoleIds
-                                 let r = RoleManager.FindById(id)
-                                 select r.Name).ToList();
-
-                ViewBag.Roles = new SelectList(roles);
-                ViewBag.Users = new SelectList(users);
-                ViewBag.RolesForThisUser = userRoles;
-            }
-
-            return View("RoleAddToUser");
-        }
-        #endregion
-
-        #region DeleteRoleForUser
-
-        [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteRoleForUser(string userName, string roleName)
-        {
-
-            var roles = (from r in RoleManager.Roles select r.Name).ToList();
-                
-
-            var users = (from u in UserManager.Users select u.UserName).ToList();
-
-            var user = UserManager.FindByName(userName);
-            if (user == null)
-                throw new Exception("User not found!");
-
-            if (UserManager.IsInRole(user.Id, roleName))
-            {
-                UserManager.RemoveFromRole(user.Id, roleName);
-
-                ViewBag.ResultMessage = "Role removed from this user successfully !";
-            }
-            else
-            {
-                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
-            }
-
-            var userRoleIds = (from r in user.Roles select r.RoleId);
-            var userRoles = (from id in userRoleIds
-                            let r = RoleManager.FindById(id)
-                            select r.Name).ToList();
-            
-
-            ViewBag.RolesForThisUser = userRoles;
-            ViewBag.Roles = new SelectList(roles);
-            ViewBag.Users = new SelectList(users);
-            return View("RoleAddToUser");
-        }
-
-        #endregion
-
         #endregion
     }
 }

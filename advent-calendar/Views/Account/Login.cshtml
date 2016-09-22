@@ -1,5 +1,5 @@
 ﻿@using advent_calendar.Models
-@model advent_calendar.Models.LoginViewModel
+@model LoginViewModel
 @{
     ViewBag.Title = "Log in";
 }
@@ -55,8 +55,6 @@
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-    </div>
-    <div class="col-md-8">
     </div>
 </div>
 
