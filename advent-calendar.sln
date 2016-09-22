@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 		documentation\Flow.vsdx = documentation\Flow.vsdx
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business", "business\business.csproj", "{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "advent-calendar", "advent-calendar\advent-calendar.csproj", "{FC186860-78AF-4C52-BBD4-4788349A7820}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{20D05E3F-FE14-4D6B-A226-7443944C2DD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,14 +20,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7EBA9A5-A82B-4CFB-9B69-DB849D84AC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC186860-78AF-4C52-BBD4-4788349A7820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC186860-78AF-4C52-BBD4-4788349A7820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC186860-78AF-4C52-BBD4-4788349A7820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC186860-78AF-4C52-BBD4-4788349A7820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

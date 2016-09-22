@@ -1,31 +1,57 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Part9";
 }
+<style>
+    ul.menu {
+        list-style: none;
+        padding: 10px;
+        margin: 0px;
+    }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+        ul.menu li {
+            float: left;
+            margin: 1px;
+        }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+            ul.menu li a {
+                float: left;
+                background-color: #f3f3f3;
+                display: inline-block;
+                padding: 5px 20px;
+            }
+
+                ul.menu li a:hover {
+                    background-color: #e4e4e4;
+                }
+</style>
+
+<div>
+    <ul class="menu">
+        <li><a href="#!/about">Om</a></li>
+        <li><a href="#!/assignUsersToCalendar">Kalenderns användare</a></li>
+        <li><a href="#!/calendar">Kalender</a></li>
+        <li><a href="#!/createCalendar">Skapa kalender</a></li>
+        <li><a href="#!/error">Fel</a></li>
+        <li><a href="#!/login">Logga in</a></li>
+        <li><a href="#!/logout">Logga ut</a></li>
+        <li><a href="#!/register">Registrera ny användare</a></li>
+        <li><a href="#!/invalid">Invalid Url</a></li>
+    </ul>
 </div>
+<div style="padding:0 10px; margin:10px; border:10px solid #f3f3f3; clear:both;">
+    <ng-view></ng-view>
+</div>
+@section Scripts{
+    <script src="~/angularJSApp/app.module.js"></script>
+    <script src="~/angularJSApp/app.routes.js"></script>
+
+    <script src="~/angularJSApp/components/about/aboutController.js"></script>
+    <script src="~/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarController.js"></script>
+    <script src="~/angularJSApp/components/calendar/calendarController.js"></script>
+    <script src="~/angularJSApp/components/createCalendar/createCalendarController.js"></script>
+    <script src="~/angularJSApp/components/error/errorController.js"></script>
+    <script src="~/angularJSApp/components/login/loginController.js"></script>
+    <script src="~/angularJSApp/components/logout/logoutController.js"></script>
+    <script src="~/angularJSApp/components/register/registerController.js"></script>
+    <script src="~/angularJSApp/components/welcome/welcomeController.js"></script>
+}
