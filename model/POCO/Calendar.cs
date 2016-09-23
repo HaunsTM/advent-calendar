@@ -15,14 +15,14 @@ namespace model.POCO
         #region Navigation properties
         
         public virtual List<Slot> Slots { get; set; }
-        public virtual List<UserRole> Roles { get; set; }
+        public virtual List<User> Users { get; set; }
 
         #endregion
 
         public Calendar()
         {
             this.Slots = new List<Slot>();
-            this.Roles = new List<UserRole>();
+            this.Users = new List<User>();
         }
     }
 }

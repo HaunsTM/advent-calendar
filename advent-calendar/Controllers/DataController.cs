@@ -6,7 +6,7 @@ namespace advent_calendar.Controllers
     public class DataController : Controller
     {
         [HttpPost]
-        public JsonResult Register(model.POCO.User u)
+        public JsonResult Register(UserViewModel u)
         {
             string message = "";
             //Here we will save data to the database
@@ -18,8 +18,15 @@ namespace advent_calendar.Controllers
                     var user = dc.Users.Where(a => a.Name.Equals(u.Name)).FirstOrDefault();
                     if (user == null)
                     {
+                        var passHlp = new business.PasswordHelper( password: u.Password) {};
+                        var newUser = new model.POCO.User
+                        {
+                            Active = false,
+                            Email = u.Email,
+                            PasswordHash = passHlp.PasswordHash()
+                        };
                         //Save here
-                        dc.Users.Add(u);
+                        dc.Users.Add(newUser);
                         dc.SaveChanges();
                         message = "Success";
                     }

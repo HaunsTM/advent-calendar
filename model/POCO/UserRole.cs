@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using model.Interfaces;
 
 namespace model.POCO
@@ -15,13 +16,14 @@ namespace model.POCO
         public bool CanCreateUser { get; set; }
 
         #region Navigation properties
-        
-        public virtual Calendar Calendar { get; set; }
+
+        public virtual List<User> Users { get; set; }
 
         #endregion
 
         public UserRole()
         {
+            this.Users = new List<User>();
         }
     }
 }
