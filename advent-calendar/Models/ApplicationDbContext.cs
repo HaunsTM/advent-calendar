@@ -24,9 +24,9 @@ namespace advent_calendar.Models
         }
 
 
-        public DbSet<model.Interfaces.ICalendar> Calendars { get; set; }
-        public DbSet<model.Interfaces.ISlot> Slots { get; set; }
-        public DbSet<model.Interfaces.IUser> Users { get; set; }
-        public DbSet<model.Interfaces.IUserRole> UserRoles { get; set; }
+        public DbSet<model.POCO.Calendar> Calendars { get; set; }
+        public DbSet<model.POCO.Slot> Slots { get; set; }
+        public DbSet<model.POCO.User> Users { get; set; }
+        public DbSet<model.POCO.UserRole> UserRoles { get; set; }
     }
 }
