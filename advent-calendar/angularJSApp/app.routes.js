@@ -1,4 +1,4 @@
-﻿adventCalendarApp.config(function ($routeProvider, $locationProvider) {
+﻿adventCalendarApp.config(function($routeProvider, $locationProvider) {
     //here we will write code for implement routing 
     $routeProvider
         .when('/', {
@@ -44,6 +44,6 @@
             templateUrl: '/angularJSApp/components/error/errorView.html',
             controller: 'errorController'
         });
- 
+
     $locationProvider.html5Mode(false).hashPrefix('!'); // This is for Hashbang Mode
-})
+});

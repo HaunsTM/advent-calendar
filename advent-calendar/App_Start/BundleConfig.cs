@@ -27,6 +27,11 @@ namespace advent_calendar
                     "~/Scripts/angular.js",
                     "~/Scripts/angular-route.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular/shared/factories").IncludeDirectory(
+                    directoryVirtualPath: "~/angularJSApp/shared/factories",
+                    searchPattern: "*.js", searchSubdirectories: true));
+
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
