@@ -1,3 +1,3 @@
-﻿adventCalendarApp.controller('loginController', function ($scope) {
+﻿adventCalendarApp.controller('LoginController', function ($scope) {
     $scope.Message = "This is loginController page";
 })

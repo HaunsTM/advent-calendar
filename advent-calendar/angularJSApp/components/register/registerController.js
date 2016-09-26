@@ -1,3 +1,11 @@
-﻿adventCalendarApp.controller('registerController', function($scope) {
-    $scope.Message = "This is registerController page";
-});
+﻿adventCalendarApp.controller('RegisterController', ['$scope', function ($scope) {
+    $scope.registerForm = {
+        emailAddress: '',
+        password: '',
+        confirmPassword: ''
+    };
+
+    $scope.register = function () {
+        alert("hej");
+    }
+}]);

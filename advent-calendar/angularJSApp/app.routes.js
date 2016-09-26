@@ -8,41 +8,41 @@
             }
         })
         .when('/about', {
-            templateUrl: '/angularJSApp/components/about/aboutView.html',
-            controller: 'aboutController'
+            templateUrl: '/angularJSApp/components/about/AboutView.html',
+            controller: 'AboutController'
         })
         .when('/assignUsersToCalendar', {
-            templateUrl: '/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarView.html',
-            controller: 'assignUsersToCalendarController'
+            templateUrl: '/angularJSApp/components/assignUsersToCalendar/AssignUsersToCalendarView.html',
+            controller: 'AssignUsersToCalendarController'
         })
         .when('/calendar', {
-            templateUrl: '/angularJSApp/components/calendar/calendarView.html',
-            controller: 'calendarController'
+            templateUrl: '/angularJSApp/components/calendar/CalendarView.html',
+            controller: 'CalendarController'
         })
         .when('/createCalendar', {
-            templateUrl: '/angularJSApp/components/createCalendar/createCalendarView.html',
-            controller: 'createCalendarController'
+            templateUrl: '/angularJSApp/components/createCalendar/CreateCalendarView.html',
+            controller: 'CreateCalendarController'
         })
         .when('/login', {
-            templateUrl: '/angularJSApp/components/login/loginView.html',
-            controller: 'loginController'
+            templateUrl: '/angularJSApp/components/login/LoginView.html',
+            controller: 'LoginController'
         })
         .when('/logout', {
-            templateUrl: '/angularJSApp/components/logout/logoutView.html',
-            controller: 'logoutController'
+            templateUrl: '/angularJSApp/components/logout/LogoutView.html',
+            controller: 'LogoutController'
         })
         .when('/register', {
-            templateUrl: '/angularJSApp/components/register/registerView.html',
-            controller: 'registerController'
+            templateUrl: '/angularJSApp/components/register/RegisterView.html',
+            controller: 'RegisterController'
         })
         .when('/welcome', {
-            templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-            controller: 'welcomeController'
+            templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+            controller: 'WelcomeController'
         })
         .otherwise({
             // This is when any route not matched
-            templateUrl: '/angularJSApp/components/error/errorView.html',
-            controller: 'errorController'
+            templateUrl: '/angularJSApp/components/error/ErrorView.html',
+            controller: 'ErrorController'
         });
 
     $locationProvider.html5Mode(false).hashPrefix('!'); // This is for Hashbang Mode

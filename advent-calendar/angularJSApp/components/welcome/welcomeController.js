@@ -1,3 +1,3 @@
-﻿adventCalendarApp.controller('welcomeController', function ($scope) {
+﻿adventCalendarApp.controller('WelcomeController', function ($scope) {
     $scope.Message = "Välkommen från controllern";
 });

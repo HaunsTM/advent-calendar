@@ -1,3 +1,3 @@
-﻿adventCalendarApp.controller('assignUsersToCalendarController', function ($scope) {
+﻿adventCalendarApp.controller('AssignUsersToCalendarController', function ($scope) {
     $scope.Message = "This is assignUsersToCalendarController page";
 })
