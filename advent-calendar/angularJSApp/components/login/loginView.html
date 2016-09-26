@@ -1,10 +1,4 @@
-﻿<div ng-controller="LoginController">
-    <h2>Login Page</h2>
-    <h5>{{Message}}</h5>
-</div>
-
-
-<section ng-controller="LoginController">
+﻿<!--<section ng-controller="LoginController">
     <div class="login">
         <h1>Login to Web App</h1>
         <form >
@@ -23,4 +17,20 @@
     <div class="login-help">
         <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
     </div>
-</section>
+</section>-->
+<form ng-submit="login()">
+    <label for="emailAddress">Email Address:</label>
+    <input type="email" ng-model="loginForm.emailAddress" id="emailAddress" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" ng-model="loginForm.password" />
+
+    <label for="rememberMe">Remember Me:</label>
+    <input type="checkbox" id="rememberMe" ng-model="loginForm.rememberMe" />
+
+    <button type="submit">Login</button>
+</form>
+
+<div ng-if="loginForm.loginFailure">
+    D'oh!
+</div>
