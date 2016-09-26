@@ -6,6 +6,6 @@
     };
 
     $scope.register = function () {
-        alert("hej");
+        // TODO
     }
 }]);

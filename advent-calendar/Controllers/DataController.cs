@@ -5,6 +5,14 @@ namespace advent_calendar.Controllers
 {
     public class DataController : Controller
     {
+        [HttpGet]
+        [Authorize]
+        public JsonResult HelloWorld()
+        {
+            var message = "Hello World";
+            return new JsonResult { Data = message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+    
         [HttpPost]
         public JsonResult Register(UserViewModel u)
         {
@@ -42,5 +50,7 @@ namespace advent_calendar.Controllers
             }
             return new JsonResult { Data = message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+
     }
 }

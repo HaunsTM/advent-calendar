@@ -1,4 +1,4 @@
-﻿adventCalendarApp.config(function($routeProvider, $locationProvider) {
+﻿adventCalendarApp.config(function ($routeProvider, $locationProvider, $httpProvider) {
     //here we will write code for implement routing 
     $routeProvider
         .when('/', {
@@ -46,4 +46,5 @@
         });
 
     $locationProvider.html5Mode(false).hashPrefix('!'); // This is for Hashbang Mode
+    $httpProvider.interceptors.push('AuthHttpResponseInterceptorFactory');
 });

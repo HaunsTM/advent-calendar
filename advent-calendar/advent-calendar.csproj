@@ -159,6 +159,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,6 +192,7 @@
     <Content Include="angularJSApp\components\welcome\WelcomeView.html" />
     <Content Include="angularJSApp\components\welcome\WelcomeController.js" />
     <Content Include="angularJSApp\README.txt" />
+    <Content Include="angularJSApp\shared\factories\AuthHttpResponseInterceptorFactory.js" />
     <Content Include="angularJSApp\shared\factories\RegistrationFactory.js" />
     <Content Include="angularJSApp\shared\services\SessionService.js" />
     <Content Include="Content\bootstrap.css" />
@@ -229,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
