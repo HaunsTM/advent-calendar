@@ -224,8 +224,8 @@
     <Content Include="angularJSApp\components\createCalendar\createCalendarView.html" />
     <Content Include="angularJSApp\components\error\errorController.js" />
     <Content Include="angularJSApp\components\error\errorView.html" />
-    <Content Include="angularJSApp\components\login\LoginController.js" />
-    <Content Include="angularJSApp\components\login\LoginView.html" />
+    <Content Include="angularJSApp\components\login\loginController.js" />
+    <Content Include="angularJSApp\components\login\loginView.html" />
     <Content Include="angularJSApp\components\logout\logoutController.js" />
     <Content Include="angularJSApp\components\logout\logoutView.html" />
     <Content Include="angularJSApp\components\register\registerController.js" />
@@ -233,9 +233,9 @@
     <Content Include="angularJSApp\components\welcome\welcomeController.js" />
     <Content Include="angularJSApp\components\welcome\welcomeView.html" />
     <Content Include="angularJSApp\README.txt" />
-    <Content Include="angularJSApp\shared\factories\AuthHttpResponseInterceptorFactory.js" />
-    <Content Include="angularJSApp\shared\factories\LoginFactory.js" />
-    <Content Include="angularJSApp\shared\factories\RegistrationFactory.js" />
+    <Content Include="angularJSApp\shared\factories\authHttpResponseInterceptorFactory.js" />
+    <Content Include="angularJSApp\shared\factories\loginFactory.js" />
+    <Content Include="angularJSApp\shared\factories\registrationFactory.js" />
     <Content Include="angularJSApp\shared\services\SessionService.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

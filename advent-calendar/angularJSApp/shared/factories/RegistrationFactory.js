@@ -6,7 +6,7 @@ adventCalendarApp.factory('RegistrationFactory', ['$http', '$q', function ($http
         var deferredObject = $q.defer();
 
         $http.post(
-            '/Data/Register', {
+            '/Account/Register', {
                 Email: emailAddress,
                 Password: password,
                 ConfirmPassword: confirmPassword
