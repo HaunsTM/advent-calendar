@@ -18,6 +18,18 @@ namespace advent_calendar.Models
             // Add custom user claims here 
             return userIdentity;
         }
+
+        #region Navigation properties
+
+        public virtual POCO.UserRole UserRole { get; set; }
+        public virtual System.Collections.Generic.List<POCO.Calendar> Calendars { get; set; }
+
+        #endregion
+
+        public ApplicationUser()
+        {
+            this.Calendars = new System.Collections.Generic.List<POCO.Calendar>();
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
@@ -31,6 +43,10 @@ namespace advent_calendar.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<POCO.Calendar> Calendars { get; set; }
+        public System.Data.Entity.DbSet<POCO.Slot> Slots { get; set; }
+        public System.Data.Entity.DbSet<POCO.UserRole> UserRoles { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

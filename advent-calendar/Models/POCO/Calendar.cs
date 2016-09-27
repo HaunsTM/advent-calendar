@@ -15,14 +15,14 @@ namespace advent_calendar.Models.POCO
         #region Navigation properties
         
         public virtual List<Slot> Slots { get; set; }
-        public virtual List<User> Users { get; set; }
+        public virtual List<ApplicationUser> ApplicationUsers { get; set; }
 
         #endregion
 
         public Calendar()
         {
             this.Slots = new List<Slot>();
-            this.Users = new List<User>();
+            this.ApplicationUsers = new List<ApplicationUser>();
         }
     }
 }
