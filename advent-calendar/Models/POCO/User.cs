@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
-namespace model.POCO
+namespace advent_calendar.Models.POCO
 {
     public class User
     {

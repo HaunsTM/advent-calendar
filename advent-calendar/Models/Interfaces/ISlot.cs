@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace model.Interfaces
+namespace advent_calendar.Models.Interfaces
 {
     public interface ISlot : IEntity
     {

@@ -198,7 +198,16 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Interfaces\ICalendar.cs" />
+    <Compile Include="Models\Interfaces\IEntity.cs" />
+    <Compile Include="Models\Interfaces\IRole.cs" />
+    <Compile Include="Models\Interfaces\ISlot.cs" />
+    <Compile Include="Models\Interfaces\IUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\POCO\Calendar.cs" />
+    <Compile Include="Models\POCO\Slot.cs" />
+    <Compile Include="Models\POCO\User.cs" />
+    <Compile Include="Models\POCO\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
