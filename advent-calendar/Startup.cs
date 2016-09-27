@@ -1,7 +1,8 @@
-﻿using Microsoft.Owin;
+﻿using advent_calendar;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(advent_calendar.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace advent_calendar
 {
     public partial class Startup
