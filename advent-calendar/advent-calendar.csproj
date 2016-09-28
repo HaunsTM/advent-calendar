@@ -220,8 +220,10 @@
     <Content Include="angularJSApp\components\assignUsersToCalendar\assignUsersToCalendarView.html" />
     <Content Include="angularJSApp\components\calendar\calendarController.js" />
     <Content Include="angularJSApp\components\calendar\calendarView.html" />
+    <Content Include="angularJSApp\components\empty\emptyController.js" />
     <Content Include="angularJSApp\components\createCalendar\createCalendarController.js" />
     <Content Include="angularJSApp\components\createCalendar\createCalendarView.html" />
+    <Content Include="angularJSApp\components\empty\emptyView.html" />
     <Content Include="angularJSApp\components\error\errorController.js" />
     <Content Include="angularJSApp\components\error\errorView.html" />
     <Content Include="angularJSApp\components\login\loginController.js" />
@@ -255,7 +257,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
-    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

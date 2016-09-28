@@ -50,19 +50,26 @@ else
 
 <div>
     <ul class="menu">
-        <li><a href="#!/about">Om</a></li>
-        <li><a href="#!/assignUsersToCalendar">Kalenderns användare</a></li>
-        <li><a href="#!/calendar">Kalender</a></li>
-        <li><a href="#!/createCalendar">Skapa kalender</a></li>
-        <li><a href="#!/error">Fel</a></li>
-        <li><a href="#!/login">Logga in</a></li>
-        <li><a href="#!/logout">Logga ut</a></li>
-        <li><a href="#!/register">Registrera ny användare</a></li>
-        <li><a href="#!/invalid">Invalid Url</a></li>
+        <li><a ui-sref="stateAbout">Om</a></li>
+        <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
+        <li><a ui-sref="stateCalendar">Kalender</a></li>
+        <li><a ui-sref="stateCreateCalendar">Skapa kalender</a></li>
+        <li><a ui-sref="stateError">Fel</a></li>
+        <li><a ui-sref="stateLogin">Logga in</a></li>
+        <li><a ui-sref="stateLogout">Logga ut</a></li>
+        <li><a ui-sref="stateRegister">Registrera ny användare</a></li>
+        <li><a ui-sref="stateInvalid">Invalid Url</a></li>
     </ul>
 </div>
-<div style="padding:0 10px; margin:10px; border:10px solid #f3f3f3; clear:both;">
-    <ng-view></ng-view>
+<div class="container mainContent">
+    <div class="row">
+        <div class="col-md-6">
+            <div ui-view="containerOne"></div>
+        </div>
+        <div class="col-md-6">
+            <div ui-view="containerTwo"></div>
+        </div>
+    </div>
 </div>
 @section Scripts{
     <script src="~/angularJSApp/app.module.js"></script>
@@ -74,6 +81,7 @@ else
     <script src="~/angularJSApp/components/calendar/CalendarController.js"></script>
     <script src="~/angularJSApp/components/createCalendar/CreateCalendarController.js"></script>
     <script src="~/angularJSApp/components/error/ErrorController.js"></script>
+    <script src="~/angularJSApp/components/empty/emptyController.js"></script>
     <script src="~/angularJSApp/components/login/LoginController.js"></script>
     <script src="~/angularJSApp/components/logout/LogoutController.js"></script>
     <script src="~/angularJSApp/components/register/RegisterController.js"></script>

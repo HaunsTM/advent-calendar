@@ -1,11 +1,11 @@
-﻿adventCalendarApp.controller('LoginController', ['$scope', '$routeParams', '$location', 'LoginFactory', function ($scope, $routeParams, $location, LoginFactory) {
+﻿adventCalendarApp.controller('LoginController', ['$scope', '$stateParams', '$location', 'LoginFactory', function ($scope, $stateParams, $location, LoginFactory) {
 
     $scope.Message = "This is loginController page";
     $scope.loginForm = {
         emailAddress: '',
         password: '',
         rememberMe: false,
-        returnUrl: $routeParams.returnUrl,
+        returnUrl: $stateParams.returnUrl,
         loginFailure: false
     };
 
@@ -14,7 +14,7 @@
         result.then(function (result) {
             if (result.success) {
                 if ($scope.loginForm.returnUrl !== undefined) {
-                    $location.path('/calendar');
+                    $location.path('/about');
                 } else {
                     $location.path($scope.loginForm.returnUrl);
                 }

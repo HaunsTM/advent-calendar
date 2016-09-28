@@ -1,4 +1,4 @@
-﻿adventCalendarApp.factory('AuthHttpResponseInterceptorFactory', ['$q', '$location', function ($q, $location) {
+﻿adventCalendarApp.factory('AuthHttpResponseInterceptorFactory', ['$q', '$location', '$injector', function ($q, $location, $injector) {
     return {
         response: function (response) {
             if (response.status === 401) {
@@ -8,8 +8,7 @@
         },
         responseError: function (rejection) {
             if (rejection.status === 401) {
-                console.log("Response Error 401", rejection);
-                $location.path('/login').search('returnUrl', $location.path());
+                $injector.get('$state').go('stateLogin', { returnUrl: $location.path() });
             }
             return $q.reject(rejection);
         }

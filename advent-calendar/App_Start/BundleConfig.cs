@@ -19,12 +19,11 @@ namespace advent_calendar
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/ui-bootstrap-tpls-2.1.4.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/Scripts/angular.js",
-                    "~/Scripts/angular-route.js"));
+                    "~/Scripts/angular-ui-router.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular/shared").IncludeDirectory(
                     directoryVirtualPath: "~/angularJSApp/shared",
