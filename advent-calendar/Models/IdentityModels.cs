@@ -9,12 +9,11 @@ namespace advent_calendar.Models
     public class ApplicationUser : IdentityUser<int, CustomUserLogin, CustomUserRole,
     CustomUserClaim>
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in
             // CookieAuthenticationOptions.AuthenticationType 
-            var userIdentity = await manager.CreateIdentityAsync(
-                this, DefaultAuthenticationTypes.ApplicationCookie);
+            var userIdentity = await manager.CreateIdentityAsync(user: this, authenticationType: authenticationType);
             // Add custom user claims here 
             return userIdentity;
         }
