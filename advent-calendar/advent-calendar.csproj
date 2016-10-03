@@ -256,6 +256,7 @@
     <Content Include="angularJSApp\shared\controllers\baseController.js" />
     <Content Include="angularJSApp\shared\factories\getValuesFactory.js" />
     <Content Include="angularJSApp\shared\factories\loginFactory.js" />
+    <Content Include="angularJSApp\shared\factories\logoutFactory.js" />
     <Content Include="angularJSApp\shared\factories\registerFactory.js" />
     <Content Include="angularJSApp\shared\services\sessionService.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
