@@ -2,16 +2,12 @@
 
 namespace advent_calendar.Controllers
 {
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Title = "Home Page";
 
             return View();
         }

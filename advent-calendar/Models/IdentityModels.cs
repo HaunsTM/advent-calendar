@@ -11,58 +11,32 @@ namespace advent_calendar.Models
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager, string authenticationType)
         {
-            // Note the authenticationType must match the one defined in
-            // CookieAuthenticationOptions.AuthenticationType 
-            var userIdentity = await manager.CreateIdentityAsync(user: this, authenticationType: authenticationType);
-            // Add custom user claims here 
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            // Add custom user claims here
             return userIdentity;
         }
 
         #region Navigation properties
 
-        public virtual POCO.UserRole UserRole { get; set; }
-        public virtual System.Collections.Generic.List<POCO.Calendar> Calendars { get; set; }
+        public virtual advent_calendar.Models.POCO.UserRole UserRole { get; set; }
+        public virtual System.Collections.Generic.List<advent_calendar.Models.POCO.Calendar> Calendars { get; set; }
 
         #endregion
 
         public ApplicationUser()
         {
-            this.Calendars = new System.Collections.Generic.List<POCO.Calendar>();
+            this.Calendars = new System.Collections.Generic.List<advent_calendar.Models.POCO.Calendar>();
         }
     }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-
-        public System.Data.Entity.DbSet<POCO.Calendar> Calendars { get; set; }
-        public System.Data.Entity.DbSet<POCO.Slot> Slots { get; set; }
-        public System.Data.Entity.DbSet<POCO.UserRole> UserRoles { get; set; }
-    }
-
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }
     public class CustomUserLogin : IdentityUserLogin<int> { }
 
     public class CustomRole : IdentityRole<int, CustomUserRole>
     {
-        public string Description { get; set; }
-
         public CustomRole() { }
-        public CustomRole(string name) { this.Name = name; }
-        public CustomRole(string name, string description)
-            : this(name)
-        {
-            this.Description = description;
-        }
+        public CustomRole(string name) { Name = name; }
     }
 
     public class CustomUserStore : UserStore<ApplicationUser, CustomRole, int,
@@ -79,6 +53,19 @@ namespace advent_calendar.Models
         public CustomRoleStore(ApplicationDbContext context)
             : base(context)
         {
+        }
+    }
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole,
+    int, CustomUserLogin, CustomUserRole, CustomUserClaim>
+    {
+        public ApplicationDbContext()
+            : base("DefaultConnection")
+        {
+        }
+        
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
         }
     }
 }

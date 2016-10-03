@@ -1,3 +1,3 @@
-﻿adventCalendarApp.controller('CreateCalendarController', function ($scope) {
+﻿adventCalendarApp.controller('createCalendarController', function ($scope) {
     $scope.Message = "This is createCalendarController page";
 })

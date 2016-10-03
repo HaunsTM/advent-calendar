@@ -1,26 +1,19 @@
-﻿adventCalendarApp.controller('LoginController', ['$scope', '$stateParams', '$location', 'LoginFactory', function ($scope, $stateParams, $location, LoginFactory) {
+﻿adventCalendarApp.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessionService', function ($scope, $location, loginFactory, sessionService) {
 
     $scope.Message = "This is loginController page";
     $scope.loginForm = {
-        emailAddress: '',
-        password: '',
-        rememberMe: false,
-        returnUrl: $stateParams.returnUrl,
-        loginFailure: false
+        username: undefined,
+        password: undefined,
+        errorMessage: undefined
     };
 
     $scope.login = function () {
-        var result = LoginFactory($scope.loginForm.emailAddress, $scope.loginForm.password, $scope.loginForm.rememberMe);
-        result.then(function (result) {
-            if (result.success) {
-                if ($scope.loginForm.returnUrl !== undefined) {
-                    $location.path('/about');
-                } else {
-                    $location.path($scope.loginForm.returnUrl);
-                }
-            } else {
-                $scope.loginForm.loginFailure = true;
-            }
+        loginFactory($scope.loginForm.username, $scope.loginForm.password)
+        .then(function (response) {
+            sessionService.setToken(response.access_token);
+            $location.path('/');
+        }, function (response) {
+            $scope.loginForm.errorMessage = response.error_description;
         });
     }
 }]);

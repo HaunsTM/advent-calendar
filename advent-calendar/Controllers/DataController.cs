@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using advent_calendar.Models;
-namespace advent_calendar.Controllers
+﻿using System.Web.Mvc;
+
+namespace advent_calendar_OLD.Controllers
 {
     public class DataController : Controller
     {

@@ -1,4 +1,4 @@
-﻿adventCalendarApp.factory('AuthHttpResponseInterceptorFactory', ['$q', '$location', '$injector', function ($q, $location, $injector) {
+﻿adventCalendarApp.factory('authHttpResponseInterceptorFactory', ['$q', '$location', '$injector', function ($q, $location, $injector) {
     return {
         response: function (response) {
             if (response.status === 401) {

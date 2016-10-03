@@ -1,29 +1,27 @@
-﻿@*@using System.Security.Policy
-@if (!Request.IsAuthenticated)
-{
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>Hemsamariten</h1>
-                <p class="lead">Välkommen till Hemsamariten&trade;</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a href="@Url.Action("Login", "Account")" id="btnLogin" class="btn btn-primary btn-lg btn-block">Logga in</a>
-                <br/>
-            </div>
-            <div class="col-md-4">
-                <a href="@Url.Action("Register", "Account")" id="btnRegister" class="btn btn-primary btn-lg btn-block">Registrera</a>
-            </div>
-        </div>
+﻿@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
+        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+        is an ideal platform for building RESTful applications on the .NET Framework.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
     </div>
-}
-else
-{
-
-}*@
-
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+    </div>
+</div>*@
 <style>
     ul.menu {
         list-style: none;
@@ -54,7 +52,6 @@ else
         <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
         <li><a ui-sref="stateCalendar">Kalender</a></li>
         <li><a ui-sref="stateCreateCalendar">Skapa kalender</a></li>
-        <li><a ui-sref="stateError">Fel</a></li>
         <li><a ui-sref="stateLogin">Logga in</a></li>
         <li><a ui-sref="stateLogout">Logga ut</a></li>
         <li><a ui-sref="stateRegister">Registrera ny användare</a></li>

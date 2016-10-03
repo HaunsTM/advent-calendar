@@ -1,23 +1,22 @@
-﻿adventCalendarApp.controller('RegisterController', ['$scope', '$location', 'RegistrationFactory', function ($scope, $location, RegistrationFactory) {
+﻿adventCalendarApp.controller('registerController', ['$scope', 'loginFactory','registerFactory', 'sessionService', function ($scope, loginFactory, registerFactory, sessionService) {
     $scope.registerForm = {
-        emailAddress: '',
-        password: '',
-        confirmPassword: ''
+        username: undefined,
+        password: undefined,
+        confirmPassword: undefined,
+        errorMessage: undefined
     };
 
     $scope.register = function () {
-
-        var result = RegistrationFactory($scope.registerForm.emailAddress,
-                                         $scope.registerForm.password,
-                                         $scope.registerForm.confirmPassword);
-
-        result.then(function (result) {
-            if (result.success) {
-                //till vilken route (definierad i app.routes.js) ska vi navigera om vi lyckas registera oss in?
-                $location.path('/createCalendar');
-            } else {
-                $scope.registerForm.registrationFailure = true;
-            }
+        registerFactory($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.confirmPassword)
+        .then(function () {
+            loginFactory($scope.registerForm.username, $scope.registerForm.password)
+            .then(function (response) {
+                sessionService.setToken(response.access_token);
+            }, function (response) {
+                $scope.loginForm.errorMessage = response;
+            });
+        }, function (response) {
+            $scope.registerForm.errorMessage = response;
         });
     }
 }]);

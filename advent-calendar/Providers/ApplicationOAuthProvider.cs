@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using advent_calendar.Models;
 using Microsoft.AspNet.Identity.Owin;
@@ -12,7 +10,6 @@ using Microsoft.Owin.Security.OAuth;
 
 namespace advent_calendar.Providers
 {
-
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;

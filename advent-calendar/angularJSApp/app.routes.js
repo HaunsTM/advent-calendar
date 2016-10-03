@@ -5,12 +5,12 @@
             url: '/about', //det som syns i webbläsaren
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html', //var mallfilen finns
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html', //var mallfilen finns
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/about/AboutView.html',
-                    controller: 'AboutController'
+                    templateUrl: '/angularJSApp/components/about/aboutView.html',
+                    controller: 'aboutController'
                 }
             }
         })
@@ -18,12 +18,12 @@
             url: '/assignUsersToCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/assignUsersToCalendar/AssignUsersToCalendarView.html',
-                    controller: 'AssignUsersToCalendarController'
+                    templateUrl: '/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarView.html',
+                    controller: 'assignUsersToCalendarController'
                 }
             }
         })
@@ -31,12 +31,12 @@
             url: '/calendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/calendar/CalendarView.html',
-                    controller: 'CalendarController'
+                    templateUrl: '/angularJSApp/components/calendar/calendarView.html',
+                    controller: 'calendarController'
                 }
             }
         })
@@ -44,12 +44,12 @@
             url: '/createCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/createCalendar/CreateCalendarView.html',
-                    controller: 'CreateCalendarController'
+                    templateUrl: '/angularJSApp/components/createCalendar/createCalendarView.html',
+                    controller: 'createCalendarController'
                 }
             }
         })
@@ -57,12 +57,12 @@
             url: '/login',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/login/LoginView.html',
-                    controller: 'LoginController'
+                    templateUrl: '/angularJSApp/components/login/loginView.html',
+                    controller: 'loginController'
                 }
             }
         })
@@ -70,12 +70,12 @@
             url: '/logout',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/logout/LogoutView.html',
-                    controller: 'LogoutController'
+                    templateUrl: '/angularJSApp/components/logout/logoutView.html',
+                    controller: 'logoutController'
                 }
             }
         })
@@ -83,12 +83,12 @@
             url: '/register',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/register/RegisterView.html',
-                    controller: 'RegisterController'
+                    templateUrl: '/angularJSApp/components/register/registerView.html',
+                    controller: 'registerController'
                 }
             }
         })
@@ -96,12 +96,12 @@
             url: '/welcome',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
                 }
             }
         })
@@ -114,15 +114,15 @@
             views: {
                 "containerOne": {
                     templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
-                    controller: 'WelcomeController'
+                    controller: 'welcomeController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/empty/emptyView.html',
-                    controller: 'EmptyController'
+                    controller: 'emptyController'
                 }
             }
         });
 
     $locationProvider.html5Mode(true).hashPrefix('!'); // This is for Hashbang Mode
-    $httpProvider.interceptors.push('AuthHttpResponseInterceptorFactory');
+    $httpProvider.interceptors.push('authHttpResponseInterceptorFactory');
 }]);
