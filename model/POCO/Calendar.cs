@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using model.Interfaces;
 
@@ -11,17 +10,19 @@ namespace model.POCO
         public int Id { get; set; }
         public bool Active { get; set; }
 
-        public string Name { get; set; }
+        public int Year { get; set; }
 
         #region Navigation properties
-
-        public virtual ICollection<Slot> Slots { get; set; }
         
+        public virtual List<Slot> Slots { get; set; }
+        public virtual List<User> Users { get; set; }
+
         #endregion
 
         public Calendar()
         {
-            Slots = new Collection<Slot>();
+            this.Slots = new List<Slot>();
+            this.Users = new List<User>();
         }
     }
 }
