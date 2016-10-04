@@ -1,3 +1,4 @@
-﻿adventCalendarApp.controller('aboutController', function ($scope) {
+﻿"use strict";
+adventCalendarApp.controller('aboutController', function ($scope) {
     $scope.Message = "This is ABOUT page";
 })

@@ -1,3 +1,4 @@
-﻿adventCalendarApp.controller('emptyController', function ($scope) {
+﻿"use strict";
+adventCalendarApp.controller('emptyController', function ($scope) {
     $scope.Message = "This is emptyController page";
 })

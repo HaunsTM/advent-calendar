@@ -1,6 +1,5 @@
 ﻿<div ng-controller="logoutController">
-    <h2>Logout Page</h2>
-    <h5>{{Message}}</h5>
-
-    <p class="help-block" ng-if="loginForm.errorMessage">{{loginForm.errorMessage}}</p>
+    <button ng-click="logout()">Logout</button>
+    <!--Om något går åt pipan ska det skrivas ut här!-->
+    <p class="help-block" ng-if="logoutResponse">{{logoutResponse}}</p>
 </div>
