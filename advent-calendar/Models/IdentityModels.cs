@@ -19,7 +19,7 @@ namespace advent_calendar.Models
 
         #region Navigation properties
 
-        public virtual advent_calendar.Models.POCO.UserRole UserRole { get; set; }
+        public virtual advent_calendar.Models.POCO.ApplicationUserRole ApplicationUserRole { get; set; }
         public virtual System.Collections.Generic.List<advent_calendar.Models.POCO.Calendar> Calendars { get; set; }
 
         #endregion
@@ -67,5 +67,9 @@ namespace advent_calendar.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<advent_calendar.Models.POCO.ApplicationUserRole> ApplicationUserRoles { get; set; }
+        public System.Data.Entity.DbSet<advent_calendar.Models.POCO.Calendar> Calendars { get; set; }
+        public System.Data.Entity.DbSet<advent_calendar.Models.POCO.Slot> Slots { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using advent_calendar.Models.Interfaces;
 
 namespace advent_calendar.Models.POCO
 {
-    public class UserRole : IUserRole
+    public class ApplicationUserRole : IApplicationUserRole
     {
         [Key]
         public int Id { get; set; }
@@ -14,6 +14,7 @@ namespace advent_calendar.Models.POCO
         public bool CanOpenCalendar { get; set; }
         public bool CanCreateCalendar { get; set; }
         public bool CanCreateUser { get; set; }
+        public string Name { get; set; }
 
         #region Navigation properties
 
@@ -21,7 +22,7 @@ namespace advent_calendar.Models.POCO
 
         #endregion
 
-        public UserRole()
+        public ApplicationUserRole()
         {
             this.ApplicationUsers = new List<ApplicationUser>();
         }
