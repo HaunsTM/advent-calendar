@@ -31,11 +31,7 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
         .state('stateCalendar', {
             url: '/calendar',
             views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
+                "containerThree": {
                     templateUrl: '/angularJSApp/components/calendar/calendarView.html',
                     controller: 'calendarController'
                 }
