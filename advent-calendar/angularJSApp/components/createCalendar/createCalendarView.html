@@ -1,8 +1,26 @@
 ﻿<div ng-controller="createCalendarController">
-    <h2>Create Calendar Page</h2>
+    <h2>Skapa kalender</h2>
     <h5>{{Message}}</h5>
     
-    <form role="form" ng-submit="assignUsersToCalendar()" class="form-inline">
+    <form name="createCalendar" ng-submit="createCalendar()" class="form-horizontal">
+        <div class="form-group">
+            <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
+            <select class="form-control" id="calendarYearSelect"
+                    ng-model="selectedYear" 
+                    ng-options="option.value as option.name for option in calendarYears">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="calendarYearSelect">Ange kalenderårets bakrundsbild:</label>
+            <input type="file" name="file" ng-files="getTheFiles($files)" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="button" class="btn btn-success" ng-click="uploadCalendar()" ng-disabled="createCalendar.$invalid" value="Ladda upp" />
+        </div>
+    </form>
+
+    <!--<form role="form" ng-submit="assignUsersToCalendar()" class="form-inline">
         <div style="overflow-y:scroll; height: 300px;">
             <div id="outerBox" style="display: flex; justify-content: space-around;" data-ng-repeat="slot in slots">
                 <div id="leftBox" style="">
@@ -28,6 +46,6 @@
         <div>
             <button type="submit" class="btn btn-default">Login</button>
         </div>
-    </form>
+    </form>-->
 
 </div>
