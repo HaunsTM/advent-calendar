@@ -4,16 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http.Results;
 using advent_calendar.Models;
 using advent_calendar.Models.POCO;
 using advent_calendar.Models.ViewModels;
 using advent_calendar.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 
 namespace advent_calendar.Controllers
 {
@@ -31,14 +33,20 @@ namespace advent_calendar.Controllers
                 return user;
             }
         }
+        [HttpGet]
+        public JsonResult<String> HelloWorld()
+        {
+            var message = "Hello World";
+            return new JsonResult<String>(content: message, serializerSettings: new JsonSerializerSettings(), encoding: Encoding.Unicode, controller: this);
+        }
 
-        [System.Web.Http.Route("api/getCalendar")]
+        [System.Web.Http.Route("GetCalendar")]
         // POST: Calendars/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [System.Web.Mvc.HttpGet]
-        [System.Web.Mvc.Authorize]
-        public JsonResult GetCalendar(int year)
+        //[System.Web.Mvc.Authorize]
+        public JsonResult<CalendarViewModel> GetCalendar(int year)
         {
             Calendar calendar;
             var currentLoggedInUser = CurrentLoggedInUser;
@@ -49,7 +57,7 @@ namespace advent_calendar.Controllers
                             select c).FirstOrDefault();
             }
             var calendarViewModel = new advent_calendar.Models.ViewModels.CalendarViewModel(calendar);
-            return new JsonResult { Data = calendarViewModel, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult<CalendarViewModel> (content: calendarViewModel, serializerSettings:new JsonSerializerSettings(), encoding: Encoding.Unicode, controller: this  );
         }
 
 

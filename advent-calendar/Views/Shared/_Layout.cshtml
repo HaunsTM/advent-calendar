@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width" />
     <base href="/">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/bundles/angular/shared/styles")
+    
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body ng-app="adventCalendarApp" ng-controller="baseController">
@@ -20,9 +22,12 @@
 
     @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+
         @* Add Angular Library Here *@
         @Scripts.Render("~/bundles/angular")
-        @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <script src="~/angularJSApp/app.module.js"></script>
+    <script src="~/angularJSApp/app.routes.js"></script>
+    @Scripts.Render("~/bundles/angular/shared")
+    @Scripts.Render("~/bundles/angular/components")
 </body>
 </html>

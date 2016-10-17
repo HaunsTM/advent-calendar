@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using advent_calendar.Models;
 using advent_calendar.Providers;
 using advent_calendar.Results;
@@ -18,8 +19,8 @@ using Microsoft.Owin.Security.OAuth;
 namespace advent_calendar.Controllers
 {
     [System.Web.Http.Authorize]
-    //[RoutePrefix("api/Account")]
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/Account")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
