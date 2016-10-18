@@ -1,21 +1,21 @@
 ﻿"use strict";
-adventCalendarApp.factory('calendarFactory', ['$q', '$http', function ($q, $http) {
+adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $http, sessionService) {
 
     var fac = {};
 
-    fac.GetCalendar =  function (year) {
+    fac.GetCalendar =  function (yearForCurrentLoggedUsersCalendar) {
         var result = $q.defer();
         $http({
             method: 'GET',
-            url: 'api/Calendar/GetCalendar' +'/' + year
+            url: 'api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.token },
+            params: { year: yearForCurrentLoggedUsersCalendar }
         })
         .success(function (response) {
             result.resolve(response);
-                debugger;
             })
         .error(function (response) {
             result.reject(response);
-                debugger;
             });
 
         return result.promise;

@@ -1,33 +1,36 @@
 ﻿"use strict";
-adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory', function ($scope, calendarFactory) {
-    $scope.Message = "This is calendarController page";
-    
-    
-    $scope.currentYear = new Date().getFullYear().toString();
+adventCalendarApp.controller('calendarController',
+[
+    '$scope', 'calendarFactory', function($scope, calendarFactory) {
+        $scope.Message = "This is calendarController page";
 
-    $scope.calendar = {};
 
-    var GetCalendarData = function(year) {
-        return calendarFactory.GetCalendar(year).then(
-            function (answer) {
-                // do something
-                $scope.calendar = answer;
-                debugger;
-            },
-            function (error) {
-                // report something
+        $scope.currentYear = new Date().getFullYear().toString();
 
-            },
-            function (progress) {
-                // report progress
-            });
+        $scope.calendar = {};
+
+        var GetCalendarData = function(yearForCurrentLoggedUsersCalendar) {
+            return calendarFactory.GetCalendar(yearForCurrentLoggedUsersCalendar)
+                .then(
+                    function(answer) {
+                        // do something
+                        $scope.calendar = answer;
+                    },
+                    function(error) {
+                        // report something
+
+                    },
+                    function(progress) {
+                        // report progress
+                    });
+        }
+
+        var initializeController = function() {
+            GetCalendarData( $scope.currentYear );
+        }
+
+        // run while your controller loads
+        initializeController();
+
     }
-
-    var initializeController = function() {
-        GetCalendarData($scope.currentYear);
-    }
-
-    // run while your controller loads
-    initializeController();
-
-}])
+]);
