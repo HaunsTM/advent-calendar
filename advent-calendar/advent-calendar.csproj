@@ -235,8 +235,8 @@
     <Content Include="angularJSApp\components\login\loginView.html" />
     <Content Include="angularJSApp\components\logout\logoutController.js" />
     <Content Include="angularJSApp\components\logout\logoutView.html" />
-    <Content Include="angularJSApp\components\register\registerController.js" />
-    <Content Include="angularJSApp\components\register\registerView.html" />
+    <Content Include="angularJSApp\components\registerUserAdministrator\registerUserAdministratorController.js" />
+    <Content Include="angularJSApp\components\registerUserAdministrator\registerUserAdministratorView.html" />
     <Content Include="angularJSApp\components\welcome\welcomeController.js" />
     <Content Include="angularJSApp\components\welcome\welcomeView.html" />
     <Content Include="angularJSApp\README.txt" />

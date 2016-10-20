@@ -76,16 +76,16 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
                 }
             }
         })
-        .state('stateRegister', {
-            url: '/register',
+        .state('stateRegisterUserAdministrator', {
+            url: '/registerUserAdministrator',
             views: {
                 "containerOne": {
                     templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/register/registerView.html',
-                    controller: 'registerController'
+                    templateUrl: '/angularJSApp/components/registerUserAdministrator/registerUserAdministratorView.html',
+                    controller: 'registerUserAdministratorController'
                 }
             }
         })
