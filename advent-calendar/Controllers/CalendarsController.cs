@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -38,7 +35,8 @@ namespace advent_calendar.Controllers
 
             var calendar = await (from c in db.Calendars
                                   from u in db.Users
-                                  where c.Year == year && u.Id == currentLoggedInUser.Id
+                                  where (c.Year == year && c.Active == true) && 
+                                  u.Id == currentLoggedInUser.Id
                                   select c).FirstOrDefaultAsync();
 
 

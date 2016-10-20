@@ -7,8 +7,8 @@ adventCalendarApp.controller('registerController', ['$scope', 'loginFactory', 'r
         errorMessage: undefined
     };
 
-    $scope.register = function () {
-        registerFactory($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.confirmPassword)
+    $scope.RegisterUserAdministrator = function () {
+        registerFactory.RegisterUserAdministrator($scope.registerForm.username, $scope.registerForm.password, $scope.registerForm.confirmPassword)
         .then(function () {
             loginFactory($scope.registerForm.username, $scope.registerForm.password)
             .then(function (response) {

@@ -8,7 +8,7 @@ adventCalendarApp.controller('logoutController', ['$scope', '$location', 'logout
         $scope.logout = function () {
             logoutFactory()
                 .then(function (response) {
-                    sessionService.setToken(response.access_token);
+                    sessionService.setToken(undefined);
                     $location.path('/');
                 }, function (response) {
                     $scope.logoutResponse = response.error_description;

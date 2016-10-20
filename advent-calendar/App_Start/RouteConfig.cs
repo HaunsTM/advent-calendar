@@ -11,10 +11,9 @@ namespace advent_calendar
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             
-
             routes.MapRoute(
                 name: "Default",
-                url: "{*url}",
+                url: "{*.*}",
                 defaults: new { controller = "Home", action = "Index" }
             );
         }

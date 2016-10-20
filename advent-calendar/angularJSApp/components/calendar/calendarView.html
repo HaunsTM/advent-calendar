@@ -13,7 +13,8 @@
              class="scaling-svg">
             <!-- SVG content -->
             <image x="0" y="0" width="1708px" height="1108px"
-                   xlink:href='@Url.Content("~/Content/Images/Background.png")' />
+                   ng-href="{{ 'data:' + calendar.ContentType + ';base64,' + calendar.ContentAsBase64 }}" xlink:href="" />
+            
            
 
             <g id="slotNo_19" transform="translate(100,150)">

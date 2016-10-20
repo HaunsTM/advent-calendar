@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using advent_calendar.Models.Interfaces;
-
 namespace advent_calendar.Models.POCO
 {
-    public class ApplicationUserRole : IApplicationUserRole
+    public class ApplicationUserRole
     {
         [Key]
         public int Id { get; set; }

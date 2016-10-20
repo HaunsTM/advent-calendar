@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using advent_calendar.Models.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace advent_calendar.Models.POCO
 {
-    public class Slot: ISlot
+    public class Slot
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +15,16 @@ namespace advent_calendar.Models.POCO
         public string SlotMessage { get; set; }
         public string ContentType { get; set; }
         public byte[] Content { get; set; } /*http://www.entityframeworktutorial.net/code-first/code-first-conventions.aspx*/
+        [NotMapped]
+        public String ContentAsBase64
+        {
+            get
+            {
+                // Convert the array to a base 64 string.
+                var base64String = Convert.ToBase64String(Content);
+                return base64String;
+            }
+        }
 
         public DateTime EarliestDateOfAllowedOpeningTime { get; set; }
         public Nullable<DateTime> Opened { get; set; }

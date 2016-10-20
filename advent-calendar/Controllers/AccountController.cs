@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -18,6 +20,7 @@ using Microsoft.Owin.Security.OAuth;
 
 namespace advent_calendar.Controllers
 {
+
     [System.Web.Http.Authorize]
     [RoutePrefix("api/Account")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -25,7 +28,7 @@ namespace advent_calendar.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+        
         public AccountController()
         {
         }
@@ -319,6 +322,53 @@ namespace advent_calendar.Controllers
             return logins;
         }
 
+        #region Available application user roles
+
+        public Models.POCO.ApplicationUserRole SuperAdministratorRole
+        {
+            get
+            {
+                Models.POCO.ApplicationUserRole applicationUserRole;
+                using (var db = new ApplicationDbContext())
+                {
+                    applicationUserRole = (from aUR in db.ApplicationUserRoles
+                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"]
+                                           select aUR).FirstOrDefault();
+                }
+                return applicationUserRole;
+            }
+        }
+        public Models.POCO.ApplicationUserRole UserAdministratorRole
+        {
+            get
+            {
+                Models.POCO.ApplicationUserRole applicationUserRole;
+                using (var db = new ApplicationDbContext())
+                {
+                    applicationUserRole = (from aUR in db.ApplicationUserRoles
+                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]
+                                           select aUR).FirstOrDefault();
+                }
+                return applicationUserRole;
+            }
+        }
+        public Models.POCO.ApplicationUserRole StandardUserRole
+        {
+            get
+            {
+                Models.POCO.ApplicationUserRole applicationUserRole;
+                using (var db = new ApplicationDbContext())
+                {
+                    applicationUserRole = (from aUR in db.ApplicationUserRoles
+                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_STANDARD_USER"]
+                                           select aUR).FirstOrDefault();
+                }
+                return applicationUserRole;
+            }
+        }
+
+        #endregion
+
         // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [Route("Register")]
@@ -330,6 +380,48 @@ namespace advent_calendar.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+        // POST api/Account/RegisterUserAdministrator
+        [System.Web.Http.AllowAnonymous]
+        [Route("RegisterUserAdministrator")]
+        public async Task<IHttpActionResult> RegisterUserAdministrator(RegisterBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, ApplicationUserRole = this.UserAdministratorRole};
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+        // POST api/Account/RegisterStandardUser
+        [System.Web.Http.Authorize]
+        [Route("RegisterStandardUser")]
+        public async Task<IHttpActionResult> RegisterStandardUser(RegisterBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, ApplicationUserRole = this.UserAdministratorRole };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
