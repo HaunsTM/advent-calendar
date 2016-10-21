@@ -30,6 +30,7 @@ namespace advent_calendar.Controllers
             var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
+
         private ApplicationUserRole CurrentLoggedInUserRole()
         {
             var currentLoggedInUser = CurrentLoggedInUser();
@@ -44,9 +45,10 @@ namespace advent_calendar.Controllers
         {
 
             if (!(CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+                  CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden, "Lack of sufficient privileges to perform operation.");
+                return Request.CreateResponse(HttpStatusCode.Forbidden,
+                    "Lack of sufficient privileges to perform operation.");
             }
 
             if (!Request.Content.IsMimeMultipartContent())
@@ -112,19 +114,11 @@ namespace advent_calendar.Controllers
             };
             if (ModelState.IsValid)
             {
-                try
-                {//do we have any old values which should be updated?
-                    InactivatePossibleEarlierCalendarByYear(calendarToSave.Year, currentLoggedInUser);
-                    db.Calendars.Add(calendarToSave);
-                    db.SaveChanges();
-                    saved = true;
-
-                }
-                catch (Exception ex)
-                {
-                    int i = 0;
-                    throw ex;
-                }
+                //do we have any old values which should be updated?
+                InactivatePossibleEarlierCalendarByYear(calendarToSave.Year, currentLoggedInUser);
+                db.Calendars.Add(calendarToSave);
+                db.SaveChanges();
+                saved = true;
             }
             return saved;
         }
@@ -169,17 +163,19 @@ namespace advent_calendar.Controllers
             var currentLoggedInUser = CurrentLoggedInUser();
 
             var calendar = await (from c in db.Calendars
-                                  from u in db.Users
-                                  where (c.Year == year && c.Active == true) && 
-                                  u.Id == currentLoggedInUser.Id
-                                  select c).FirstOrDefaultAsync();
+                from u in db.Users
+                where (c.Year == year && c.Active == true) &&
+                      u.Id == currentLoggedInUser.Id
+                select c).FirstOrDefaultAsync();
 
-            if (calendar == null) 
+            if (calendar == null)
             {
                 return NotFound();
             }
 
-            return Ok(calendar);
+            var vmCalendar = new Models.ViewModels.CalendarViewModel(calendar);
+            return Ok(vmCalendar);
+            
         }
 
         #endregion

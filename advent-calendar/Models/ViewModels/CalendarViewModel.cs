@@ -10,7 +10,7 @@ namespace advent_calendar.Models.ViewModels
         public int Year { get; set; }
 
         public string ContentType { get; set; }
-        public string Content { get; set; }
+        public string ContentAsBase64 { get; set; }
         public string Name { get; set; }
 
 
@@ -21,7 +21,7 @@ namespace advent_calendar.Models.ViewModels
             this.Active = calendar.Active;
             this.Year = calendar.Year;
             this.ContentType = calendar.ContentType;
-            this.Content = Convert.ToBase64String(calendar.Content);
+            this.ContentAsBase64 = calendar.ContentAsBase64;
             this.Name = calendar.Name;
         }
 
