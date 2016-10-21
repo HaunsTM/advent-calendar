@@ -3,14 +3,38 @@ adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', f
 
     var fac = {};
 
+    fac.UploadCalendar = function (formData) {
+        var result = $q.defer();
+        var request = {
+            method: 'POST',
+            url: 'api/Calendars/UploadCalendar',
+            data: formData,
+            headers: {
+                'Content-Type': undefined,
+                'Authorization': 'Bearer ' + sessionService.token
+            }
+        };
+
+        $http(request)
+            .success(function (response) {
+                result.resolve(response);
+            })
+            .error(function (response) {
+                result.reject(response);
+            });
+
+        return result.promise;
+    }
+
     fac.GetCalendar =  function (yearForCurrentLoggedUsersCalendar) {
         var result = $q.defer();
-        $http({
+        var request = {
             method: 'GET',
             url: 'api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.token },
             params: { year: yearForCurrentLoggedUsersCalendar }
-        })
+        };
+        $http(request)
         .success(function (response) {
             result.resolve(response);
             })
@@ -21,7 +45,7 @@ adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', f
         return result.promise;
     }
 
-    fac.GetSlot = function (year, number) {
+    fac.GetSlot = function (calendarYear, slotNumber) {
         return null;
         var result = $q.defer();
         $http({

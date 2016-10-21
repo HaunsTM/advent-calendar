@@ -1,28 +1,6 @@
 ﻿"use strict";
-adventCalendarApp.controller('createCalendarController', ['$scope', '$http', function ($scope, $http) {
-    //$scope.Message = "This is createCalendarController page";
-
-    //$scope.slots = [];
-
-    //var initiateSlotArray = function() {
-    //    var firstSlotNumber = 1;
-    //    var lastSlotNumber = 24;
-    //    //let's create an array
-    //    for (var i = firstSlotNumber; i < lastSlotNumber + 1; i++) {
-    //        $scope.slots.push({
-    //            number: i,
-    //            imageFile: '',
-    //            clue: ''
-    //        });
-    //    }
-    //}
-
-    //var initializeController = function() {
-    //    initiateSlotArray();
-    //}
-
-    //// run while your controller loads
-    //initializeController();
+adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFactory', function ($scope, calendarFactory) {
+    $scope.Message = "This is createCalendarController page";
 
     //http://www.encodedna.com/angularjs/tutorial/angularjs-file-upload-using-http-post-formdata-webapi.htm
     var formData = new FormData();
@@ -62,33 +40,29 @@ adventCalendarApp.controller('createCalendarController', ['$scope', '$http', fun
 
     $scope.getTheFiles = function ($files) {
 
-        angular.forEach($files, function (value, key) {
+        formData.append('calendarName', 'NO_CALENDAR_NAME'); //The variable 'calendarName' is for future use.
+        formData.append('calendarYear', $scope.selectedYear);
 
+        angular.forEach($files, function (value, key) {
             formData.append(key, value);
-            formData.append('calendarName', 'hello world');
-            formData.append('calendarYear', '2013');
         });
     };
 
-    $scope.uploadCalendar = function() {
-        var request = {
-            method: 'POST',
-            url: 'api/uploadCalendar',
-            data: formData,
-            headers: {
-                'Content-Type': undefined
-            }
-        };
-
-        $http(request)
-            .success(function(data) {
-                console.log(data);
-                $scope.reset();
-            })
-            .error(function (data) {
-                console.log(data);
-            });
-    }
+    $scope.UploadCalendar = function() {
+        calendarFactory.UploadCalendar(formData)
+            .then(
+                function(answer) {
+                    // do something
+                    $scope.calendar = answer;
+                },
+                function(error) {
+                    // report something
+                    $scope.reset();
+                },
+                function(progress) {
+                    // report progress
+                });
+    };
 
     $scope.reset = function() {
         angular.forEach(
@@ -98,6 +72,6 @@ adventCalendarApp.controller('createCalendarController', ['$scope', '$http', fun
             });
         $scope.imagesrc = [];
         formData = new FormData();
-    }
+    };
 
 }]);

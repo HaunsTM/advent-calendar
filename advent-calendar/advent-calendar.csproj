@@ -196,9 +196,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalendarsController.cs" />
-    <Compile Include="Controllers\CreateCalendarController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SlotsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +225,8 @@
     <Content Include="angularJSApp\components\assignUsersToCalendar\assignUsersToCalendarView.html" />
     <Content Include="angularJSApp\components\calendar\calendarController.js" />
     <Content Include="angularJSApp\components\calendar\calendarView.html" />
+    <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarController.js" />
+    <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarView.html" />
     <Content Include="angularJSApp\components\createCalendar\createCalendarController.js" />
     <Content Include="angularJSApp\components\createCalendar\createCalendarView.html" />
     <Content Include="angularJSApp\components\empty\emptyController.js" />

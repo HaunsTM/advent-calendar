@@ -1,9 +1,6 @@
 ﻿"use strict";
-adventCalendarApp.controller('calendarController',
-[
-    '$scope', 'calendarFactory', function($scope, calendarFactory) {
+adventCalendarApp.controller('calendarController',['$scope', 'calendarFactory', function($scope, calendarFactory) {
         $scope.Message = "This is calendarController page";
-
 
         $scope.currentYear = new Date().getFullYear().toString();
 
@@ -23,11 +20,11 @@ adventCalendarApp.controller('calendarController',
                     function(progress) {
                         // report progress
                     });
-        }
+        };
 
         var initializeController = function() {
-            GetCalendarData( $scope.currentYear );
-        }
+            GetCalendarData($scope.currentYear);
+        };
 
         // run while your controller loads
         initializeController();

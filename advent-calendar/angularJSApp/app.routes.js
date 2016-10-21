@@ -89,6 +89,19 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
                 }
             }
         })
+        .state('stateUploadSlotsToCalendar', {
+            url: '/uploadSlotsToCalendar',
+            views: {
+                "containerOne": {
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
+                },
+                "containerTwo": {
+                    templateUrl: '/angularJSApp/components/uploadSlotsToCalendar/uploadSlotsToCalendarView.html',
+                    controller: 'uploadSlotsToCalendarController'
+                }
+            }
+        })
         .state('stateWelcome', {
             url: '/welcome',
             views: {
