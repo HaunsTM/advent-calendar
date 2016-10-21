@@ -31,11 +31,7 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
         .state('stateCalendar', {
             url: '/calendar',
             views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
+                "containerThree": {
                     templateUrl: '/angularJSApp/components/calendar/calendarView.html',
                     controller: 'calendarController'
                 }
@@ -80,16 +76,29 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
                 }
             }
         })
-        .state('stateRegister', {
-            url: '/register',
+        .state('stateRegisterUserAdministrator', {
+            url: '/registerUserAdministrator',
             views: {
                 "containerOne": {
                     templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/register/registerView.html',
-                    controller: 'registerController'
+                    templateUrl: '/angularJSApp/components/registerUserAdministrator/registerUserAdministratorView.html',
+                    controller: 'registerUserAdministratorController'
+                }
+            }
+        })
+        .state('stateUploadSlotsToCalendar', {
+            url: '/uploadSlotsToCalendar',
+            views: {
+                "containerOne": {
+                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    controller: 'welcomeController'
+                },
+                "containerTwo": {
+                    templateUrl: '/angularJSApp/components/uploadSlotsToCalendar/uploadSlotsToCalendarView.html',
+                    controller: 'uploadSlotsToCalendarController'
                 }
             }
         })

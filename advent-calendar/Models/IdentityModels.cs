@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -17,6 +18,10 @@ namespace advent_calendar.Models
             return userIdentity;
         }
 
+        #region Custom
+
+        public virtual ApplicationUser IsAdministratedBy { get; set; }
+
         #region Navigation properties
 
         public virtual advent_calendar.Models.POCO.ApplicationUserRole ApplicationUserRole { get; set; }
@@ -28,6 +33,9 @@ namespace advent_calendar.Models
         {
             this.Calendars = new System.Collections.Generic.List<advent_calendar.Models.POCO.Calendar>();
         }
+        
+        #endregion
+
     }
     public class CustomUserRole : IdentityUserRole<int> { }
     public class CustomUserClaim : IdentityUserClaim<int> { }
@@ -61,6 +69,9 @@ namespace advent_calendar.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+#if DEBUG
+            //Database.SetInitializer<ApplicationDbContext>(new AdventCalendarDBInitializer<ApplicationDbContext>());
+#endif
         }
         
         public static ApplicationDbContext Create()

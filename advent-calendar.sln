@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{4748462A-088E-4DAB-BB4D-CA9A6275EBAA}"
 	ProjectSection(SolutionItems) = preProject
@@ -9,12 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 		Documentation\ER.vsdx = Documentation\ER.vsdx
 		documentation\Flow.vsdx = documentation\Flow.vsdx
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{20D05E3F-FE14-4D6B-A226-7443944C2DD0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business", "business\business.csproj", "{790A12D4-3FCE-499E-AAD2-31E2BF0F45D8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common.business", "common.business\common.business.csproj", "{6A8D5732-C641-4E6E-84F4-F27316F87481}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "advent-calendar", "advent-calendar\advent-calendar.csproj", "{40D8F981-E48C-402D-A19F-EB6F646BD206}"
 EndProject
@@ -24,18 +18,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20D05E3F-FE14-4D6B-A226-7443944C2DD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{790A12D4-3FCE-499E-AAD2-31E2BF0F45D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{790A12D4-3FCE-499E-AAD2-31E2BF0F45D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{790A12D4-3FCE-499E-AAD2-31E2BF0F45D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{790A12D4-3FCE-499E-AAD2-31E2BF0F45D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A8D5732-C641-4E6E-84F4-F27316F87481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A8D5732-C641-4E6E-84F4-F27316F87481}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A8D5732-C641-4E6E-84F4-F27316F87481}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A8D5732-C641-4E6E-84F4-F27316F87481}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40D8F981-E48C-402D-A19F-EB6F646BD206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40D8F981-E48C-402D-A19F-EB6F646BD206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40D8F981-E48C-402D-A19F-EB6F646BD206}.Release|Any CPU.ActiveCfg = Release|Any CPU
