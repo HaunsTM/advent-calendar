@@ -36,6 +36,7 @@
         <li><a ui-sref="stateInvalid">Invalid Url</a></li>
     </ul>
 </div>
+<div style="clear: both;"></div>
 
 <span class="label label-success" ng-if="loggedIn()">Logged In</span>
 <div class="container mainContent">
@@ -46,7 +47,9 @@
         <div class="col-md-6">
             <div ui-view="containerTwo"></div>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div ui-view="containerThree"></div>
         </div>
     </div>

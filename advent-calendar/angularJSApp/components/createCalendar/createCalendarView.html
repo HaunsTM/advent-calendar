@@ -6,13 +6,14 @@
         <div class="form-group">
             <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
             <select class="form-control" id="calendarYearSelect"
-                    ng-model="selectedYear" 
+                    ng-model="selectedYear"
+                    ng-change="updateCalendarYear()"
                     ng-options="option.value as option.name for option in calendarYears">
             </select>
         </div>
         <div class="form-group">
-            <label for="calendarYearSelect">Ange kalenderårets bakrundsbild:</label>
-            <input type="file" name="file" ng-files="getTheFiles($files)" required/>
+            <label for="calendarImageFile">Ange kalenderårets bakrundsbild:</label>
+            <input id="calendarImageFile" type="file" name="file" ng-files="getTheFiles($files)" required/>
         </div>
 
         <div class="form-group">
