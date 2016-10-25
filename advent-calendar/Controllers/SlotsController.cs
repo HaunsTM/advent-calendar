@@ -32,20 +32,33 @@ namespace advent_calendar.Controllers
             return user;
         }
 
+        private ApplicationUser CurrentLoggedInUsersUserAdministrator(ApplicationUser currentLoggedInUser)
+        {
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
+            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_STANDARD_USER"])
+            {
+                return currentLoggedInUser.IsAdministratedBy;
+            }
+            else
+            {
+                return currentLoggedInUser;
+            }
+        }
+
         private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
             var currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
             return currentLoggedInUserRole;
         }
 
-        private Calendar CurrentCalendar(int calendarYear, ApplicationUser currentLoggedInUser)
+        private Calendar CurrentCalendar(int calendarYear, ApplicationUser calendarsUser)
         {
             bool activeStatusToSearchFor = true;
 
             var currentCalendar = from c in db.Calendars
                 from u in db.Users
                 where (c.Year == calendarYear && c.Active == activeStatusToSearchFor) &&
-                      u.Id == currentLoggedInUser.Id
+                      u.Id == calendarsUser.Id
                 select c;
             return currentCalendar.FirstOrDefault();
 
@@ -60,7 +73,7 @@ namespace advent_calendar.Controllers
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
 
             if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                    currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation.");
@@ -114,11 +127,13 @@ namespace advent_calendar.Controllers
             return fileAsByteArray;
         }
 
-        private bool SaveToDB(System.IO.Stream sourceStream, string contentType, Calendar calendar, int slotNumber, string slotMessage)
+        private bool SaveToDB(System.IO.Stream sourceStream, string contentType, Calendar calendar, int slotNumber,
+            string slotMessage)
         {
             bool saved = false;
             var adventCalendarMonth = 12;
-            DateTime earliestDateOfAllowedOpeningTime = new DateTime(year:calendar.Year, month: adventCalendarMonth, day: slotNumber);
+            DateTime earliestDateOfAllowedOpeningTime = new DateTime(year: calendar.Year, month: adventCalendarMonth,
+                day: slotNumber);
 
             var slotToSave = new Slot
             {
@@ -149,8 +164,8 @@ namespace advent_calendar.Controllers
             bool activeStatusAfterUpdate = false;
 
             var stillActiveSlots = from s in db.Slots
-                                   where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
-                                   select s;
+                where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
+                select s;
 
             foreach (var stillActiveSlot in stillActiveSlots)
             {
@@ -172,30 +187,49 @@ namespace advent_calendar.Controllers
 
 
         #endregion
-        
+
 
         /********************************************************************************************************************************************************/
 
 
-
-        // GET: api/Slots
-        public IQueryable<Slot> GetSlots()
-        {
-            return db.Slots;
-        }
-
         // GET: api/Slots/5
         [ResponseType(typeof(Slot))]
-        public async Task<IHttpActionResult> GetSlot(int id)
+        public async Task<IHttpActionResult> OpenSlot(int calendarYear, int slotNumber)
         {
-            Slot slot = await db.Slots.FindAsync(id);
-            if (slot == null)
-            {
-                return NotFound();
-            }
+            var currentLoggedInUser = this.CurrentLoggedInUser();
+            
+                var wantedCalendar =  currentLoggedInUser.Calendars.Where(c => c.Year == calendarYear && c.Active == true).FirstOrDefault();
 
-            return Ok(slot);
+                if (wantedCalendar == null)
+                {
+                    return Content(HttpStatusCode.NotFound, String.Format("Calendar, {0}, doesn't exist", calendarYear.ToString()));
+                }
+                else
+                {
+                    var wantedSlot = wantedCalendar.Slots.Where(s => s.Number == slotNumber && s.Active == true).FirstOrDefault();
+                    if(wantedSlot == null)
+                    {
+                        return Content(HttpStatusCode.NotFound, String.Format("Slot {{calendar year: {0}; slot number: {1}}} doesn't exist", calendarYear.ToString(), slotNumber.ToString()));
+                    }
+                    else
+                    {
+                        if (wantedSlot.EarliestDateOfAllowedOpeningTime < DateTime.Now)
+                        {
+                            return Content(HttpStatusCode.Forbidden, 
+                                String.Format("The slot {{calendar year: {0}; slot number: {1}}} must not be opened before {2}!", 
+                                    calendarYear.ToString(), 
+                                    slotNumber.ToString(), 
+                                    wantedSlot.EarliestDateOfAllowedOpeningTime.ToShortDateString()));
+                        }
+                        else
+                        {
+                            return Ok(wantedSlot);
+                        }
+                    }
+                }
         }
+
+
 
     }
 }
