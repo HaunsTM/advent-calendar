@@ -31,63 +31,71 @@ namespace advent_calendar.Controllers
             var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
-        private ApplicationUserRole CurrentLoggedInUserRole()
+
+        private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
-            var currentLoggedInUser = CurrentLoggedInUser();
             var currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
             return currentLoggedInUserRole;
         }
 
-        private Calendar CurrentCalendar(int currentCalendarId)
+        private Calendar CurrentCalendar(int calendarYear, ApplicationUser currentLoggedInUser)
         {
-            var currentCalendar = (from c in db.Calendars
-                where c.Id == currentCalendarId
-                select c).FirstOrDefault();
-            return currentCalendar;
+            bool activeStatusToSearchFor = true;
+
+            var currentCalendar = from c in db.Calendars
+                from u in db.Users
+                where (c.Year == calendarYear && c.Active == activeStatusToSearchFor) &&
+                      u.Id == currentLoggedInUser.Id
+                select c;
+            return currentCalendar.FirstOrDefault();
+
         }
 
 
         #region UploadSlots
-        
-        [System.Web.Mvc.HttpPost]
+
         public async Task<HttpResponseMessage> UploadSlot()
         {
+            var currentLoggedInUser = this.CurrentLoggedInUser();
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
 
-            if (!(CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
+                    currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden, "Lack of sufficient privileges to perform operation.");
+                return Request.CreateResponse(HttpStatusCode.Forbidden,
+                    "Lack of sufficient privileges to perform operation.");
             }
 
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, "Unsupported media type.");
             }
-            //TODO
             // Read the file and form data.
-            MultipartFormDataMemoryStreamProvider provider = new MultipartFormDataMemoryStreamProvider();
+            var provider = new MultipartFormDataMemoryStreamProvider();
             await Request.Content.ReadAsMultipartAsync(provider);
 
-            // Extract the fields from the form data.
-            var currentCalendarId = int.Parse( provider.FormData["currentCalendarId"]);
+            //// Extract the fields from the form data.
+            /**/
+            var calendarYear = int.Parse(provider.FormData["calendarYear"].ToString());
+            var slotNumber = int.Parse(provider.FormData["slotNumber"].ToString());
+            var slotMessage = provider.FormData["slotMessage"].ToString();
 
-            var currentCalendar = CurrentCalendar( currentCalendarId);
+            var currentCalendar = CurrentCalendar(calendarYear, currentLoggedInUser);
 
             // Check if files are on the request.
             if (!provider.FileStreams.Any())
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "No file uploaded.");
             }
-            
+
             foreach (KeyValuePair<string, Stream> file in provider.FileStreams)
             {
                 string fileName = file.Key;
                 Stream stream = file.Value;
-
+                /**/
                 string contentType = fileName.Substring(fileName.LastIndexOf('.'));
-                int slotNumber = 0;
-                string slotMessage = "";
-
+                //do we have any old values which should be updated?
+                InactivatePossibleEarlierSlotWithSameNumber(currentCalendar, slotNumber);
                 SaveToDB(stream, contentType, currentCalendar, slotNumber, slotMessage);
             }
 
@@ -126,8 +134,6 @@ namespace advent_calendar.Controllers
 
             if (ModelState.IsValid)
             {
-                //do we have any old values which should be updated?
-                InactivatePossibleEarlierSlotWithSameNumber(calendar, slotNumber);
                 db.Slots.Add(slotToSave);
                 db.SaveChanges();
                 saved = true;
@@ -143,7 +149,7 @@ namespace advent_calendar.Controllers
             bool activeStatusAfterUpdate = false;
 
             var stillActiveSlots = from s in db.Slots
-                                   where s.Active == activeStatusToSearchFor && s.Calendar == calendar
+                                   where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
                                    select s;
 
             foreach (var stillActiveSlot in stillActiveSlots)
@@ -166,28 +172,7 @@ namespace advent_calendar.Controllers
 
 
         #endregion
-
-        #region GetCalendarByYearAndCurrentLoggedInUser
         
-        public async Task<IHttpActionResult> GetCalendarByYearAndCurrentLoggedInUser(int year)
-        {
-            var currentLoggedInUser = CurrentLoggedInUser();
-
-            var calendar = await (from c in db.Calendars
-                                  from u in db.Users
-                                  where (c.Year == year && c.Active == true) &&
-                                  u.Id == currentLoggedInUser.Id
-                                  select c).FirstOrDefaultAsync();
-
-            if (calendar == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(calendar);
-        }
-
-        #endregion
 
         /********************************************************************************************************************************************************/
 
@@ -212,84 +197,5 @@ namespace advent_calendar.Controllers
             return Ok(slot);
         }
 
-        // PUT: api/Slots/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSlot(int id, Slot slot)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != slot.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(slot).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SlotExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Slots
-        [ResponseType(typeof(Slot))]
-        public async Task<IHttpActionResult> PostSlot(Slot slot)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Slots.Add(slot);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = slot.Id }, slot);
-        }
-
-        // DELETE: api/Slots/5
-        [ResponseType(typeof(Slot))]
-        public async Task<IHttpActionResult> DeleteSlot(int id)
-        {
-            Slot slot = await db.Slots.FindAsync(id);
-            if (slot == null)
-            {
-                return NotFound();
-            }
-
-            db.Slots.Remove(slot);
-            await db.SaveChangesAsync();
-
-            return Ok(slot);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool SlotExists(int id)
-        {
-            return db.Slots.Count(e => e.Id == id) > 0;
-        }
     }
 }

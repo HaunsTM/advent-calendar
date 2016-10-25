@@ -7,15 +7,14 @@
             <div id="outerBox" class="slotImageOuterBox" data-ng-repeat="slot in slots">
                 <div id="leftBox" style="">
                     <div class="form-group">
-                        <h1>{{slot.number}}</h1>
+                        <h1>{{slot.slotNumber}}</h1>
                     </div>
                 </div>
                 <div id="middleBox">
                     <div class="form-group">
                         <label for="slotImage">Bild i luckan:</label>
-                        <!--<input id="slotImage" type="file" name="file" ng-files="getTheFiles($index,$files)" required />-->
                         <div ngf-drop ngf-select ng-model="slot.imageFile" class="slotImageFormGroup"
-                             ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                             ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
                              accept="image/*,application/pdf"
                              ngf-pattern="'image/*'">Dra och släpp en bild till luckan här</div>
                         <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
@@ -23,11 +22,11 @@
 
                     <div class="form-group">
                         <label for="slotClue">Ledtråd</label>
-                        <input type="text" class="form-control" id="slotClue" placeholder="Ledtråd" ng-model="slot.clue">
+                        <input type="text" class="form-control" id="slotClue" placeholder="Ledtråd" ng-model="slot.slotMessage">
                     </div>
                 </div>
                 <div id="rightBox">
-                    <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.9}" class="slotImagePreview"/>
+                    <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="slotImagePreview"/>
                 </div>
             </div>
         </div>

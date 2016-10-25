@@ -30,10 +30,8 @@ namespace advent_calendar.Controllers
             var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
-
-        private ApplicationUserRole CurrentLoggedInUserRole()
+        private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
-            var currentLoggedInUser = CurrentLoggedInUser();
             var currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
             return currentLoggedInUserRole;
         }
@@ -44,8 +42,11 @@ namespace advent_calendar.Controllers
         public async Task<HttpResponseMessage> UploadCalendar()
         {
 
-            if (!(CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  CurrentLoggedInUserRole().Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            var currentLoggedInUser = this.CurrentLoggedInUser();
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
+
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation.");
@@ -75,9 +76,7 @@ namespace advent_calendar.Controllers
             {
                 string fileName = file.Key;
                 Stream stream = file.Value;
-
-
-                var currentLoggedInUser = CurrentLoggedInUser();
+                
                 // Do something with the uploaded file
                 //UploadManager.Upload(stream, fileName, uploadType, description);
                 SaveToDB(currentLoggedInUser, stream, fileName.Substring(fileName.LastIndexOf('.') + 1), calendarName,

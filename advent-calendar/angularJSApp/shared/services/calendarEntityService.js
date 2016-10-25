@@ -10,6 +10,9 @@ adventCalendarApp.service('calendarEntityService', [function () {
     };
 
     this.getCurrentCalendarYear = function () {
+        if (!currentCalendarYear) {
+            this.setCurrentCalendarYear(this.defaultCalendarYear);
+        }
         return currentCalendarYear;
     };
 

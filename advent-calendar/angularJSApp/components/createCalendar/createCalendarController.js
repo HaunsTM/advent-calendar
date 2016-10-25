@@ -48,6 +48,7 @@ adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFac
         formData.append('calendarYear', $scope.selectedYear);
 
         angular.forEach($files, function (value, key) {
+            debugger;
             formData.append(key, value);
         });
     };
