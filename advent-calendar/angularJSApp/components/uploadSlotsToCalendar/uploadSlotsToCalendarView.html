@@ -2,31 +2,38 @@
     <h2>Skapa kalender</h2>
     <h5>{{Message}}</h5>
 
-    <form role="form" ng-submit="assignUsersToCalendar()" class="form-inline">
+    <form role="form" class="form-inline">
         <div style="overflow-y:scroll; height: 300px;">
-            <div id="outerBox" style="display: flex; justify-content: space-around;" data-ng-repeat="slot in slots">
+            <div id="outerBox" class="slotImageOuterBox" data-ng-repeat="slot in slots">
                 <div id="leftBox" style="">
                     <div class="form-group">
-                        <h1>{{slot.number}}</h1>
+                        <h1>{{slot.slotNumber}}</h1>
                     </div>
                 </div>
-                <div id="rightBox" style="">
+                <div id="middleBox">
                     <div class="form-group">
-                        <label class="custom-file">
-                            <input type="file" id="imageFile" class="custom-file-input">
-                            <span class="custom-file-control"></span>
-                        </label>
+                        <label for="slotImage">Bild i luckan:</label>
+                        <div ngf-drop ngf-select ng-model="slot.imageFile" class="slotImageFormGroup"
+                             ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
+                             accept="image/*,application/pdf"
+                             ngf-pattern="'image/*'">Dra och släpp en bild till luckan här</div>
+                        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                     </div>
+
                     <div class="form-group">
-                        <label for="userPassword">Lösenord</label>
-                        <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="assignUsersToCalendarForm.password">
+                        <label for="slotClue">Ledtråd</label>
+                        <input type="text" class="form-control" id="slotClue" placeholder="Ledtråd" ng-model="slot.slotMessage">
                     </div>
+                </div>
+                <div id="rightBox">
+                    <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="slotImagePreview"/>
                 </div>
             </div>
         </div>
 
-        <div>
-            <button type="submit" class="btn btn-default">Login</button>
+
+        <div class="form-group">
+            <input type="button" class="btn btn-success" ng-click="UploadSlots()" value="Ladda upp" />
         </div>
     </form>
 

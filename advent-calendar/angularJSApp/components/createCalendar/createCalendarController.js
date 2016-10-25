@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFactory', function ($scope, calendarFactory) {
+adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFactory', 'calendarEntityService', function ($scope, calendarFactory, calendarEntityService) {
     $scope.Message = "This is createCalendarController page";
 
     //http://www.encodedna.com/angularjs/tutorial/angularjs-file-upload-using-http-post-formdata-webapi.htm
@@ -36,7 +36,11 @@ adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFac
         }
     ];
 
-    $scope.selectedYear = new Date().getFullYear().toString();
+    $scope.selectedYear = calendarEntityService.defaultCalendarYear;
+
+    $scope.updateCalendarYear = function () {
+        calendarEntityService.setCurrentCalendarYear($scope.selectedYear);
+    }
 
     $scope.getTheFiles = function ($files) {
 
@@ -44,6 +48,7 @@ adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFac
         formData.append('calendarYear', $scope.selectedYear);
 
         angular.forEach($files, function (value, key) {
+            debugger;
             formData.append(key, value);
         });
     };

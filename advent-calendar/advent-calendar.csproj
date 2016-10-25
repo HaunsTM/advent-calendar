@@ -242,6 +242,11 @@
     <Content Include="angularJSApp\components\welcome\welcomeController.js" />
     <Content Include="angularJSApp\components\welcome\welcomeView.html" />
     <Content Include="angularJSApp\README.txt" />
+    <Content Include="angularJSApp\shared\directives\ng-file-upload\FileAPI.flash.swf" />
+    <Content Include="angularJSApp\shared\directives\ng-file-upload\FileAPI.js" />
+    <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload-all.js" />
+    <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload-shim.js" />
+    <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload.js" />
     <Content Include="angularJSApp\shared\directives\ngFiles.js" />
     <Content Include="angularJSApp\shared\factories\authHttpResponseInterceptorFactory.js" />
     <Content Include="angularJSApp\shared\controllers\baseController.js" />
@@ -249,6 +254,7 @@
     <Content Include="angularJSApp\shared\factories\loginFactory.js" />
     <Content Include="angularJSApp\shared\factories\logoutFactory.js" />
     <Content Include="angularJSApp\shared\factories\registerFactory.js" />
+    <Content Include="angularJSApp\shared\services\calendarEntityService.js" />
     <Content Include="angularJSApp\shared\services\sessionService.js" />
     <Content Include="angularJSApp\shared\styles\calendarStyles.css" />
     <Content Include="Content\bootstrap.css" />
