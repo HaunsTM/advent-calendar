@@ -45,13 +45,21 @@ adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', f
         return result.promise;
     }
 
-    fac.GetSlot = function (calendarYear, slotNumber) {
-        return null;
+    fac.OpenSlot = function (calendarYear, slotNumber) {
+
         var result = $q.defer();
-        $http({
+
+        var request = {
             method: 'GET',
-            url: sessionService.apiUrl + '/api/getCalendar' + '/' + year
-        })
+            url: sessionService.apiUrl + '/api/Slots/OpenSlot',
+            params: { calendarYear: calendarYear, slotNumber: slotNumber },
+            headers: {
+                'Content-Type': undefined,
+                'Authorization': 'Bearer ' + sessionService.token
+            }
+        };
+
+        $http(request)
         .success(function (response) {
             result.resolve(response);
         })

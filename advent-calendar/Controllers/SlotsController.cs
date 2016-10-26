@@ -14,6 +14,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using advent_calendar.Models;
 using advent_calendar.Models.POCO;
+using advent_calendar.Models.ViewModels;
 using advent_calendar.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -24,11 +25,12 @@ namespace advent_calendar.Controllers
     public class SlotsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         private ApplicationUser CurrentLoggedInUser()
         {
+            ApplicationUser user;
             var userId = Convert.ToInt32(User.Identity.GetUserId());
-            var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
 
@@ -47,20 +49,26 @@ namespace advent_calendar.Controllers
 
         private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
-            var currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
+            ApplicationUserRole currentLoggedInUserRole;
+            
+                currentLoggedInUserRole = (from cLIUR in db.ApplicationUserRoles
+                    where cLIUR.Id == currentLoggedInUser.ApplicationUserRole.Id
+                    select cLIUR).FirstOrDefault();
+            currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
             return currentLoggedInUserRole;
         }
 
         private Calendar CurrentCalendar(int calendarYear, ApplicationUser calendarsUser)
         {
             bool activeStatusToSearchFor = true;
+            Calendar currentCalendar = null;
 
-            var currentCalendar = from c in db.Calendars
+            currentCalendar = (from c in db.Calendars
                 from u in db.Users
                 where (c.Year == calendarYear && c.Active == activeStatusToSearchFor) &&
                       u.Id == calendarsUser.Id
-                select c;
-            return currentCalendar.FirstOrDefault();
+                select c).FirstOrDefault();
+            return currentCalendar;
 
         }
 
@@ -162,16 +170,16 @@ namespace advent_calendar.Controllers
             bool done = false;
             bool activeStatusToSearchFor = true;
             bool activeStatusAfterUpdate = false;
+            
+                var stillActiveSlots = from s in db.Slots
+                    where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
+                    select s;
 
-            var stillActiveSlots = from s in db.Slots
-                where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
-                select s;
-
-            foreach (var stillActiveSlot in stillActiveSlots)
-            {
-                stillActiveSlot.Active = activeStatusAfterUpdate;
-            }
-            // Submit the changes to the database.
+                foreach (var stillActiveSlot in stillActiveSlots)
+                {
+                    stillActiveSlot.Active = activeStatusAfterUpdate;
+                }
+                // Submit the changes to the database.
             try
             {
                 db.SaveChanges();
@@ -193,43 +201,64 @@ namespace advent_calendar.Controllers
 
 
         // GET: api/Slots/5
-        [ResponseType(typeof(Slot))]
+        [HttpGet]
+        [ResponseType(typeof(SlotViewModel))]
         public async Task<IHttpActionResult> OpenSlot(int calendarYear, int slotNumber)
         {
             var currentLoggedInUser = this.CurrentLoggedInUser();
-            
-                var wantedCalendar =  currentLoggedInUser.Calendars.Where(c => c.Year == calendarYear && c.Active == true).FirstOrDefault();
+            var currentLoggedInUsersUserAdministrator = this.CurrentLoggedInUsersUserAdministrator(currentLoggedInUser);
+            Calendar wantedCalendar;
+            CalendarViewModel wantedCalendarViewModel;
 
-                if (wantedCalendar == null)
+
+
+            wantedCalendar = await (from wC in db.Calendars
+                from u in db.Users
+                where
+                wC.Active == true && wC.Year == calendarYear &&
+                u.Id == currentLoggedInUser.Id
+                select wC).FirstOrDefaultAsync();
+                
+
+            if (wantedCalendar == null)
+            {
+                return Content(HttpStatusCode.NotFound, String.Format("Calendar, {0}, doesn't exist", calendarYear.ToString()));
+            }
+            else
+            {
+                Slot wantedSlot;
+                wantedCalendarViewModel = new CalendarViewModel(wantedCalendar);
+                wantedCalendar = null;
+
+                wantedSlot = await (from wS in db.Slots
+                    where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendarViewModel.Id
+                    select wS).FirstOrDefaultAsync();
+                        
+                
+                if (wantedSlot == null)
                 {
-                    return Content(HttpStatusCode.NotFound, String.Format("Calendar, {0}, doesn't exist", calendarYear.ToString()));
+                    return Content(HttpStatusCode.NotFound, String.Format("Slot {{calendar year: {0}; slot number: {1}}} doesn't exist", calendarYear.ToString(), slotNumber.ToString()));
                 }
                 else
                 {
-                    var wantedSlot = wantedCalendar.Slots.Where(s => s.Number == slotNumber && s.Active == true).FirstOrDefault();
-                    if(wantedSlot == null)
+                    if (wantedSlot.EarliestDateOfAllowedOpeningTime > DateTime.Now)
                     {
-                        return Content(HttpStatusCode.NotFound, String.Format("Slot {{calendar year: {0}; slot number: {1}}} doesn't exist", calendarYear.ToString(), slotNumber.ToString()));
+                        return Content(HttpStatusCode.Forbidden, 
+                            String.Format("The slot {{calendar year: {0}; slot number: {1}}} must not be opened before {2}!", 
+                                calendarYear.ToString(), 
+                                slotNumber.ToString(),
+                                wantedSlot.EarliestDateOfAllowedOpeningTime.ToShortDateString()));
                     }
                     else
                     {
-                        if (wantedSlot.EarliestDateOfAllowedOpeningTime < DateTime.Now)
-                        {
-                            return Content(HttpStatusCode.Forbidden, 
-                                String.Format("The slot {{calendar year: {0}; slot number: {1}}} must not be opened before {2}!", 
-                                    calendarYear.ToString(), 
-                                    slotNumber.ToString(), 
-                                    wantedSlot.EarliestDateOfAllowedOpeningTime.ToShortDateString()));
-                        }
-                        else
-                        {
-                            return Ok(wantedSlot);
-                        }
+                        wantedSlot.Opened=DateTime.Now;
+                        var wantedSlotViewModel = new SlotViewModel(wantedSlot);
+                        await db.SaveChangesAsync();
+                        wantedSlot = null;
+                        return Ok(wantedSlotViewModel);
                     }
                 }
+            }
         }
-
-
-
     }
 }
