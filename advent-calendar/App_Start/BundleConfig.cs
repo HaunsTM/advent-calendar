@@ -23,7 +23,7 @@ namespace advent_calendar
                     "~/Scripts/angular.js",
                     "~/Scripts/angular-ui-router.js",
                     "~/Scripts/ngStorage.js",
-                    "~/Scripts/ui-bootstrap-tpls-2.1.4.js"));
+                    "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));/**/
 
             bundles.Add(new ScriptBundle("~/bundles/angular/components").IncludeDirectory(
                     directoryVirtualPath: "~/angularJSApp/components",

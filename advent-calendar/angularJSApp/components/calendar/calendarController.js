@@ -1,5 +1,6 @@
 ﻿"use strict";
-adventCalendarApp.controller('calendarController',['$scope', 'calendarFactory', function($scope, calendarFactory) {
+adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory',  function ($scope, calendarFactory) {
+//adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory', 'slotContentModalService', function ($scope, calendarFactory, slotContentModalService) {
         $scope.Message = "This is calendarController page";
 
         $scope.currentYear = new Date().getFullYear().toString();
@@ -28,7 +29,7 @@ adventCalendarApp.controller('calendarController',['$scope', 'calendarFactory', 
         };
 
         // run while your controller loads
-        //SinitializeController();
+        //initializeController();
 
         $scope.OpenSlot = function (slotNumber) {
             calendarFactory.OpenSlot($scope.currentYear, slotNumber)
@@ -36,6 +37,22 @@ adventCalendarApp.controller('calendarController',['$scope', 'calendarFactory', 
                     function (answer) {
                         // do something
                         $scope.slot = answer;
+
+                        var modalDefaults = {
+                            backdrop: true,
+                            keyboard: true,
+                            modalFade: true,
+                            templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
+                        };
+
+                        var modalOptions = {
+                            closeButtonText: 'Close',
+                            actionButtonText: 'OK',
+                            headerText: 'Proceed?',
+                            bodyText: '',
+                            slot: answer
+                        };
+                        //slotContentModalService.show(modalDefaults, modalOptions);
                     },
                     function (error) {
                         // report something
