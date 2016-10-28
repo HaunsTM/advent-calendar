@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace advent_calendar_OLD.Controllers
+namespace advent_calendar.Controllers
 {
     public class DataController : Controller
     {
