@@ -1,0 +1,49 @@
+﻿.scaling-svg-container {
+ position: relative; 
+ height: 0; 
+ width: 100%; 
+ padding: 0;
+ padding-bottom: 100%; 
+ /* override this inline for aspect ratio other than square */
+}
+
+.scaling-svg {
+ position: absolute; 
+ height: 100%; 
+ width: 100%; 
+ left: 0; 
+ top: 0;
+}
+
+.slotImageOuterBox {
+    display: flex;
+    justify-content: space-around;
+
+    border-radius: 25px;
+    background: darkseagreen;
+    padding: 20px;
+
+    margin-bottom: 10px;
+}
+
+
+.slotImageFormGroup {
+    background:mediumaquamarine;
+    border: 5px dashed cadetblue;
+    width: 200px;
+    height: 65px;
+    
+    border-radius: 25px;
+    text-align: center;
+    padding-top: 25px;
+    margin: 10px;
+}
+
+.slotImagePreview {
+    
+    background:mediumaquamarine;
+    min-height: 50px;
+    max-width: 150px;
+    height: auto;
+    border-radius: 25px;
+}
