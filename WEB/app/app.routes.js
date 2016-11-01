@@ -123,11 +123,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '*path',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+                    templateUrl: '/app/components/welcome/WelcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/empty/emptyView.html',
+                    templateUrl: '/app/components/empty/emptyView.html',
                     controller: 'emptyController'
                 }
             }
