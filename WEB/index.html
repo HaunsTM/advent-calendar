@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,24 +6,55 @@
     <base href="/">
     <title>advent-calendar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="app/shared/styles/calendarStyles.css" rel="stylesheet" />
 </head>
 <body ng-app="adventCalendarApp" ng-controller="baseController">
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div>
+        <ul class="menu">
+            <li><a ui-sref="stateAbout">Om</a></li>
+            <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
+            <li><a ui-sref="stateCalendar">Kalender</a></li>
+            <li><a ui-sref="stateCreateCalendar">Skapa kalenderbas</a></li>
+            <li><a ui-sref="stateUploadSlotsToCalendar">Ladda upp luckor</a></li>
+            <li><a ui-sref="stateLogin">Logga in</a></li>
+            <li><a ui-sref="stateLogout">Logga ut</a></li>
+            <li><a ui-sref="stateRegisterUserAdministrator">Skapa kalenderadministratör</a></li>
+            <li><a ui-sref="stateInvalid">Invalid Url</a></li>
+        </ul>
+    </div>
+    <div style="clear: both;"></div>
+
+    <span class="label label-success" ng-if="loggedIn()">Logged In</span>
+    <div class="container mainContent">
+        <div class="row">
+            <div class="col-md-6">
+                <div ui-view="containerOne"></div>
+            </div>
+            <div class="col-md-6">
+                <div ui-view="containerTwo"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div ui-view="containerThree"></div>
+            </div>
+        </div>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+
+
+    <script src="app/app.module.js"></script>
+<script src="app/app.routes.js"></script>
 
     <!--controllers-->
 <script src="app/shared/controllers/baseController.js"></script>
+
 <!--directives-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/FileAPI.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload-all.min.js"></script>
@@ -31,8 +62,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload.min.js"></script>
     <script src="app/shared/directives/ngFiles.js"></script>
 <!--factories-->
+    <script src="app/shared/factories/AuthHttpResponseInterceptorFactory.js"></script>
+    <script src="app/shared/factories/CalendarFactory.js"></script>
+    <script src="app/shared/factories/LoginFactory.js"></script>
+    <script src="app/shared/factories/LogoutFactory.js"></script>
+    <script src="app/shared/factories/RegisterFactory.js"></script>
 <!--services-->
+    
+<!--components-->
+    <script src="app/components/assignUsersToCalendar/AssignUsersToCalendarController.js"></script>
+<script src="app/components/calendar/CalendarController.js"></script>
 
+    <script src="app/components/calendar/SlotContentModalService.js"></script>
+    <script src="app/components/createCalendar/CreateCalendarController.js"></script>
+    <script src="app/components/login/LoginController.js"></script>
+    <script src="app/components/login/LoginController.js"></script>
+    <script src="app/components/registerUserAdministrator/RegisterUserAdministratorController.js"></script>
+    <script src="app/components/uploadSlotsToCalendar/UploadSlotsToCalendarController.js"></script>
+    <script src="app/components/welcome/WelcomeController.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 </body>
 </html>
