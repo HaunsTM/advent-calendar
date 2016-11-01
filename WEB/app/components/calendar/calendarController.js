@@ -43,7 +43,7 @@ adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory',
                             backdrop: true,
                             keyboard: true,
                             modalFade: true,
-                            templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
+                            templateUrl: '/app/components/calendar/slotContentModal.html'
                         };
 
                         var modalOptions = {

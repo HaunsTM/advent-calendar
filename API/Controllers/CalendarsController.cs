@@ -155,10 +155,11 @@ namespace API.Controllers
 
         #region GetCalendarByYearAndCurrentLoggedInUser
       
+        [HttpGet]
         public async Task<IHttpActionResult> GetCalendarByYearAndCurrentLoggedInUser(int year)
         {
             var currentLoggedInUser = CurrentLoggedInUser();
-
+            
             var calendar = await (from c in db.Calendars
                 from u in db.Users
                 where (c.Year == year && c.Active == true) &&

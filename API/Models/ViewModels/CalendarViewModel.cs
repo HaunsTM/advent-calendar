@@ -5,7 +5,7 @@ namespace API.Models.ViewModels
     public class CalendarViewModel
     {
         public int Id { get; set; }
-        public bool Active { get; private set; }
+        public bool Active { get; set; }
 
         public int Year { get; set; }
 
@@ -14,6 +14,9 @@ namespace API.Models.ViewModels
         public string Name { get; set; }
 
 
+        public CalendarViewModel()
+        {
+        }
 
         public CalendarViewModel(Calendar calendar)
         {

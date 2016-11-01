@@ -7,7 +7,7 @@ adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', f
         var result = $q.defer();
         var request = {
             method: 'POST',
-            url: 'api/Calendars/UploadCalendar',
+            url: sessionService.apiUrl + '/api/Calendars/UploadCalendar',
             data: formData,
             headers: {
                 'Content-Type': undefined,
@@ -30,7 +30,7 @@ adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', f
         var result = $q.defer();
         var request = {
             method: 'GET',
-            url: 'api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
+            url: sessionService.apiUrl + '/api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.token },
             params: { year: yearForCurrentLoggedUsersCalendar }
         };
