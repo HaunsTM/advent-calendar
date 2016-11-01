@@ -21,5 +21,5 @@ adventCalendarApp.service('sessionService', ['$localStorage', function ($localSt
         $localStorage.adventCalendarAppToken = token;
     }
 
-    this.apiUrl = 'http://localhost:5586';
+    this.apiUrl = 'http://localhost:49164';
 }]);

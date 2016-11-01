@@ -14,10 +14,11 @@ adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory',
                     function(answer) {
                         // do something
                         $scope.calendar = answer;
+                        console.log(answer);
                     },
                     function(error) {
                         // report something
-
+                        console.log(error);
                     },
                     function(progress) {
                         // report progress
@@ -29,7 +30,7 @@ adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory',
         };
 
         // run while your controller loads
-        //initializeController();
+        initializeController();
 
         $scope.OpenSlot = function (slotNumber) {
             calendarFactory.OpenSlot($scope.currentYear, slotNumber)

@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity;
 
 namespace API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CalendarsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
