@@ -7,6 +7,30 @@
     <title>advent-calendar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link href="app/shared/styles/calendarStyles.css" rel="stylesheet" />
+
+    <style>
+        ul.menu {
+            list-style: none;
+            padding: 10px;
+            margin: 0px;
+        }
+
+            ul.menu li {
+                float: left;
+                margin: 1px;
+            }
+
+                ul.menu li a {
+                    float: left;
+                    background-color: #f3f3f3;
+                    display: inline-block;
+                    padding: 5px 20px;
+                }
+
+                    ul.menu li a:hover {
+                        background-color: #e4e4e4;
+                    }
+    </style>
 </head>
 <body ng-app="adventCalendarApp" ng-controller="baseController">
 
@@ -20,7 +44,6 @@
             <li><a ui-sref="stateLogin">Logga in</a></li>
             <li><a ui-sref="stateLogout">Logga ut</a></li>
             <li><a ui-sref="stateRegisterUserAdministrator">Skapa kalenderadministratör</a></li>
-            <li><a ui-sref="stateInvalid">Invalid Url</a></li>
         </ul>
     </div>
     <div style="clear: both;"></div>
@@ -42,46 +65,54 @@
         </div>
     </div>
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
 
 
-    <script src="app/app.module.js"></script>
-<script src="app/app.routes.js"></script>
 
-    <!--controllers-->
-<script src="app/shared/controllers/baseController.js"></script>
-
+ 
 <!--directives-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/FileAPI.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload-all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload.min.js"></script>
-    <script src="app/shared/directives/ngFiles.js"></script>
-<!--factories-->
-    <script src="app/shared/factories/AuthHttpResponseInterceptorFactory.js"></script>
-    <script src="app/shared/factories/CalendarFactory.js"></script>
-    <script src="app/shared/factories/LoginFactory.js"></script>
-    <script src="app/shared/factories/LogoutFactory.js"></script>
-    <script src="app/shared/factories/RegisterFactory.js"></script>
-<!--services-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.12/ng-file-upload.min.js"></script>
     
+    
+    
+
+<script src="app/app.module.js"></script>
+<script src="app/shared/directives/ngFiles.js"></script>
+<!--factories-->
+<script src="app/shared/factories/AuthHttpResponseInterceptorFactory.js"></script>
+<script src="app/shared/factories/CalendarFactory.js"></script>
+<script src="app/shared/factories/LoginFactory.js"></script>
+<script src="app/shared/factories/LogoutFactory.js"></script>
+<script src="app/shared/factories/RegisterFactory.js"></script>
+<!--services-->
+<script src="app/shared/services/SessionService.js"></script>
+<script src="app/shared/services/CalendarEntityService.js"></script>
+<!--controllers-->
+<script src="app/shared/controllers/baseController.js"></script>
+
 <!--components-->
-    <script src="app/components/assignUsersToCalendar/AssignUsersToCalendarController.js"></script>
+    <script src="app/components/about/aboutController.js"></script>
+<script src="app/components/assignUsersToCalendar/AssignUsersToCalendarController.js"></script>
 <script src="app/components/calendar/CalendarController.js"></script>
 
-    <script src="app/components/calendar/SlotContentModalService.js"></script>
-    <script src="app/components/createCalendar/CreateCalendarController.js"></script>
-    <script src="app/components/login/LoginController.js"></script>
-    <script src="app/components/login/LoginController.js"></script>
-    <script src="app/components/registerUserAdministrator/RegisterUserAdministratorController.js"></script>
-    <script src="app/components/uploadSlotsToCalendar/UploadSlotsToCalendarController.js"></script>
-    <script src="app/components/welcome/WelcomeController.js"></script>
+<script src="app/components/calendar/SlotContentModalService.js"></script>
+<script src="app/components/createCalendar/CreateCalendarController.js"></script>
+    <script src="app/components/empty/emptyController.js"></script>
+<script src="app/components/login/LoginController.js"></script>
+<script src="app/components/logout/logoutController.js"></script>
+<script src="app/components/registerUserAdministrator/RegisterUserAdministratorController.js"></script>
+<script src="app/components/uploadSlotsToCalendar/UploadSlotsToCalendarController.js"></script>
+<script src="app/components/welcome/WelcomeController.js"></script>
     
-    
+
+<script src="app/app.routes.js"></script>
     
     
     

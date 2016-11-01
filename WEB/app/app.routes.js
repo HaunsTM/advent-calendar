@@ -6,11 +6,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/about', //det som syns i webbläsaren
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html', //var mallfilen finns
+                    templateUrl: '/app/components/welcome/welcomeView.html', //var mallfilen finns
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/about/aboutView.html',
+                    templateUrl: '/app/components/about/aboutView.html',
                     controller: 'aboutController'
                 }
             }
@@ -19,11 +19,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/assignUsersToCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarView.html',
+                    templateUrl: '/app/components/assignUsersToCalendar/assignUsersToCalendarView.html',
                     controller: 'assignUsersToCalendarController'
                 }
             }
@@ -32,7 +32,7 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/calendar',
             views: {
                 "containerThree": {
-                    templateUrl: '/angularJSApp/components/calendar/calendarView.html',
+                    templateUrl: '/app/components/calendar/calendarView.html',
                     controller: 'calendarController'
                 }
             }
@@ -41,11 +41,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/createCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/createCalendar/createCalendarView.html',
+                    templateUrl: '/app/components/createCalendar/createCalendarView.html',
                     controller: 'createCalendarController'
                 }
             }
@@ -54,11 +54,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/login',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/login/loginView.html',
+                    templateUrl: '/app/components/login/loginView.html',
                     controller: 'loginController'
                 }
             }
@@ -67,11 +67,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/logout',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/logout/logoutView.html',
+                    templateUrl: '/app/components/logout/logoutView.html',
                     controller: 'logoutController'
                 }
             }
@@ -80,11 +80,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/registerUserAdministrator',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/registerUserAdministrator/registerUserAdministratorView.html',
+                    templateUrl: '/app/components/registerUserAdministrator/registerUserAdministratorView.html',
                     controller: 'registerUserAdministratorController'
                 }
             }
@@ -93,11 +93,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/uploadSlotsToCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/uploadSlotsToCalendar/uploadSlotsToCalendarView.html',
+                    templateUrl: '/app/components/uploadSlotsToCalendar/uploadSlotsToCalendarView.html',
                     controller: 'uploadSlotsToCalendarController'
                 }
             }
@@ -106,11 +106,11 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
             url: '/welcome',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
+                    templateUrl: '/app/components/welcome/welcomeView.html',
                     controller: 'welcomeController'
                 }
             }
@@ -132,7 +132,6 @@ adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider'
                 }
             }
         });
-
     $locationProvider.html5Mode(true).hashPrefix('!'); // This is for Hashbang Mode
     $httpProvider.interceptors.push('authHttpResponseInterceptorFactory');
 }]);
