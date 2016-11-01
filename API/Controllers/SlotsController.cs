@@ -12,7 +12,6 @@ using System.Web.Http.Description;
 using API.Models;
 using API.Models.POCO;
 using API.Models.ViewModels;
-using API.Providers;
 using Microsoft.AspNet.Identity;
 
 namespace API.Controllers
