@@ -49,22 +49,23 @@
     <div style="clear: both;"></div>
 
     <span class="label label-success" ng-if="loggedIn()">Logged In</span>
-    <div class="container mainContent">
-        <div class="row">
-            <div class="col-md-6">
-                <div ui-view="containerOne"></div>
-            </div>
-            <div class="col-md-6">
-                <div ui-view="containerTwo"></div>
-            </div>
+<div class="container mainContent">
+    <div class="row">
+        <div class="col-md-6">
+            <div ui-view="containerOne"></div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div ui-view="containerThree"></div>
-            </div>
+        <div class="col-md-6">
+            <div ui-view="containerTwo"></div>
         </div>
     </div>
-    
+    <div class="row">
+        <div class="col-md-12">
+            <div ui-view="containerThree"></div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
