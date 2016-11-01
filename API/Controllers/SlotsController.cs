@@ -71,6 +71,7 @@ namespace API.Controllers
 
         #region UploadSlots
 
+        [HttpPost]
         public async Task<HttpResponseMessage> UploadSlot()
         {
             var currentLoggedInUser = this.CurrentLoggedInUser();
@@ -195,8 +196,7 @@ namespace API.Controllers
 
         /********************************************************************************************************************************************************/
 
-
-        // GET: api/Slots/5
+            
         [HttpGet]
         [ResponseType(typeof(SlotViewModel))]
         public async Task<IHttpActionResult> OpenSlot(int calendarYear, int slotNumber)

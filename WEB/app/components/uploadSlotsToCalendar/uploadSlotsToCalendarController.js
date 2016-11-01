@@ -38,7 +38,7 @@ adventCalendarApp.controller('uploadSlotsToCalendarController', ['$scope', 'Uplo
 
             var upload = Upload.upload({
                 method: 'POST',
-                url: 'api/Slots/UploadSlot',
+                url: sessionService.apiUrl + '/api/Slots/UploadSlot',
                 data: formData,
                 headers: {
                     'Authorization': 'Bearer ' + sessionService.token
