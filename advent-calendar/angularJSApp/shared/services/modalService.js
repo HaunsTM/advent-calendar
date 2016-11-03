@@ -1,4 +1,4 @@
-﻿/*"use strict";
+﻿/**/"use strict";
 adventCalendarApp.service('slotContentModalService', ['$uibModal', function ($uibModal) {
 
     var modalDefaults = {
@@ -47,4 +47,4 @@ adventCalendarApp.service('slotContentModalService', ['$uibModal', function ($ui
         return $uibModal.open(tempModalDefaults).result;
     };
 
-}]);*/
+}]);
