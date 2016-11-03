@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.service('calendarEntityService', [function () {
+app.service('calendarEntityService', [function () {
 
     this.defaultCalendarYear = new Date().getFullYear().toString();
 

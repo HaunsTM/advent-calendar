@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendarEntityService', 'calendarFactory', 'sessionService', function ($scope, Upload, calendarEntityService, calendarFactory, sessionService) {
+app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendarEntityService', 'calendarFactory', 'sessionService', function ($scope, Upload, calendarEntityService, calendarFactory, sessionService) {
     $scope.Message = "This is createCalendarController page";
 
     $scope.slots = [];

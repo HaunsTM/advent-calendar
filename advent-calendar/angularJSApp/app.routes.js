@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($stateProvider, $httpProvider, $locationProvider) {
+app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($stateProvider, $httpProvider, $locationProvider) {
     //http://www.codemag.com/article/1505061
     $stateProvider
         .state('stateAbout', {

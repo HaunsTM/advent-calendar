@@ -1,5 +1,5 @@
 ﻿/**/"use strict";
-adventCalendarApp.service('slotContentModalService', ['$uibModal', function ($uibModal) {
+app.service('modalService', ['$uibModal', function ($uibModal) {
 
     var modalDefaults = {
         backdrop: true,

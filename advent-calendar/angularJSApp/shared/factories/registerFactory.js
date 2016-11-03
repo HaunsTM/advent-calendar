@@ -1,6 +1,6 @@
 ﻿"use strict";
 /*http://www.codeproject.com/Articles/806029/Getting-started-with-AngularJS-and-ASP-NET-MVC-Par */
-adventCalendarApp.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http, $q, sessionService) {
+app.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http, $q, sessionService) {
 
     var fac = {};
 

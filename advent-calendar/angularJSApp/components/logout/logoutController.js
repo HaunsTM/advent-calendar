@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('logoutController', ['$scope', '$location', 'logoutFactory', 'sessionService', function ($scope, $location, logoutFactory, sessionService) {
+app.controller('logoutController', ['$scope', '$location', 'logoutFactory', 'sessionService', function ($scope, $location, logoutFactory, sessionService) {
 
         $scope.Message = "This is logoutController page";
 

@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessionService', function ($scope, $location, loginFactory, sessionService) {
+app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessionService', function ($scope, $location, loginFactory, sessionService) {
 
     $scope.Message = "This is loginController page";
     $scope.loginForm = {

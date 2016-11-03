@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.factory('loginFactory', ['$http', '$q', 'sessionService', function ($http, $q, sessionService) {
+app.factory('loginFactory', ['$http', '$q', 'sessionService', function ($http, $q, sessionService) {
     return function (username, password) {
         var result = $q.defer();
 

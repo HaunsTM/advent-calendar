@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $http, sessionService) {
+app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $http, sessionService) {
 
     var fac = {};
 

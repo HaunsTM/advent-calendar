@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('registerUserAdministratorController', ['$scope', 'loginFactory', 'registerFactory', 'sessionService', function ($scope, loginFactory, registerFactory, sessionService) {
+app.controller('registerUserAdministratorController', ['$scope', 'loginFactory', 'registerFactory', 'sessionService', function ($scope, loginFactory, registerFactory, sessionService) {
     $scope.registerUserAdministratorForm = {
         username: undefined,
         password: undefined,

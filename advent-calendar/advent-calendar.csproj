@@ -229,7 +229,7 @@
     <Content Include="angularJSApp\components\assignUsersToCalendar\assignUsersToCalendarView.html" />
     <Content Include="angularJSApp\components\calendar\calendarController.js" />
     <Content Include="angularJSApp\components\calendar\calendarView.html" />
-    <Content Include="angularJSApp\components\calendar\slotContentModalService.js" />
+    <Content Include="angularJSApp\shared\services\modalService.js" />
     <Content Include="angularJSApp\components\calendar\slotContentModal.html" />
     <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarController.js" />
     <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarView.html" />

@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.controller('createCalendarController', ['$scope', 'calendarFactory', 'calendarEntityService', function ($scope, calendarFactory, calendarEntityService) {
+app.controller('createCalendarController', ['$scope', 'calendarFactory', 'calendarEntityService', function ($scope, calendarFactory, calendarEntityService) {
     $scope.Message = "This is createCalendarController page";
 
     //http://www.encodedna.com/angularjs/tutorial/angularjs-file-upload-using-http-post-formdata-webapi.htm

@@ -1,5 +1,5 @@
 ﻿"use strict";
-adventCalendarApp.directive('ngFiles', ['$parse',  function ($parse) {
+app.directive('ngFiles', ['$parse',  function ($parse) {
     function fn_link(scope, element, attrs) {
 
         var onChange = $parse(attrs.ngFiles);

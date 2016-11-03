@@ -1,6 +1,6 @@
 ﻿"use strict";
-//adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory',  function ($scope, calendarFactory) {
-adventCalendarApp.controller('calendarController', ['$scope', 'calendarFactory', 'slotContentModalService', function ($scope, calendarFactory, slotContentModalService) {
+//app.controller('calendarController', ['$scope', 'calendarFactory',  function ($scope, calendarFactory) {
+app.controller('calendarController', ['$scope', 'calendarFactory', '', function ($scope, calendarFactory, ) {
         $scope.Message = "This is calendarController page";
 
         $scope.currentYear = new Date().getFullYear().toString();
