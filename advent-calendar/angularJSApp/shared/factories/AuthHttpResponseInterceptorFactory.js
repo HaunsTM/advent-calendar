@@ -8,6 +8,7 @@ app.factory('authHttpResponseInterceptorFactory', ['$q', '$location', '$injector
             return response || $q.when(response);
         },
         responseError: function (rejection) {
+            //om servern returnerar att vi inte är behöriga att anropa resursen, gå till inloggningssidan
             if (rejection.status === 401) {
                 $injector.get('$state').go('stateLogin', { returnUrl: $location.path() });
             }

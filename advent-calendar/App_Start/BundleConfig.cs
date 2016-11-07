@@ -37,8 +37,8 @@ namespace advent_calendar
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/bundles/angular/shared/styles").IncludeDirectory(
-                      directoryVirtualPath: "~/angularJSApp/shared/styles",
+            bundles.Add(new StyleBundle("~/bundles/styles").IncludeDirectory(
+                      directoryVirtualPath: "~/angularJSApp/styles",
                       searchPattern: "*.css", searchSubdirectories: true));
 
             // Set EnableOptimizations to false for debugging. For more information,

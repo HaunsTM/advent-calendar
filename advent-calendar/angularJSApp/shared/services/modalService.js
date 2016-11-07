@@ -1,40 +1,17 @@
 ﻿/**/"use strict";
 app.service('modalService', ['$uibModal', function ($uibModal) {
 
-    var modalDefaults = {
-        backdrop: true,
-        keyboard: true,
-        modalFade: true,
-        templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
-    };
-
-    var modalOptions = {
-        closeButtonText: 'Close',
-        actionButtonText: 'OK',
-        headerText: 'Proceed?',
-        bodyText: 'Perform this action?'
-    };
-
     this.showModal = function (customModalDefaults, customModalOptions) {
         if (!customModalDefaults) customModalDefaults = {};
         customModalDefaults.backdrop = 'static';
         return this.show(customModalDefaults, customModalOptions);
     };
 
-    this.show = function (customModalDefaults, customModalOptions) {
-        //Create temp objects to work with since we're in a singleton service
-        var tempModalDefaults = {};
-        var tempModalOptions = {};
+    this.show = function (modalDefaults, modalOptions) {
 
-        //Map angular-ui modal custom defaults to modal defaults defined in service
-        angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
-
-        //Map modal.html $scope custom properties to defaults defined in service
-        angular.extend(tempModalOptions, modalOptions, customModalOptions);
-
-        if (!tempModalDefaults.controller) {
-            tempModalDefaults.controller = function ($scope, $uibModalInstance) {
-                $scope.modalOptions = tempModalOptions;
+        if (!modalDefaults.controller) {
+            modalDefaults.controller = function ($scope, $uibModalInstance) {
+                $scope.modalOptions = modalOptions;
                 $scope.modalOptions.ok = function (result) {
                     $uibModalInstance.close(result);
                 };
@@ -44,7 +21,7 @@ app.service('modalService', ['$uibModal', function ($uibModal) {
             }
         }
 
-        return $uibModal.open(tempModalDefaults).result;
+        return $uibModal.open(modalDefaults).result;
     };
 
 }]);
