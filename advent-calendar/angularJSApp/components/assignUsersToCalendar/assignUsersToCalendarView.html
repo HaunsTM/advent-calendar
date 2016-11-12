@@ -1,23 +1,18 @@
-﻿<form name="userFormTwo" novalidate>
+﻿<form name="outerForm" ng-submit="RegisterStandardUsers()"> <!--http://stackoverflow.com/questions/14378401/dynamic-validation-and-name-in-a-form-with-angularjs#answer-14379763-->
 
-    <div class="form-group" ng-repeat="user in formDataTwo.users" ng-class="{ 'has-error' : userFieldForm.email.$invalid }">
 
-        <ng-form name="userFieldForm">
-            <label>{{ user.name }}'s Email</label>
-            <input type="email" class="form-control" name="email" ng-model="user.email" required>
-            <p class="help-block" ng-show="userFieldForm.email.$invalid">Valid Email Required</p>
+    <fieldset data-ng-repeat="calendarUser in calendarUsers" style="border: 1px aqua solid">
+        <ng-form name="innerForm">
+            <div class="form-group">
+                <label for="userName">Namn på kalenderanvändare</label>
+                <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName">
+            </div>
+            <div class="form-group">
+                <label for="userPassword">Password</label>
+                <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="calendarUser.userPassword">
+            </div>
         </ng-form>
-
-    </div>
-    
-    <fieldset data-ng-repeat="choice in choices">
-        <div class="form-group">
-            <label for="emailAddress">Email address</label>
-            <input type="email" class="form-control" id="emailAddress" placeholder="Enter email" ng-model="calendarUsers.username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="calendarUsers.password">
-        </div>
     </fieldset>
+    <button class="addfields" ng-click="AddNewUser()">+ Användare</button>
+    <input type="submit" ng-disabled="outerForm.$invalid" />
 </form>

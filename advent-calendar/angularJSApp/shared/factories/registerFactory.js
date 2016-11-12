@@ -22,13 +22,16 @@ app.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http
         return result.promise;
     };
 
-    fac.RegisterStandardUser = function (email, password, confirmPassword) {
+    fac.RegisterStandardUsers = function (standardUsers) {
         var result = $q.defer();
         $http({
                 method: 'POST',
-                url: sessionService.apiUrl + '/api/Account/RegisterStandardUser',
-                data: { Email: email, Password: password, ConfirmPassword: confirmPassword },
-                headers: { 'Content-Type': 'application/json' }
+                url: sessionService.apiUrl + '/api/Account/RegisterStandardUsers',
+                data: standardUsers ,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionService.getToken()
+                }
             })
             .success(function(response) {
                 result.resolve(response);
@@ -39,6 +42,6 @@ app.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http
 
         return result.promise;
     };
-
+    /**/
     return fac;
 }]);

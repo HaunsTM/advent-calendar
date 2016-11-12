@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -10,6 +11,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using advent_calendar.Models;
+using advent_calendar.Models.POCO;
 using advent_calendar.Providers;
 using advent_calendar.Results;
 using Microsoft.AspNet.Identity;
@@ -23,12 +25,14 @@ namespace advent_calendar.Controllers
 
     [System.Web.Http.Authorize]
     [RoutePrefix("api/Account")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-        
+
         public AccountController()
         {
         }
@@ -42,14 +46,8 @@ namespace advent_calendar.Controllers
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
@@ -127,9 +125,10 @@ namespace advent_calendar.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword,
-                model.NewPassword);
-            
+            IdentityResult result =
+                await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword,
+                    model.NewPassword);
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -147,7 +146,8 @@ namespace advent_calendar.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId<int>(), model.NewPassword);
+            IdentityResult result =
+                await UserManager.AddPasswordAsync(User.Identity.GetUserId<int>(), model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -171,8 +171,9 @@ namespace advent_calendar.Controllers
             AuthenticationTicket ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
 
             if (ticket == null || ticket.Identity == null || (ticket.Properties != null
-                && ticket.Properties.ExpiresUtc.HasValue
-                && ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow))
+                                                              && ticket.Properties.ExpiresUtc.HasValue
+                                                              &&
+                                                              ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow))
             {
                 return BadRequest("External login failure.");
             }
@@ -262,8 +263,8 @@ namespace advent_calendar.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
@@ -329,39 +330,44 @@ namespace advent_calendar.Controllers
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
+                var stringSuperAdministrator = ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
-                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"]
-                                           select aUR).FirstOrDefault();
+                        where aUR.Name == stringSuperAdministrator
+                        select aUR).FirstOrDefault();
                 }
                 return applicationUserRole;
             }
         }
+
         public Models.POCO.ApplicationUserRole UserAdministratorRole
         {
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
+                var stringUserAdministrator = ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
-                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]
-                                           select aUR).FirstOrDefault();
+                        where aUR.Name == stringUserAdministrator
+                        select aUR).FirstOrDefault();
                 }
                 return applicationUserRole;
             }
         }
+
         public Models.POCO.ApplicationUserRole StandardUserRole
         {
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
+                var stringStandardUser = ConfigurationManager.AppSettings["STRING_STANDARD_USER"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
-                                           where aUR.Name == ConfigurationManager.AppSettings["STRING_STANDARD_USER"]
-                                           select aUR).FirstOrDefault();
+                        where aUR.Name == stringStandardUser
+                        select aUR).FirstOrDefault();
                 }
                 return applicationUserRole;
             }
@@ -379,7 +385,7 @@ namespace advent_calendar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() {UserName = model.Email, Email = model.Email};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -390,6 +396,9 @@ namespace advent_calendar.Controllers
 
             return Ok();
         }
+
+        #region User administrator
+
         // POST api/Account/RegisterUserAdministrator
         [System.Web.Http.AllowAnonymous]
         [Route("RegisterUserAdministrator")]
@@ -400,7 +409,12 @@ namespace advent_calendar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, ApplicationUserRole = this.UserAdministratorRole};
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                ApplicationUserRole = this.UserAdministratorRole
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -411,27 +425,93 @@ namespace advent_calendar.Controllers
 
             return Ok();
         }
+
+        #endregion
+
+        #region Standard user
+        
+        private ApplicationUserRole CurrentLoggedInUserRole(int currentLoggedInUserId)
+        {
+            var currentLoggedInUserRole =
+                db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
+
+            return currentLoggedInUserRole;
+        }
+        
+
+        // POST api/Account/GetRegisteredStandardUsersByLoggedInAdministrator
+        [System.Web.Http.Authorize]
+        [Route("GetRegisteredStandardUsersByLoggedInAdministrator")]
+        public async Task<IHttpActionResult> GetRegisteredStandardUsersByLoggedInAdministrator()
+        {
+            //we have to make sure that the logged in user is an administrator
+            var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
+
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Forbidden,
+                    "Lack of sufficient privileges to perform operation." + " " + "You are not administrator."));
+            }
+
+            var standardUsersByLoggedInAdministrator =
+                db.Users.Where(u => u.Id == currentLoggedInAdministratorId).Select(s => s.IsAdministratedBy).ToList();
+
+            return Ok(standardUsersByLoggedInAdministrator);
+        }
+
         // POST api/Account/RegisterStandardUser
         [System.Web.Http.Authorize]
-        [Route("RegisterStandardUser")]
-        public async Task<IHttpActionResult> RegisterStandardUser(RegisterBindingModel model)
+        [Route("RegisterStandardUsers")]
+        public async Task<IHttpActionResult> RegisterStandardUsers(
+            RegisterBindingModelStandardUser model)
         {
+            //we have to make sure that the logged in user is an administrator
+            var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
+
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Forbidden,
+                    "Lack of sufficient privileges to perform operation." + " " + "You are not administrator."));
+            }
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, ApplicationUserRole = this.UserAdministratorRole };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            try
+            {
+                //UserManager uses it's own DbContext to load data from the database. We will need to retrieve the user from the same dbContext that you use to add a reference to.
+       
+                var currentLoggedInAdministrator = await UserManager.FindByIdAsync(currentLoggedInAdministratorId);
+                var newApplicationUser = new ApplicationUser() { UserName = model.UserName, ApplicationUserRole = this.StandardUserRole, IsAdministratedBy = currentLoggedInAdministrator };
+            
+            IdentityResult result = await UserManager.CreateAsync(newApplicationUser, model.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+            
 
             return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                int i = 0;
+                throw;
+            }
         }
+
+        #endregion
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

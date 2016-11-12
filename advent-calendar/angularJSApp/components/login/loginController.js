@@ -3,13 +3,13 @@ app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessi
 
     $scope.Message = "This is loginController page";
     $scope.loginForm = {
-        username: undefined,
-        password: undefined,
+        userName: undefined,
+        userPassword: undefined,
         errorMessage: undefined
     };
 
     $scope.login = function () {
-        loginFactory($scope.loginForm.username, $scope.loginForm.password)
+        loginFactory($scope.loginForm.userName, $scope.loginForm.userPassword)
         .then(function (response) {
             sessionService.setToken(response.access_token);
             $location.path('/');
