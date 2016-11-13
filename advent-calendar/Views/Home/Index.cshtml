@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    Layout = null;
+}
+
 <style>
     ul.menu {
         list-style: none;
@@ -23,36 +26,74 @@
                 }
 </style>
 
-<div>
-    <ul class="menu">
-        <li><a ui-sref="stateAbout">Om</a></li>
-        <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
-        <li><a ui-sref="stateCalendar">Kalender</a></li>
-        <li><a ui-sref="stateCreateCalendar">Skapa kalenderbas</a></li>
-        <li><a ui-sref="stateUploadSlotsToCalendar">Ladda upp luckor</a></li>
-        <li><a ui-sref="stateLogin">Logga in</a></li>
-        <li><a ui-sref="stateLogout">Logga ut</a></li>
-        <li><a ui-sref="stateRegisterUserAdministrator">Skapa kalenderadministratör</a></li>
-        <li><a ui-sref="stateInvalid">Invalid Url</a></li>
-    </ul>
-</div>
 
-<div style="clear: both;"></div>
 
-<span class="label label-success" ng-if="loggedIn()">Logged In</span>
 
-<div class="container mainContent">
-    <div class="row">
-        <div class="col-md-6">
-            <div ui-view="containerOne"></div>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width" />
+    <base href="/">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/styles")
+
+</head>
+<body ng-app="adventCalendarApp" ng-controller="baseController">
+
+    <div class="container body-content">
+        <div>
+            <ul class="menu">
+                <li><a ui-sref="stateAbout">Om</a></li>
+                <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
+                <li><a ui-sref="stateCalendar">Kalender</a></li>
+                <li><a ui-sref="stateCreateCalendar">Skapa kalenderbas</a></li>
+                <li><a ui-sref="stateUploadSlotsToCalendar">Ladda upp luckor</a></li>
+                <li><a ui-sref="stateLogin">Logga in</a></li>
+                <li><a ui-sref="stateLogout">Logga ut</a></li>
+                <li><a ui-sref="stateRegisterUserAdministrator">Skapa kalenderadministratör</a></li>
+                <li><a ui-sref="stateInvalid">Invalid Url</a></li>
+            </ul>
         </div>
-        <div class="col-md-6">
-            <div ui-view="containerTwo"></div>
+
+        <div style="clear: both;"></div>
+
+        <span class="label label-success" ng-if="loggedIn()">Logged In</span>
+
+        <div class="container mainContent">
+            <div class="row">
+                <div class="col-md-6">
+                    <div ui-view="containerOne"></div>
+                </div>
+                <div class="col-md-6">
+                    <div ui-view="containerTwo"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div ui-view="containerThree"></div>
+                </div>
+            </div>
         </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div ui-view="containerThree"></div>
-        </div>
-    </div>
-</div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @* Add Angular Library Here *@
+    @Scripts.Render("~/bundles/angular")
+    <script src="~/angularJSApp/app.module.js"></script>
+    <script src="~/angularJSApp/app.routes.js"></script>
+    @Scripts.Render("~/bundles/angular/shared")
+    @Scripts.Render("~/bundles/angular/components")
+</body>
+</html>
