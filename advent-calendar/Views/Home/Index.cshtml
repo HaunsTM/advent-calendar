@@ -1,37 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
-<style>
-    ul.menu {
-        list-style: none;
-        padding: 10px;
-        margin: 0px;
-    }
-
-        ul.menu li {
-            float: left;
-            margin: 1px;
-        }
-
-            ul.menu li a {
-                float: left;
-                background-color: #f3f3f3;
-                display: inline-block;
-                padding: 5px 20px;
-            }
-
-                ul.menu li a:hover {
-                    background-color: #e4e4e4;
-                }
-</style>
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,31 +8,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width" />
     <base href="/">
-    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/styles")
-
 </head>
+
 <body ng-app="adventCalendarApp" ng-controller="baseController">
+    
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administratör <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="stateCreateCalendar">Skapa kalenderbas</a></li>
+                            <li><a ui-sref="stateUploadSlotsToCalendar">Ladda upp luckor</a></li>
+                            <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="stateRegisterUserAdministrator" ng-if="!LoggedIn()">Registrera</a></li>
+                    <li>
+                        <a ui-sref="stateLogin" ng-if="!LoggedIn()">Logga in</a>
+                        <a ui-sref="stateLogout" ng-if="LoggedIn()">Logga ut</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
 
-    <div class="container body-content">
-        <div>
-            <ul class="menu">
-                <li><a ui-sref="stateAbout">Om</a></li>
-                <li><a ui-sref="stateAssignUsersToCalendar">Kalenderns användare</a></li>
-                <li><a ui-sref="stateCalendar">Kalender</a></li>
-                <li><a ui-sref="stateCreateCalendar">Skapa kalenderbas</a></li>
-                <li><a ui-sref="stateUploadSlotsToCalendar">Ladda upp luckor</a></li>
-                <li><a ui-sref="stateLogin">Logga in</a></li>
-                <li><a ui-sref="stateLogout">Logga ut</a></li>
-                <li><a ui-sref="stateRegisterUserAdministrator">Skapa kalenderadministratör</a></li>
-                <li><a ui-sref="stateInvalid">Invalid Url</a></li>
-            </ul>
-        </div>
-
-        <div style="clear: both;"></div>
-
-        <span class="label label-success" ng-if="loggedIn()">Logged In</span>
+<div class="container body-content">
 
         <div class="container mainContent">
             <div class="row">
@@ -82,7 +67,7 @@
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Adventskalendern&trade;</p>
         </footer>
     </div>
 

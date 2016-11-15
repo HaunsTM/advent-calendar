@@ -1,6 +1,6 @@
 ﻿"use strict";
 app.controller('baseController', ['$scope', 'sessionService', function ($scope, sessionService) {
-    $scope.loggedIn = function () {
+    $scope.LoggedIn = function () {
         return sessionService.getToken() !== undefined;
     }
 }]);
