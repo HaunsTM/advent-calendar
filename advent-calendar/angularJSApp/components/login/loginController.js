@@ -11,7 +11,8 @@ app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessi
     $scope.login = function () {
         loginFactory($scope.loginForm.userName, $scope.loginForm.userPassword)
         .then(function (response) {
-            sessionService.setToken(response.access_token);
+            sessionService.SetToken(response.access_token);
+            sessionService.SetCurrentLoggedInUserRoleName(response.access_token);
             $location.path('/');
         }, function (response) {
             $scope.loginForm.errorMessage = response.error_description;

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using advent_calendar.Models;
+using advent_calendar.Models.POCO;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -12,8 +14,10 @@ namespace advent_calendar.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private readonly string _publicClientId;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
+        private readonly string _publicClientId;
+        
         public ApplicationOAuthProvider(string publicClientId)
         {
             if (publicClientId == null)
@@ -22,6 +26,14 @@ namespace advent_calendar.Providers
             }
 
             _publicClientId = publicClientId;
+        }
+
+        private ApplicationUserRole CurrentLoggedInUserRole(int currentLoggedInUserId)
+        {
+            var currentLoggedInUserRole =
+                db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
+
+            return currentLoggedInUserRole;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -36,12 +48,20 @@ namespace advent_calendar.Providers
                 return;
             }
 
+            var currentLoggedInUserId = user.Id;
+            var currentLoggedInUserRole = CurrentLoggedInUserRole(currentLoggedInUserId);
+            var currentLoggedInUserRoleName = currentLoggedInUserRole.Name;
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationProperties properties = new AuthenticationProperties(new Dictionary<string, string>
+            {
+                { "userName", user.UserName },
+                { "currentLoggedInUserRoleName", currentLoggedInUserRoleName }
+            });
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);

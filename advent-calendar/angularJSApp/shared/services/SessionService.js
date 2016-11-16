@@ -4,12 +4,20 @@
 
 app.service('sessionService', ['$localStorage', function ($localStorage) {
 
-    this.getToken = function () {
+    this.GetToken = function () {
         return $localStorage.adventCalendarAppToken;
     }
 
-    this.setToken = function (token) {
+    this.SetToken = function (token) {
         $localStorage.adventCalendarAppToken = token;
+    }
+
+    this.GetCurrentLoggedInUserRoleName = function () {
+        return $localStorage.currentLoggedInUserRoleName;
+    }
+
+    this.SetCurrentLoggedInUserRoleName = function (loggedInUserRoleName) {
+        return $localStorage.currentLoggedInUserRoleName = loggedInUserRoleName;
     }
 
     this.apiUrl = 'http://localhost:5586';

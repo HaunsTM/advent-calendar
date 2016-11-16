@@ -324,6 +324,14 @@ namespace advent_calendar.Controllers
         }
 
         #region Available application user roles
+        
+        private ApplicationUserRole CurrentLoggedInUserRole(int currentLoggedInUserId)
+        {
+            var currentLoggedInUserRole =
+                db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
+
+            return currentLoggedInUserRole;
+        }
 
         public Models.POCO.ApplicationUserRole SuperAdministratorRole
         {
@@ -373,9 +381,19 @@ namespace advent_calendar.Controllers
             }
         }
 
+        public IHttpActionResult GetCurrentLoggedInUserRoleName(int year)
+        {
+            //we have to make sure that the logged in user is an administrator
+            var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
+
+            var currentLoggedInUserRoleName = currentLoggedInUserRole.Name;
+            return Ok(currentLoggedInUserRoleName);
+        }
+
         #endregion
 
-        // POST api/Account/Register
+            // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -429,14 +447,6 @@ namespace advent_calendar.Controllers
         #endregion
 
         #region Standard user
-        
-        private ApplicationUserRole CurrentLoggedInUserRole(int currentLoggedInUserId)
-        {
-            var currentLoggedInUserRole =
-                db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
-
-            return currentLoggedInUserRole;
-        }
         
 
         // POST api/Account/GetRegisteredStandardUsersByLoggedInAdministrator

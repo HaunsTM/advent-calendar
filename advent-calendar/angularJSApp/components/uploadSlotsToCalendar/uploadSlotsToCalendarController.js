@@ -41,7 +41,7 @@ app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendar
                 url: 'api/Slots/UploadSlot',
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + sessionService.getToken()
+                    'Authorization': 'Bearer ' + sessionService.GetToken()
                 }
             });
 

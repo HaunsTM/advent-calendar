@@ -30,7 +30,7 @@ app.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http
                 data: standardUsers ,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionService.getToken()
+                    'Authorization': 'Bearer ' + sessionService.GetToken()
                 }
             })
             .success(function(response) {

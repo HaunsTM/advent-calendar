@@ -8,7 +8,8 @@ app.controller('logoutController', ['$scope', '$location', 'logoutFactory', 'ses
         $scope.logout = function () {
             logoutFactory()
                 .then(function (response) {
-                    sessionService.setToken(undefined);
+                    sessionService.SetToken(undefined);
+                    sessionService.SetCurrentLoggedInUserRoleName(undefined);
                     $location.path('/');
                 }, function (response) {
                     $scope.logoutResponse = response.error_description;

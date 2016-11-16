@@ -12,7 +12,7 @@ app.controller('registerUserAdministratorController', ['$scope', 'loginFactory',
         .then(function () {
             loginFactory($scope.registerUserAdministratorForm.username, $scope.registerUserAdministratorForm.password)
             .then(function (response) {
-                sessionService.setToken(response.access_token);
+                sessionService.SetToken(response.access_token);
             }, function (response) {
                 $scope.loginForm.errorMessage = response;
             });

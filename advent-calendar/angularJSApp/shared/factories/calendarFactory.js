@@ -11,8 +11,8 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
             data: formData,
             headers: {
                 'Content-Type': undefined,
-                'Authorization': 'Bearer ' + sessionService.getToken()
-    }
+                'Authorization': 'Bearer ' + sessionService.GetToken()
+            }
         };
 
         $http(request)
@@ -31,7 +31,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         var request = {
             method: 'GET',
             url: 'api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.getToken() },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.GetToken() },
             params: { year: yearForCurrentLoggedUsersCalendar }
         };
 
@@ -56,7 +56,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
             params: { calendarYear: calendarYear, slotNumber: slotNumber },
             headers: {
                 'Content-Type': undefined,
-                'Authorization': 'Bearer ' + sessionService.getToken()
+                'Authorization': 'Bearer ' + sessionService.GetToken()
             }
         };
 

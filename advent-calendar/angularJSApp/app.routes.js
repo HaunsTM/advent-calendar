@@ -127,8 +127,8 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/empty/emptyView.html',
-                    controller: 'emptyController'
+                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+                    controller: 'welcomeController'
                 }
             }
         });
