@@ -31,7 +31,7 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
         .state('stateCalendar', {
             url: '/calendar',
             views: {
-                "containerThree": {
+                "containerCalendar": {
                     templateUrl: '/angularJSApp/components/calendar/calendarView.html',
                     controller: 'calendarController'
                 }

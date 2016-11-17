@@ -250,6 +250,7 @@
     <Content Include="angularJSApp\images\toy-train.gif" />
     <Content Include="angularJSApp\images\waving-santa-by-sleigh-ride.gif" />
     <Content Include="angularJSApp\images\waving-santa.gif" />
+    <Content Include="angularJSApp\shared\directives\backImg.js" />
     <Content Include="angularJSApp\shared\services\modalService.js" />
     <Content Include="angularJSApp\components\calendar\slotContentModal.html" />
     <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarController.js" />

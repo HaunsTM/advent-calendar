@@ -61,14 +61,13 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div ui-view="containerThree"></div>
+                <div ui-view="containerCalendar"></div>
             </div>
         </div>
-        <hr />
-        <footer class="row">
-            <p>&copy; @DateTime.Now.Year - Adventskalendern&trade;</p>
-        </footer>
     </div>
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - Adventskalendern&trade;</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

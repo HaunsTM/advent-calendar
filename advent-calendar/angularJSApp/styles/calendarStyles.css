@@ -1,4 +1,12 @@
-﻿.navbar-brand {
+﻿html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 30px;
+}
+.navbar-brand {
   padding: 0px;
 }
 .navbar-brand>img {
@@ -7,22 +15,26 @@
   width: auto;
 }
 
-
-.scaling-svg-container {
-    position: relative;
-    height: 0;
-    width: 100%;
-    padding: 0;
-    padding-bottom: 100%;
-    /* override this inline for aspect ratio other than square */
+.container {
+    border: 1px blue solid;
 }
 
-.scaling-svg {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  background-color: #f5f5f5;
+}
+.svg-container {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    
+    height: calc(100vh - 130px);
+    display: block;
+    border: 1px red solid;
 }
 
 .slotImageOuterBox {
