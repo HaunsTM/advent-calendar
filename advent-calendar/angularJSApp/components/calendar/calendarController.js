@@ -48,13 +48,13 @@ app.controller('calendarController', ['$scope', 'calendarFactory', 'modalService
                         actionButtonText: 'OK',
                         headerText: 'Lucka ' + answer.Number,
                         bodyText: answer.SlotMessage ,
-                        slot: answer
+                        slotImgSrcData: "data:" + answer.ContentType + ";base64," + answer.ContentAsBase64
                     };
                     modalService.show(modalCalendarSettings, modalOptions);
                 },
                 function (error) {
                     // report something
-
+                    console.log(new Date().toString() + " **ERROR** " + " From calendarController.js OpenSlot, error reported " + error);
                 },
                 function (progress) {
                     // report progress

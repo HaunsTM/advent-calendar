@@ -2,7 +2,10 @@
     <h3>{{modalOptions.headerText}}</h3>
 </div>
 <div class="modal-body">
-    <img src="{{ 'data:' + modalOptions.slot.ContentType + ';base64,' + modalOptions.slot.ContentAsBase64 }}" style="max-width: 100%;"/>
+    <img ng-src={{modalOptions.slotImgSrcData}} alt="" style="max-width: 100%;"/>
+    
+    <!--Markup i Angular som <img src={{modalOptions.slotImgSrcData}}  ... /> kommer inte att fungera som förväntat. Browsern kommer bokstavligt att läsa in URL som text innan Angular byter ut uttrycket inom måsvingarna ( {{modalOptions.slotImgSrcData}} ). ng-src löser problemet!-->
+
     <p>{{modalOptions.bodyText}}</p>
 </div>
 <div class="modal-footer">
@@ -15,12 +18,3 @@
         {{modalOptions.actionButtonText}}
     </button>
 </div>
-
-            <!--this.Id = slot.Id;
-            this.Active = slot.Active;
-            this.Number = slot.Number;
-            this.SlotMessage = slot.SlotMessage;
-            this.ContentType = slot.ContentType;
-            this.ContentAsBase64 = slot.ContentAsBase64;
-            this.EarliestDateOfAllowedOpeningTime = slot.EarliestDateOfAllowedOpeningTime;
-            this.Opened = slot.Opened;-->

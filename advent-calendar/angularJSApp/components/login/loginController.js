@@ -1,7 +1,6 @@
 ﻿"use strict";
 app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessionService', function ($scope, $location, loginFactory, sessionService) {
 
-    $scope.Message = "This is loginController page";
     $scope.loginForm = {
         userName: undefined,
         userPassword: undefined,
@@ -12,7 +11,7 @@ app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessi
         loginFactory($scope.loginForm.userName, $scope.loginForm.userPassword)
         .then(function (response) {
             sessionService.SetToken(response.access_token);
-            sessionService.SetCurrentLoggedInUserRoleName(response.access_token);
+            sessionService.SetCurrentLoggedInUserRoleName(response.currentLoggedInUserRoleName); /*se ApplicationOAuthProvider.cs, där */
             $location.path('/');
         }, function (response) {
             $scope.loginForm.errorMessage = response.error_description;
