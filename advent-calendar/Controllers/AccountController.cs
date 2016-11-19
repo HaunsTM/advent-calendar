@@ -338,7 +338,7 @@ namespace advent_calendar.Controllers
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringSuperAdministrator = ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"];
+                var stringSuperAdministrator = ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
@@ -354,7 +354,7 @@ namespace advent_calendar.Controllers
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringUserAdministrator = ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"];
+                var stringUserAdministrator = ConfigurationManager.AppSettings["USER_ADMINISTRATOR"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
@@ -370,7 +370,7 @@ namespace advent_calendar.Controllers
             get
             {
                 Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringStandardUser = ConfigurationManager.AppSettings["STRING_STANDARD_USER"];
+                var stringStandardUser = ConfigurationManager.AppSettings["STANDARD_USER"];
                 using (var db = new ApplicationDbContext())
                 {
                     applicationUserRole = (from aUR in db.ApplicationUserRoles
@@ -458,8 +458,8 @@ namespace advent_calendar.Controllers
             var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
 
-            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]))
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation." + " " + "You are not administrator."));
@@ -481,8 +481,8 @@ namespace advent_calendar.Controllers
             var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
 
-            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]))
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation." + " " + "You are not administrator."));

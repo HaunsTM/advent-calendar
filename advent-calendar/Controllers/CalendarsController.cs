@@ -30,6 +30,7 @@ namespace advent_calendar.Controllers
             var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
+
         private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
             var currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
@@ -45,8 +46,8 @@ namespace advent_calendar.Controllers
             var currentLoggedInUser = this.CurrentLoggedInUser();
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
 
-            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation.");
@@ -59,7 +60,16 @@ namespace advent_calendar.Controllers
 
             // Read the file and form data.
             MultipartFormDataMemoryStreamProvider provider = new MultipartFormDataMemoryStreamProvider();
+            try
+            {
+
             await Request.Content.ReadAsMultipartAsync(provider);
+            }
+            catch (Exception ex)
+            {
+                int i = 0;
+                throw;
+            }
 
             // Extract the fields from the form data.
             string calendarName = provider.FormData["calendarName"];
@@ -113,35 +123,43 @@ namespace advent_calendar.Controllers
             };
             if (ModelState.IsValid)
             {
-                //do we have any old values which should be updated?
-                InactivatePossibleEarlierCalendarByYear(calendarToSave.Year, currentLoggedInUser);
                 db.Calendars.Add(calendarToSave);
                 db.SaveChanges();
+                //do we have any old values which should be updated?
+                InactivatePossibleEarlierCalendarByYearAndUpdatePossibleSlots(calendarToSave.Year, currentLoggedInUser, calendarToSave);
                 saved = true;
             }
             return saved;
         }
 
 
-        private bool InactivatePossibleEarlierCalendarByYear(int calendarYear, ApplicationUser currentLoggedInUser)
+        private bool InactivatePossibleEarlierCalendarByYearAndUpdatePossibleSlots(int calendarYear, ApplicationUser currentLoggedInUser, Calendar newCalendarThatShouldBeActive)
         {
             bool done = false;
-            bool activeStatusToSearchFor = true;
             bool activeStatusAfterUpdate = false;
-
-            var earlierCalendars = from c in db.Calendars
-                from u in db.Users
-                where (c.Year == calendarYear && c.Active == activeStatusToSearchFor) &&
-                      u.Id == currentLoggedInUser.Id
-                select c;
-
-            foreach (var earlierCalendar in earlierCalendars)
-            {
-                earlierCalendar.Active = activeStatusAfterUpdate;
-            }
-            // Submit the changes to the database.
             try
             {
+                var earlierCalendars = (from c in db.Calendars
+                    from u in db.Users
+                    where (c.Year == calendarYear && c.Id != newCalendarThatShouldBeActive.Id) &&
+                          u.Id == currentLoggedInUser.Id
+                    select c).ToList();
+
+                foreach (var earlierCalendar in earlierCalendars)
+                {
+                    earlierCalendar.Active = activeStatusAfterUpdate;
+
+                    var earlierCalendarsSlots = (from s in db.Slots
+                        where s.Calendar.Id == earlierCalendar.Id
+                        select s).ToList();
+
+                    foreach (var slot in earlierCalendarsSlots)
+                    {
+                        slot.Calendar = newCalendarThatShouldBeActive;
+                    }
+                }
+                // Submit the changes to the database.
+
                 db.SaveChanges();
                 done = true;
             }

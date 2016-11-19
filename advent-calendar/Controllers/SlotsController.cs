@@ -37,7 +37,7 @@ namespace advent_calendar.Controllers
         private ApplicationUser CurrentLoggedInUsersUserAdministrator(ApplicationUser currentLoggedInUser)
         {
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
-            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_STANDARD_USER"])
+            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STANDARD_USER"])
             {
                 return currentLoggedInUser.IsAdministratedBy;
             }
@@ -80,8 +80,8 @@ namespace advent_calendar.Controllers
             var currentLoggedInUser = this.CurrentLoggedInUser();
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
 
-            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation.");
@@ -228,7 +228,7 @@ namespace advent_calendar.Controllers
             {
                 Slot wantedSlot;
                 wantedCalendarViewModel = new CalendarViewModel(wantedCalendar);
-                wantedCalendar = null;
+                //wantedCalendar = null;
 
                 wantedSlot = await (from wS in db.Slots
                     where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendarViewModel.Id
