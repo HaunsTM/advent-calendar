@@ -139,13 +139,14 @@ namespace advent_calendar.Controllers
             bool activeStatusAfterUpdate = false;
             try
             {
-                var earlierCalendars = (from c in db.Calendars
-                    from u in db.Users
-                    where (c.Year == calendarYear && c.Id != newCalendarThatShouldBeActive.Id) &&
-                          u.Id == currentLoggedInUser.Id
-                    select c).ToList();
+                var currentLoggedInUsersEarlierCalendarsThatShouldBeInactive =
+                    db.Calendars
+                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUser.Id)) //get all calendars by the current logged in user
+                    .Where(cal => cal.Id != newCalendarThatShouldBeActive.Id) //exclude the calendar that should be active
+                    .ToList();
+                
 
-                foreach (var earlierCalendar in earlierCalendars)
+                foreach (var earlierCalendar in currentLoggedInUsersEarlierCalendarsThatShouldBeInactive)
                 {
                     earlierCalendar.Active = activeStatusAfterUpdate;
 
@@ -155,6 +156,7 @@ namespace advent_calendar.Controllers
 
                     foreach (var slot in earlierCalendarsSlots)
                     {
+                        //tie existing slots to the new calendar
                         slot.Calendar = newCalendarThatShouldBeActive;
                     }
                 }
@@ -179,11 +181,11 @@ namespace advent_calendar.Controllers
         {
             var currentLoggedInUser = CurrentLoggedInUser();
 
-            var calendar = await (from c in db.Calendars
-                from u in db.Users
-                where (c.Year == year && c.Active == true) &&
-                      u.Id == currentLoggedInUser.Id
-                select c).FirstOrDefaultAsync();
+            var calendar = await 
+                db.Calendars
+                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUser.Id)) //get all calendars by the current logged in user
+                    .Where(cal => cal.Active ==true) //make sure to get an active one
+                    .FirstOrDefaultAsync();
 
             if (calendar == null)
             {
