@@ -229,6 +229,7 @@
     <Content Include="angularJSApp\components\assignUsersToCalendar\assignUsersToCalendarView.html" />
     <Content Include="angularJSApp\components\calendar\calendarController.js" />
     <Content Include="angularJSApp\components\calendar\calendarView.html" />
+    <Content Include="angularJSApp\components\welcome\welcomeViewHelp.html" />
     <Content Include="angularJSApp\images\adventCalendarSE-logo.gif" />
     <Content Include="angularJSApp\images\animated-christmas-tree-flashing.gif" />
     <Content Include="angularJSApp\images\christmas-house.gif" />
@@ -246,6 +247,7 @@
     <Content Include="angularJSApp\images\santa-playing-saxophone.gif" />
     <Content Include="angularJSApp\images\santa-playing-trumpet.gif" />
     <Content Include="angularJSApp\images\santa-writing-list.gif" />
+    <Content Include="angularJSApp\images\snowman-waving.gif" />
     <Content Include="angularJSApp\images\stars-animated.gif" />
     <Content Include="angularJSApp\images\toy-train.gif" />
     <Content Include="angularJSApp\images\waving-santa-by-sleigh-ride.gif" />
@@ -259,8 +261,6 @@
     <Content Include="angularJSApp\components\createCalendar\createCalendarView.html" />
     <Content Include="angularJSApp\components\login\loginController.js" />
     <Content Include="angularJSApp\components\login\loginView.html" />
-    <Content Include="angularJSApp\components\logout\logoutController.js" />
-    <Content Include="angularJSApp\components\logout\logoutView.html" />
     <Content Include="angularJSApp\components\registerUserAdministrator\registerUserAdministratorController.js" />
     <Content Include="angularJSApp\components\registerUserAdministrator\registerUserAdministratorView.html" />
     <Content Include="angularJSApp\components\welcome\welcomeController.js" />
@@ -302,7 +302,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="angularJSApp\app.constants.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

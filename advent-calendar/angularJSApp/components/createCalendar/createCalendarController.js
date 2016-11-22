@@ -58,6 +58,9 @@ app.controller('createCalendarController', ['$scope', 'calendarFactory', 'calend
                 function(answer) {
                     // do something
                     $scope.calendar = answer;
+
+                    //what should we do when we have uploaded our calendar?
+                    $state.go('stateUploadSlotsToCalendar');
                 },
                 function(error) {
                     // report something

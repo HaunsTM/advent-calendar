@@ -26,30 +26,31 @@ app.controller('calendarController', ['$scope', 'calendarFactory', 'modalService
                     });
         };
 
-        var initializeController = function() {
+        var InitializeController = function() {
             GetCalendarData($scope.currentYear);
         };
 
         $scope.OpenSlot = function (slotNumber) {
+            var modalCalendarSettings = {
+                backdrop: true,
+                keyboard: true,
+                modalFade: true,
+                templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
+            };
+
+            var modalOptions = {
+                closeButtonText: 'Stäng',
+                actionButtonText: 'OK',
+                headerText: 'Lucka ' + answer.Number,
+                bodyText: answer.SlotMessage ,
+                slotImgSrcData: " data:" + answer.ContentType + ";base64," + answer.ContentAsBase64
+            };
+
            calendarFactory.OpenSlot($scope.currentYear, slotNumber)
             .then(
                 function (answer) {
                     // do something
                     $scope.slot = answer;
-                    var modalCalendarSettings = {
-                        backdrop: true,
-                        keyboard: true,
-                        modalFade: true,
-                        templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
-                    };
-
-                    var modalOptions = {
-                        closeButtonText: 'Close',
-                        actionButtonText: 'OK',
-                        headerText: 'Lucka ' + answer.Number,
-                        bodyText: answer.SlotMessage ,
-                        slotImgSrcData: "data:" + answer.ContentType + ";base64," + answer.ContentAsBase64
-                    };
                     modalService.show(modalCalendarSettings, modalOptions);
                 },
                 function (error) {
@@ -64,6 +65,6 @@ app.controller('calendarController', ['$scope', 'calendarFactory', 'modalService
         }
 
         // run while your controller loads
-        initializeController();
+        InitializeController();
     }
 ]);

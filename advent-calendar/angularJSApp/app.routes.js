@@ -63,19 +63,6 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
                 }
             }
         })
-        .state('stateLogout', {
-            url: '/logout',
-            views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
-                    templateUrl: '/angularJSApp/components/logout/logoutView.html',
-                    controller: 'logoutController'
-                }
-            }
-        })
         .state('stateRegisterUserAdministrator', {
             url: '/registerUserAdministrator',
             views: {
@@ -102,19 +89,6 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
                 }
             }
         })
-        .state('stateWelcome', {
-            url: '/welcome',
-            views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                }
-            }
-        })
         .state('otherwise', {
             /* $stateProvider har till skillnad från $routeProvider inget inbyggt stöd för 
                otherwise-funktionalitet (när vi försöker navigera till något som inte är 
@@ -123,7 +97,7 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '*path',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+                    templateUrl: '/angularJSApp/components/welcome/WelcomeViewHelp.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {

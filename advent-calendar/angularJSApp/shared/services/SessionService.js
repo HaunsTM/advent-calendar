@@ -2,7 +2,7 @@
 /* Vi behöver en plats att spara autentiseringstoken när de kommer från vårt API - en sak som vi kan göra i en Service. Services i AngularJS är singletons [Singleton är ett designmönster som innebär att man begränsar antalet instanser av en klass till ett och endast ett objekt.]
 */
 
-app.service('sessionService', ['$localStorage', 'constants', function ($localStorage, constants) {
+app.service('sessionService', ['$localStorage', function ($localStorage) {
 
     this.GetToken = function () {
         return $localStorage.adventCalendarAppToken;
@@ -15,14 +15,15 @@ app.service('sessionService', ['$localStorage', 'constants', function ($localSto
     this.GetCurrentLoggedInUserRoleName = function () {
         var applicationUserRole;
         switch ($localStorage.currentLoggedInUserRoleName) {
+            //the switches are just for documentation of available options
             case 'SUPER_ADMINISTRATOR':
-                applicationUserRole = constants.APPLICATION_USER_ROLE.ADMINISTRATOR;
+                applicationUserRole = 'SUPER_ADMINISTRATOR';
                 break;
             case 'USER_ADMINISTRATOR':
-                applicationUserRole = constants.APPLICATION_USER_ROLE.ADMINISTRATOR;
+                applicationUserRole = 'USER_ADMINISTRATOR';
                 break;
             case 'STANDARD_USER':
-                applicationUserRole = constants.APPLICATION_USER_ROLE.STANDARD_USER;
+                applicationUserRole = 'STANDARD_USER';
                 break;
             default:
                 applicationUserRole = undefined;

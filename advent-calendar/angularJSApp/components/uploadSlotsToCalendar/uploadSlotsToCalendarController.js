@@ -49,6 +49,9 @@ app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendar
             upload.then(function (resp) {
                 // file is uploaded successfully
                 console.log('file ' + resp.config.data.file.name + 'is uploaded successfully. Response: ' + resp.data);
+
+                //what should we do when we have uploaded our slots?
+                $state.go('stateAssignUsersToCalendar');
             }, function (resp) {
                 // handle error
             }, function (evt) {

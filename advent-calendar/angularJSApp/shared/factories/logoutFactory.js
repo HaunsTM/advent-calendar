@@ -11,6 +11,7 @@ app.factory('logoutFactory', ['$http', '$q', 'sessionService', function ($http, 
             result.resolve(response);
         })
         .error(function (response) {
+                debugger;
             result.reject(response);
         });
 
