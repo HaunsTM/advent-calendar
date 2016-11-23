@@ -1,24 +1,21 @@
-﻿<div>
-    <h2>Skapa kalender</h2>
-    <h5>{{Message}}</h5>
-    
-    <form name="createCalendar" class="form-horizontal">
-        <div class="form-group">
-            <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
-            <select class="form-control" id="calendarYearSelect"
-                    ng-model="selectedYear"
-                    ng-change="updateCalendarYear()"
-                    ng-options="option.value as option.name for option in calendarYears">
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="calendarImageFile">Ange kalenderårets bakrundsbild:</label>
-            <input id="calendarImageFile" type="file" name="file" ng-files="getTheFiles($files)" required/>
-        </div>
-
-        <div class="form-group">
-            <input type="button" class="btn btn-success" ng-click="UploadCalendar()" ng-disabled="createCalendar.$invalid" value="Ladda upp" />
-        </div>
-    </form>
-    
+﻿<div class="page-header">
+    <h1>Ladda upp bakgrundsbild</h1>
 </div>
+
+<form name="createCalendar" class="form-horizontal">
+    <div class="form-group">
+        <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
+        <select class="form-control" id="calendarYearSelect"
+                ng-model="selectedYear"
+                ng-change="updateCalendarYear()"
+                ng-options="option.value as option.name for option in calendarYears"></select>
+    </div>
+    <div class="form-group">
+        <label for="calendarImageFile">Ange kalenderårets bakrundsbild:</label>
+        <input id="calendarImageFile" type="file" name="file" ng-files="getTheFiles($files)" required />
+    </div>
+
+    <div class="form-group">
+        <input type="button" class="btn btn-success" ng-click="UploadCalendar()" ng-disabled="createCalendar.$invalid" value="Ladda upp" />
+    </div>
+</form>

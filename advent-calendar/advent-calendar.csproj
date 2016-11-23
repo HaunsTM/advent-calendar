@@ -238,6 +238,7 @@
     <Content Include="angularJSApp\components\welcome\welcomeViewHelp.html" />
     <Content Include="angularJSApp\images\adventCalendarSE-logo.gif" />
     <Content Include="angularJSApp\images\animated-christmas-tree-flashing.gif" />
+    <Content Include="angularJSApp\images\calendarBackgrounds\snow-man.jpg" />
     <Content Include="angularJSApp\images\christmas-house.gif" />
     <Content Include="angularJSApp\images\christmas-tree-animated-dancing.gif" />
     <Content Include="angularJSApp\images\cute-bells.gif" />

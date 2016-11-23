@@ -46,7 +46,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         return result.promise;
     }
 
-    fac.OpenSlot = function (calendarYear, slotNumber) {
+    fac.GetSlotFromServer = function (calendarYear, slotNumber) {
 
         var result = $q.defer();
 

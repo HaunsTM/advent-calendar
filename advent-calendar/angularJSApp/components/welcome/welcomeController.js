@@ -13,6 +13,14 @@ app.controller('welcomeController', ['$scope', '$state', 'sessionService', funct
         }
     }
 
+    $scope.Register = function() {
+        
+    }
+
+    $scope.Login = function () {
+
+    }
+
     // run while your controller loads
     initializeController();
 

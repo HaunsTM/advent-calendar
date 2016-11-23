@@ -1,7 +1,6 @@
 ﻿html {
   position: relative;
   min-height: 100%;
-    background: green;
 }
 body {
   /* Margin bottom by footer height */
@@ -18,8 +17,14 @@ body {
 
 .container {
     border: 1px blue solid;
+    
+    height: calc(100vh - 130px);
 }
-
+.containerHelp {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 footer {
   position: absolute;
   bottom: 0;
