@@ -1,17 +1,8 @@
 ﻿"use strict";
-//app.controller('calendarController', ['$scope', 'calendarFactory',  function ($scope, calendarFactory) {
-app.controller('calendarController', ['$scope', 'calendarFactory', 'modalService', function ($scope, calendarFactory, modalService) {
-    $scope.Message = "This is calendarController page";
-
+app.controller('calendarController', ['$scope', '$uibModal', 'calendarFactory', function ($scope, $uibModal, calendarFactory) {
     $scope.currentYear = new Date().getFullYear().toString();
 
     $scope.calendar = {};
-    $scope.slot = {};
-
-    $scope.slotContentLoaded = false;
-
-    $scope.modalCalendarSettings = undefined;
-    $scope.modalOptions = undefined;
 
     var GetCalendarData = function (yearForCurrentLoggedUsersCalendar) {
         return calendarFactory.GetCalendar(yearForCurrentLoggedUsersCalendar)
@@ -33,53 +24,56 @@ app.controller('calendarController', ['$scope', 'calendarFactory', 'modalService
         GetCalendarData($scope.currentYear);
     };
 
-    var initialModalCalendarSettings = {
-        backdrop: true,
-        keyboard: true,
-        modalFade: true,
-        templateUrl: '/angularJSApp/components/calendar/slotContentModal.html'
-    };
-
-    var initialModalOptions = {
-        closeButtonText: 'Stäng',
-        actionButtonText: 'OK',
-        headerText: '',
-        bodyText: 'Hämtar lucka...',
-        slotImgSrcData: '/angularJSApp/images/santa-cheers.gif'
-    };
-
     $scope.OpenSlot = function (slotNumber) {
+        $scope.modalOptions = {};
 
-        $scope.modalCalendarSettings = initialModalCalendarSettings;
+        var initialModalOptions = {
+            closeButtonText: 'Stäng',
+            actionButtonText: 'OK',
+            headerText: '',
+            bodyText: 'Hämtar lucka...',
+            slotImgSrcData: '/angularJSApp/images/santa-cheers.gif'
+        };
+
         $scope.modalOptions = initialModalOptions;
 
-        modalService.show($scope.modalCalendarSettings, $scope.modalOptions);
+        var slotInstanceModal = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            backdrop: 'static',
+            keyboard: true,
+            modalFade: true,
+            templateUrl: '/angularJSApp/components/calendar/slot/slotContentModalView.html',
+            scope: $scope
+        });
 
-        calendarFactory.GetSlotFromServer($scope.currentYear, slotNumber)
+
+        slotInstanceModal.opened.then(function () {
+            calendarFactory.GetSlotFromServer($scope.currentYear, slotNumber)
         .then(
             function (answer) {
                 // do something
-                $scope.modalOptions = {
-                    closeButtonText: 'Stäng',
-                    actionButtonText: 'OK',
-                    headerText: 'Lucka ' + answer.Number,
-                    bodyText: 'Hämtar lucka!',
-                    slotImgSrcData: " data:" + answer.ContentType + ";base64," + answer.ContentAsBase64
-                };
+                $scope.modalOptions.headerText = 'Lucka ' + answer.Number;
+                $scope.modalOptions.bodyText=answer.SlotMessage,
+                    $scope.modalOptions.slotImgSrcData=" data:" + answer.ContentType + ";base64," + answer.ContentAsBase64
+
 
             },
             function (error) {
                 // report something
-                console.log(new Date().toString() + " **ERROR** " + " From calendarController.js OpenSlot, error reported " + error);
+                console.warn(new Date().toString() + " **ERROR** " + " From slotContentModalService.js OpenSlot, error reported " + error);
             },
             function (progress) {
                 // report progress
             });
+        });
 
 
-    }
+
+
+        return slotInstanceModal.result;
+    };
+    
 
     // run while your controller loads
     InitializeController();
-}
-]);
+}]);
