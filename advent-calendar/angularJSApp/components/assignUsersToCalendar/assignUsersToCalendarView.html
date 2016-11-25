@@ -1,11 +1,11 @@
 ﻿<form name="outerForm" ng-submit="RegisterStandardUsers()"> <!--http://stackoverflow.com/questions/14378401/dynamic-validation-and-name-in-a-form-with-angularjs#answer-14379763-->
 
 
-    <fieldset data-ng-repeat="calendarUser in calendarUsers" style="border: 1px aqua solid">
+    <fieldset data-ng-repeat="calendarUser in calendarUsers">
         <ng-form name="innerForm">
             <div class="form-group">
                 <label for="userName">Namn på kalenderanvändare</label>
-                <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName">
+                <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName" />
             </div>
             <div class="form-group">
                 <label for="userPassword">Password</label>
