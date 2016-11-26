@@ -6,7 +6,7 @@ app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendar
 
     var initiateSlotArray = function() {
         var firstSlotNumber = 1;
-        var lastSlotNumber = 3;
+        var lastSlotNumber = 24;
         //let's create an array
         for (var i = firstSlotNumber; i < lastSlotNumber + 1; i++) {
             $scope.slots.push({

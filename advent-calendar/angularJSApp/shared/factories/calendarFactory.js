@@ -64,8 +64,10 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         .success(function (response) {
             result.resolve(response);
         })
-        .error(function (response) {
-            result.reject(response);
+        .error(function (error, status) {
+            //error – {string|Object} – The response body transformed with the transform functions.
+            //status – {number} – HTTP status code of the response.
+            result.reject({ error: error, status: status });
         });
 
         return result.promise;

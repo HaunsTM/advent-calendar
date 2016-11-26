@@ -1,50 +1,40 @@
-﻿<div class="page-header">
-    <h1>Uppladdningsformulär för luckor</h1>
-</div>
-
-<form role="form" class="form-inline">
-    
-    <div class="row">
-        <div class="col-sm-3">
-            <div ui-view="containerOne" class="containerOne"></div>
-        </div>
-        <div class="col-sm-6">
-        </div>
-        <div class="col-sm-3">
-        </div>
+﻿<div class="containerForm">
+    <div class="page-header">
+        <h1>Uppladdningsformulär för luckor</h1>
     </div>
-    
 
-    <div style="overflow-y: scroll; height: 300px;">
+    <form role="form" class="form-inline">
+        
         <div id="outerBox" class="slotImageOuterBox" data-ng-repeat="slot in slots">
-            <div id="leftBox" style="">
+            <div id="leftBox">
                 <div class="form-group">
+                    <label for="slotImage">Lucka:</label>
                     <h1>{{slot.slotNumber}}</h1>
                 </div>
             </div>
             <div id="middleBox">
                 <div class="form-group">
-                    <label for="slotImage">Bild i luckan:</label>
-                    <div ngf-drop ngf-select ng-model="slot.imageFile" class="slotImageFormGroup"
-                         ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
-                         accept="image/*,application/pdf"
-                         ngf-pattern="'image/*'">Dra och släpp en bild till luckan här (max 500 kB)</div>
+                    <label for="slotImage">Bild:</label>
+                    <div ngf-drop ngf-select ng-model="slot.imageFile" class="slotImageFormGroup" id="slotImage"
+                            ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
+                            accept="image/*"
+                            ngf-pattern="'image/*'">Dra och släpp en bild till luckan här (max 500 kB)</div>
                     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="slotClue">Ledtråd</label>
-                    <input type="text" class="form-control" id="slotClue" placeholder="Ledtråd" ng-model="slot.slotMessage">
+                    <label for="slotClue">Text</label>
+                    <input type="text" class="form-control" id="slotClue" placeholder="Text som kan visas i luckan" ng-model="slot.slotMessage">
                 </div>
             </div>
             <div id="rightBox">
-                <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="slotImagePreview"/>
+                <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="slotImagePreview" />
             </div>
         </div>
-    </div>
 
 
-    <div class="form-group">
-        <input type="button" class="btn btn-success" ng-click="UploadSlots()" value="Ladda upp"/>
-    </div>
-</form>
+        <div class="form-group">
+            <input type="button" class="btn btn-success" ng-click="UploadSlots()" value="Ladda upp" />
+        </div>
+    </form>
+</div>

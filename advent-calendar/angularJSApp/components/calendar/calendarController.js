@@ -53,14 +53,39 @@ app.controller('calendarController', ['$scope', '$uibModal', 'calendarFactory', 
             function (answer) {
                 // do something
                 $scope.modalOptions.headerText = 'Lucka ' + answer.Number;
-                $scope.modalOptions.bodyText=answer.SlotMessage,
-                $scope.modalOptions.slotImgSrcData=" data:" + answer.ContentType + ";base64," + answer.ContentAsBase64;
-                $scope.playSlotOpeningSound();
+                $scope.modalOptions.bodyText = answer.SlotMessage,
+                $scope.modalOptions.slotImgSrcData = " data:" + answer.ContentType + ";base64," + answer.ContentAsBase64;
+                $scope.playSound('angularJSApp/sounds/slot-opening.mp3');
 
             },
-            function (error) {
-                // report something
-                console.warn(new Date().toString() + " **ERROR** " + " From slotContentModalService.js OpenSlot, error reported " + error);
+            function (response) {
+                //error – {string|Object} – The response body transformed with the transform functions.
+                //status – {number} – HTTP status code of the response.
+                console.warn(new Date().toString() + " **ERROR** " + " From slotContentModalService.js OpenSlot, error reported " + response.error);
+
+                var headerText = '';
+                var bodyText = '';
+                var slotImgSrcData = '';
+
+                headerText = 'Lucka ' + slotNumber;
+                slotImgSrcData = '/angularJSApp/images/santa-at-computer.gif';
+                switch (response.status) {
+                    case 403:
+                        bodyText = 'Den här luckan får du inte öppna än...';
+                        break;
+                    case 404:
+                        bodyText = 'Oj! Den här luckan har visst försvunnit. ';
+                        break;
+                    default:
+                        headerText = '';
+                        bodyText = '';
+                        slotImgSrcData = '';
+                }
+                $scope.modalOptions.headerText = headerText;
+                $scope.modalOptions.bodyText = bodyText,
+                $scope.modalOptions.slotImgSrcData = slotImgSrcData;
+
+                $scope.playSound('angularJSApp/sounds/failure-sound.mp3');
             },
             function (progress) {
                 // report progress
@@ -70,8 +95,8 @@ app.controller('calendarController', ['$scope', '$uibModal', 'calendarFactory', 
         return slotInstanceModal.result;
     };
     
-    $scope.playSlotOpeningSound = function () {
-        var audio = new Audio('angularJSApp/sounds/slot-opening.mp3');
+    $scope.playSound = function (soundURL) {
+        var audio = new Audio(soundURL);
         audio.play();
     };
 

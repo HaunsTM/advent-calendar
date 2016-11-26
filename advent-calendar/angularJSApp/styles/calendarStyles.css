@@ -20,7 +20,7 @@ body {
 }
 
 .container {
-    height: calc(100vh - 130px);
+    max-height: calc(100vh - 130px);
 }
 
 .containerHelp {
@@ -28,8 +28,13 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.containerForm {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 
-.containerHelp::-webkit-scrollbar { 
+.containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar { 
     display: none;
 }
 
@@ -74,6 +79,9 @@ footer {
     margin-bottom: 10px;
 }
 
+#leftBox {
+    padding: 0 10px
+}
 
 .slotImageFormGroup {
     background: mediumaquamarine;
@@ -82,7 +90,7 @@ footer {
     height: 65px;
     border-radius: 25px;
     text-align: center;
-    padding-top: 25px;
+    padding: 5px;
     margin: 10px;
 }
 
