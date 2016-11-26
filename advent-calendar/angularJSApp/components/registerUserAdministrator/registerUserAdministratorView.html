@@ -1,23 +1,23 @@
 ﻿<div class="page-header">
     <h1>Registrera administratör</h1>
 </div>
-<form role="form" ng-submit="RegisterUserAdministrator()">
+<form role="form" ng-submit="RegisterUserAdministrator()" class="form-horizontal">
     <div class="form-group">
         <div class="col-sm-6">
             <label for="emailAddress" class="control-label">E-postadress</label>
-            <input type="email" class="form-control" id="emailAddress" placeholder="Enter email" ng-model="registerUserAdministratorForm.username">
+            <input type="email" class="form-control" id="emailAddress" placeholder="E-postadress" ng-model="registerUserAdministratorForm.username">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label for="password" class="control-label">Lösenord</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="registerUserAdministratorForm.password">
+            <input type="password" class="form-control" id="password" placeholder="Lösenord" ng-model="registerUserAdministratorForm.password">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label for="password" class="control-label">Lösenordet en gång till</label>
-            <input type="password" class="form-control" id="password" placeholder="Confirm Password" ng-model="registerUserAdministratorForm.confirmPassword">
+            <input type="password" class="form-control" id="password" placeholder="Bekräfta lösenord" ng-model="registerUserAdministratorForm.confirmPassword">
         </div>
     </div>
     <div class="form-group">

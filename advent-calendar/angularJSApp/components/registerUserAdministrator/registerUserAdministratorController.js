@@ -1,5 +1,5 @@
 ﻿"use strict";
-app.controller('registerUserAdministratorController', ['$scope', ' $state', 'loginFactory', 'registerFactory', 'sessionService', function ($scope, $state, loginFactory, registerFactory, sessionService) {
+app.controller('registerUserAdministratorController', ['$scope', '$state', 'loginFactory', 'registerFactory', 'sessionService', function ($scope, $state, loginFactory, registerFactory, sessionService) {
     $scope.registerUserAdministratorForm = {
         username: undefined,
         password: undefined,
@@ -17,7 +17,6 @@ app.controller('registerUserAdministratorController', ['$scope', ' $state', 'log
                 //ok, we have successfully authenticated, let's store returned authentication data for further use
                 sessionService.SetToken(response.access_token);
                 sessionService.SetCurrentLoggedInUserRoleName(response.currentLoggedInUserRoleName);
-
                 //what should we do when we are logged in?
                 $state.go('stateCreateCalendar');
             }, function (errorResponse) {
