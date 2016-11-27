@@ -3,19 +3,48 @@
 </div>
 
 <form name="createCalendar" class="form-horizontal">
-    <div class="form-group">
-        <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
-        <select class="form-control" id="calendarYearSelect"
-                ng-model="selectedYear"
-                ng-change="updateCalendarYear()"
-                ng-options="option.value as option.name for option in calendarYears"></select>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="calendarYearSelect">Ange vilket år som kalendern ska gälla för:</label>
+            <select class="form-control" id="calendarYearSelect"
+                    ng-model="calendar.year"
+                    ng-options="option.value as option.name for option in calendarYears"></select>
+        </div>
+        <div class="form-group">
+            <label for="calendarName" class="control-label">Namn:</label>
+            <input type="text" class="form-control" id="calendarName" placeholder="Ej aktiv" disabled ng-model="calendar.Name">
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="calendarImage">Ange kalenderårets bakrundsbild:</label>
+            <div class="panel panel-primary">
+                <div class="panel-heading">(max 500 kB)</div>
+                <div class="panel-body">
+                    <div ngf-drop ngf-select ng-model="calendar.imageFile" id="calendarImage"
+                         ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
+                         accept="image/*,application/pdf"
+                         ngf-pattern="'image/*'">Dra och släpp en bild till kalendern här.</div>
+                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form-group">
-        <label for="calendarImageFile">Ange kalenderårets bakrundsbild:</label>
-        <input id="calendarImageFile" type="file" name="file" ng-files="getTheFiles($files)" required />
+        <div class="col-sm-offset-3"></div>
+        <div class="col-sm-3">
+            <img ngf-src="calendar.imageFile" ngf-resize="{quality: 0.4}" class="img-responsive center-block" />
+        </div>
     </div>
-
     <div class="form-group">
-        <input type="button" class="btn btn-success" ng-click="UploadCalendar()" ng-disabled="createCalendar.$invalid" value="Ladda upp" />
+        <div class="col-sm-6">
+            <input type="button" class="btn btn-success" ng-click="UploadCalendar()" ng-disabled="createCalendar.$invalid" value="Ladda upp" />
+        </div>
     </div>
 </form>
+<div id="rightBox">
+
+</div>
+
+

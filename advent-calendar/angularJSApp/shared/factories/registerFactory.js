@@ -8,7 +8,7 @@ app.factory('registerFactory', ['$http', '$q', 'sessionService', function ($http
         var result = $q.defer();
         $http({
                 method: 'POST',
-                url: sessionService.apiUrl + '/api/Account/RegisterUserAdministrator',
+                url: '/api/Account/RegisterUserAdministrator',
                 data: { Email: email, Password: password, ConfirmPassword: confirmPassword },
                 headers: { 'Content-Type': 'application/json' }
             })

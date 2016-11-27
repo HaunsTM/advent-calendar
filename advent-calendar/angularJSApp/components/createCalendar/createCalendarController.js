@@ -1,9 +1,11 @@
 ﻿"use strict";
-app.controller('createCalendarController', ['$scope', 'calendarFactory', 'calendarEntityService', function ($scope, calendarFactory, calendarEntityService) {
-    $scope.Message = "This is createCalendarController page";
+app.controller('createCalendarController', ['$scope', '$state', 'calendarFactory', 'calendarEntityService', function ($scope, $state, calendarFactory, calendarEntityService) {
 
-    //http://www.encodedna.com/angularjs/tutorial/angularjs-file-upload-using-http-post-formdata-webapi.htm
-    var formData = new FormData();
+    $scope.calendar = {
+        year: '',
+        imageFile: '',
+        name: 'NO_NAME'
+    }
 
     $scope.calendarYears = [
         {
@@ -36,23 +38,16 @@ app.controller('createCalendarController', ['$scope', 'calendarFactory', 'calend
         }
     ];
 
-    $scope.selectedYear = calendarEntityService.defaultCalendarYear;
+    
+    
+    $scope.UploadCalendar = function () {
+        var formData = new FormData();
+        formData = {
+            calendarYear: $scope.calendar.year,
+            imageFile: $scope.calendar.imageFile,
+            calendarName: $scope.calendar.name
+        }
 
-    $scope.updateCalendarYear = function () {
-        calendarEntityService.setCurrentCalendarYear($scope.selectedYear);
-    }
-
-    $scope.getTheFiles = function ($files) {
-
-        formData.append('calendarName', 'NO_CALENDAR_NAME'); //The variable 'calendarName' is for future use.
-        formData.append('calendarYear', $scope.selectedYear);
-
-        angular.forEach($files, function (value, key) {
-            formData.append(key, value);
-        });
-    };
-
-    $scope.UploadCalendar = function() {
         calendarFactory.UploadCalendar(formData)
             .then(
                 function(answer) {
@@ -64,21 +59,18 @@ app.controller('createCalendarController', ['$scope', 'calendarFactory', 'calend
                 },
                 function(error) {
                     // report something
-                    $scope.reset();
                 },
                 function(progress) {
                     // report progress
                 });
     };
 
-    $scope.reset = function() {
-        angular.forEach(
-            angular.element("input [type = 'file']"),
-            function(inputElement) {
-                angular.element(inputElement).val(null);
-            });
-        $scope.imagesrc = [];
-        formData = new FormData();
+
+    var InitializeController = function () {
+        $scope.calendar.year = calendarEntityService.defaultCalendarYear;
     };
+
+    // run while your controller loads
+    InitializeController();
 
 }]);

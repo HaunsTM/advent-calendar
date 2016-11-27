@@ -7,7 +7,7 @@ app.factory('loginFactory', ['$http', '$q', 'sessionService', function ($http, $
 
         $http({
             method: 'POST',
-            url: sessionService.apiUrl + '/token',
+            url: '/token',
             transformRequest: function (obj) {
                 var str = [];
                 for (var p in obj)

@@ -68,6 +68,7 @@ namespace advent_calendar.Controllers
         }
 
         // POST api/Account/Logout
+        [AllowAnonymous]
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("Logout")]
         public IHttpActionResult Logout()

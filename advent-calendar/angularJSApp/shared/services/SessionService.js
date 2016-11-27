@@ -36,5 +36,5 @@ app.service('sessionService', ['$localStorage', function ($localStorage) {
         return $localStorage.currentLoggedInUserRoleName = loggedInUserRoleName;
     }
 
-    this.apiUrl = 'http://localhost:5586';
+    this.apiUrl = '';// 'http://localhost:5586';
 }]);

@@ -1,29 +1,22 @@
 ﻿"use strict";
-app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $http, sessionService) {
+app.factory('calendarFactory', ['$q', '$http', 'sessionService', 'Upload', function ($q, $http, sessionService, Upload) {
 
     var fac = {};
 
     fac.UploadCalendar = function (formData) {
-        var result = $q.defer();
         var request = {
             method: 'POST',
-            url: 'api/Calendars/UploadCalendar',
+            url: '/api/Calendars/UploadCalendar',
             data: formData,
             headers: {
-                'Content-Type': undefined,
                 'Authorization': 'Bearer ' + sessionService.GetToken()
             }
         };
 
-        $http(request)
-            .success(function (response) {
-                result.resolve(response);
-            })
-            .error(function (response) {
-                result.reject(response);
-            });
+        var upload = Upload.upload(request);
 
-        return result.promise;
+        // returns a promise
+        return upload;
     }
 
     fac.GetCalendar =  function (yearForCurrentLoggedUsersCalendar) {

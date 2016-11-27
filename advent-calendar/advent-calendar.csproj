@@ -281,6 +281,7 @@
     <Content Include="angularJSApp\shared\factories\registerFactory.js" />
     <Content Include="angularJSApp\shared\services\calendarEntityService.js" />
     <Content Include="angularJSApp\shared\services\sessionService.js" />
+    <Content Include="angularJSApp\sounds\failure-sound.mp3" />
     <Content Include="angularJSApp\sounds\slot-opening.mp3" />
     <Content Include="angularJSApp\styles\calendarStyles.css" />
     <Content Include="Content\bootstrap-theme.css" />
