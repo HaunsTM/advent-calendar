@@ -244,6 +244,7 @@
     <Content Include="angularJSApp\images\calendarBackgrounds\pergament01.gif" />
     <Content Include="angularJSApp\images\calendarBackgrounds\snow-man.jpg" />
     <Content Include="angularJSApp\images\cute-bells.gif" />
+    <Content Include="angularJSApp\images\help\upload-slot.jpg" />
     <Content Include="angularJSApp\images\hideawayExamples\12.JPG" />
     <Content Include="angularJSApp\images\hideawayExamples\15.JPG" />
     <Content Include="angularJSApp\images\hideawayExamples\24.JPG" />
