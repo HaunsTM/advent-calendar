@@ -17,10 +17,10 @@
                                      ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
                                      accept="image/*,application/pdf"
                                      ngf-pattern="'image/*'">
-                                    <p ng-if="!slot.imageFile">Klicka eller dra hit en bild</p>
+                                    <p ng-if="!slot.imageFile">Klicka här (eller dra en bild hit)!</p>
                                     <img ng-if="slot.imageFile" ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="img-thumbnail" />
                                 </div>
-                                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                <div ngf-no-file-drop>Din webbläsare saknar stöd för Drag'n Drop. Klicka här istället!</div>
                             </div>
                         </div>
                     </div>

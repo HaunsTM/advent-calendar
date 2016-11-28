@@ -238,6 +238,7 @@
     <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarViewHelp.html" />
     <Content Include="angularJSApp\components\welcome\welcomeViewHelp.html" />
     <Content Include="angularJSApp\images\adventCalendarSE-logo.gif" />
+    <Content Include="angularJSApp\images\calendar-demo-advertisement.jpg" />
     <Content Include="angularJSApp\images\calendarBackgrounds\border.png" />
     <Content Include="angularJSApp\images\calendarBackgrounds\paper-background.jpg" />
     <Content Include="angularJSApp\images\calendarBackgrounds\pergament01.gif" />

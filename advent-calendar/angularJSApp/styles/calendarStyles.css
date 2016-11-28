@@ -24,6 +24,7 @@ body {
 .container {
     background-image: url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
     max-height: calc(100vh - 130px);
+    height: calc(100vh - 130px);
 }
 
 .containerHelp {
@@ -63,7 +64,7 @@ footer {
     }
 
 .modal-dialog {
-    width: 80vw;
+    width: 90vw;
 }
 
 .modal-content {
