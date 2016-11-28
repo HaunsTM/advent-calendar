@@ -54,7 +54,7 @@ app.controller('calendarController', ['$scope', '$uibModal', 'calendarFactory', 
                 // do something
                 $scope.modalOptions.headerText = 'Lucka ' + answer.Number;
                 $scope.modalOptions.bodyText = answer.SlotMessage,
-                $scope.modalOptions.slotImgSrcData = " data:" + answer.ContentType + ";base64," + answer.ContentAsBase64;
+                $scope.modalOptions.slotImgSrcData = "data:" + answer.ContentType + ";base64," + answer.ContentAsBase64;
                 $scope.playSound('angularJSApp/sounds/slot-opening.mp3');
 
             },

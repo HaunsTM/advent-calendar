@@ -1,25 +1,28 @@
 ﻿html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 30px;
 
-    background-image: url("/angularJSApp/images/calendarBackgrounds/border.png"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 30px;
+    background: black;
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
 .navbar-brand {
-  padding: 0px;
-}
-.navbar-brand>img {
-  height: 100%;
-  padding: 7px 15px;
-  width: auto;
+    padding: 0px;
 }
 
+    .navbar-brand > img {
+        height: 100%;
+        padding: 7px 15px;
+        width: auto;
+    }
+
 .container {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
     max-height: calc(100vh - 130px);
 }
 
@@ -28,75 +31,50 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
 .containerForm {
     height: calc(100vh - 130px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar { 
-    display: none;
-}
+    .containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar {
+        display: none;
+    }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 30px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 30px;
 }
+
 .svg-container {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
-    
     height: calc(100vh - 130px);
     display: block;
 }
-.svg-container > svg > g:hover {
-    cursor: pointer;
-}
+
+    .svg-container > svg > g:hover {
+        cursor: pointer;
+    }
+
 .modal-dialog {
-    width: 40%;
+    width: 80vw;
 }
+
 .modal-content {
     padding: 5% 10%;
     background-color: transparent;
-    
     background-image: url("/angularJSApp/images/calendarBackgrounds/pergament01.gif");
     background-size: 100% 100%;
     border: 0 !important;
     box-shadow: none;
 }
 
-.slotImageOuterBox {
-    display: flex;
-    justify-content: space-around;
-    border-radius: 25px;
-    background: darkseagreen;
-    padding: 20px;
-    margin-bottom: 10px;
-}
-
-#leftBox {
-    padding: 0 10px
-}
-
-.slotImageFormGroup {
-    background: mediumaquamarine;
-    border: 5px dashed cadetblue;
-    width: 200px;
-    height: 65px;
-    border-radius: 25px;
-    text-align: center;
-    padding: 5px;
-    margin: 10px;
-}
-
-.slotImagePreview {
-    background: mediumaquamarine;
-    min-height: 50px;
-    max-width: 150px;
-    height: auto;
-    border-radius: 25px;
+.modal-content img {
+    max-height: 50vh;
 }

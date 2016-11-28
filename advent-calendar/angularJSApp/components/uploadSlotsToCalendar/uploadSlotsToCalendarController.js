@@ -1,5 +1,5 @@
 ﻿"use strict";
-app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendarEntityService', 'calendarFactory', 'sessionService', function ($scope, Upload, calendarEntityService, calendarFactory, sessionService) {
+app.controller('uploadSlotsToCalendarController', ['$scope', '$state', 'Upload', 'calendarEntityService', 'calendarFactory', 'sessionService', function ($scope, $state, Upload, calendarEntityService, calendarFactory, sessionService) {
     $scope.Message = "This is createCalendarController page";
 
     $scope.slots = [];
@@ -29,35 +29,48 @@ app.controller('uploadSlotsToCalendarController', ['$scope', 'Upload', 'calendar
     $scope.UploadSlots = function () {
 
         angular.forEach($scope.slots, function (slot) {
-            var formData =  {
+            
+            //do we have a valid file for upload?
+            if (slot.imageFile) {
+
+                var formData = {
                     calendarYear: calendarEntityService.getCurrentCalendarYear(),
                     file: slot.imageFile,
-                    slotNumber:slot.slotNumber,
+                    slotNumber: slot.slotNumber,
                     slotMessage: slot.slotMessage
-            }
-
-            var upload = Upload.upload({
-                method: 'POST',
-                url: 'api/Slots/UploadSlot',
-                data: formData,
-                headers: {
-                    'Authorization': 'Bearer ' + sessionService.GetToken()
                 }
-            });
 
-            // returns a promise
-            upload.then(function (resp) {
-                // file is uploaded successfully
-                console.log('file ' + resp.config.data.file.name + 'is uploaded successfully. Response: ' + resp.data);
+                var upload = Upload.upload({
+                    method: 'POST',
+                    url: 'api/Slots/UploadSlot',
+                    data: formData,
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionService.GetToken()
+                    }
+                });
 
-                //what should we do when we have uploaded our slots?
-                $state.go('stateAssignUsersToCalendar');
-            }, function (resp) {
-                // handle error
-            }, function (evt) {
-                // progress notify
-                console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :' + evt.config.data.file.name);
-            });
+                // returns a promise
+                upload.then(function(resp) {
+                        // file is uploaded successfully
+                        console.log('file ' +
+                            resp.config.data.file.name +
+                            'is uploaded successfully. Response: ' +
+                            resp.data);
+
+                        //what should we do when we have uploaded our slots?
+                        $state.go('stateAssignUsersToCalendar');
+                    },
+                    function(resp) {
+                        // handle error
+                    },
+                    function(evt) {
+                        // progress notify
+                        console.log('progress: ' +
+                            parseInt(100.0 * evt.loaded / evt.total) +
+                            '% file :' +
+                            evt.config.data.file.name);
+                    });
+            }
 
         });
 

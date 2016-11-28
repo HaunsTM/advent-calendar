@@ -2,7 +2,7 @@
     <h3>{{modalOptions.headerText}}</h3>
 </div>
 <div class="modal-body">
-    <img ng-src={{modalOptions.slotImgSrcData}} alt="" style="max-width: 100%;"/>
+    <img ng-src={{modalOptions.slotImgSrcData}} alt="" class="img-responsive" />
     
     <!--Markup i Angular som <img src={{modalOptions.slotImgSrcData}}  ... /> kommer inte att fungera som förväntat. Browsern kommer bokstavligt att läsa in URL som text innan Angular byter ut uttrycket inom måsvingarna ( {{modalOptions.slotImgSrcData}} ). ng-src löser problemet!-->
 

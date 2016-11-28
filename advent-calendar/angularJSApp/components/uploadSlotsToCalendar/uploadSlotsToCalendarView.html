@@ -3,32 +3,36 @@
         <h1>Uppladdningsformulär för luckor</h1>
     </div>
 
-    <form role="form" class="form-inline">
-        
-        <div id="outerBox" class="slotImageOuterBox" data-ng-repeat="slot in slots">
-            <div id="leftBox">
-                <div class="form-group">
-                    <label for="slotImage">Lucka:</label>
-                    <h1>{{slot.slotNumber}}</h1>
+    <form role="form" class="form-horizontal">
+
+        <div class="panel panel-success" data-ng-repeat="slot in slots">
+            <div class="panel-body">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="slotImage">Lucka: {{slot.slotNumber}}</label>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">(max 500 kB)</div>
+                            <div class="panel-body">
+                                <div ngf-drop ngf-select ng-model="slot.imageFile" id="slotImage"
+                                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
+                                     accept="image/*,application/pdf"
+                                     ngf-pattern="'image/*'">
+                                    <p ng-if="!slot.imageFile">Klicka eller dra hit en bild</p>
+                                    <img ng-if="slot.imageFile" ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="img-thumbnail" />
+                                </div>
+                                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="middleBox">
-                <div class="form-group">
-                    <label for="slotImage">Bild:</label>
-                    <div ngf-drop ngf-select ng-model="slot.imageFile" class="slotImageFormGroup" id="slotImage"
-                            ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true" ngf-max-size="500KB"
-                            accept="image/*"
-                            ngf-pattern="'image/*'">Dra och släpp en bild till luckan här (max 500 kB)</div>
-                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="slotClue">Text i lucka (frivilligt)</label>
+                        <input type="text" class="form-control" id="slotClue" placeholder="Text" ng-model="slot.slotMessage">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="slotClue">Text</label>
-                    <input type="text" class="form-control" id="slotClue" placeholder="Text som kan visas i luckan" ng-model="slot.slotMessage">
-                </div>
-            </div>
-            <div id="rightBox">
-                <img ngf-src="slot.imageFile" ngf-resize="{quality: 0.4}" class="slotImagePreview" />
             </div>
         </div>
 
