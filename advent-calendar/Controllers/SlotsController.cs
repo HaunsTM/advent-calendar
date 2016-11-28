@@ -213,7 +213,7 @@ namespace advent_calendar.Controllers
                     db.Calendars
                     .Where(cal => cal.Active == true) //the calendar has to be active
                     .Where(cal => cal.Year == calendarYear) //get calendar for current year
-                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUser.Id)) //get all calendars by the current logged in user
+                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUsersUserAdministrator.Id)) //get calendars by the current logged in users' administrator
                     .Select(cal => new {Id = cal.Id})
                     .FirstOrDefaultAsync();
             

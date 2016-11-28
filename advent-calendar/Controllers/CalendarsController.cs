@@ -30,6 +30,18 @@ namespace advent_calendar.Controllers
             var user = db.Users.Where(u => u.Id == userId).FirstOrDefault();
             return user;
         }
+        private ApplicationUser CurrentLoggedInUsersUserAdministrator(ApplicationUser currentLoggedInUser)
+        {
+            var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
+            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STANDARD_USER"])
+            {
+                return currentLoggedInUser.IsAdministratedBy;
+            }
+            else
+            {
+                return currentLoggedInUser;
+            }
+        }
 
         private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
@@ -181,9 +193,11 @@ namespace advent_calendar.Controllers
         {
             var currentLoggedInUser = CurrentLoggedInUser();
 
+            var currentLoggedInUsersUserAdministrator = this.CurrentLoggedInUsersUserAdministrator(currentLoggedInUser);
+
             var calendar = await 
                 db.Calendars
-                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUser.Id)) //get all calendars by the current logged in user
+                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUsersUserAdministrator.Id)) //get calendars by the current logged in users' administrator
                     .Where(cal => cal.Active ==true) //make sure to get an active one
                     .FirstOrDefaultAsync();
 

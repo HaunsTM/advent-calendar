@@ -1,22 +1,36 @@
-﻿<form name="outerForm" ng-submit="RegisterStandardUsers()" class="form-horizontal">
-     <!--http://stackoverflow.com/questions/14378401/dynamic-validation-and-name-in-a-form-with-angularjs#answer-14379763-->
+﻿<div class="containerHelp">
 
-    <fieldset data-ng-repeat="calendarUser in calendarUsers">
-        <ng-form name="innerForm">
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="userName" class="control-label">Namn på kalenderanvändare</label>
-                    <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName"/>
-                </div>
+    <div class="page-header">
+        <h1>Kalenderns användare</h1>
+    </div>
+    <form name="outerForm" ng-submit="RegisterStandardUsers()" class="form-horizontal">
+        <!--http://stackoverflow.com/questions/14378401/dynamic-validation-and-name-in-a-form-with-angularjs#answer-14379763-->
+
+        <div class="panel panel-success" data-ng-repeat="calendarUser in calendarUsers">
+
+            <div class="panel-body">
+                <ng-form name="innerForm">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="userName" class="control-label">Namn på kalenderanvändare</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="userPassword" class="control-label">Lösenord</label>
+                            <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="calendarUser.userPassword">
+                        </div>
+                    </div>
+                </ng-form>
             </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="userPassword" class="control-label">Password</label>
-                    <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="calendarUser.userPassword">
-                </div>
-            </div>
-        </ng-form>
-    </fieldset>
-    <button class="addfields" ng-click="AddNewUser()">+ Användare</button>
-    <input type="submit" ng-disabled="outerForm.$invalid"/>
-</form>
+
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-default" ng-click="AddNewUser()">Lägg till användare</button>
+            <input type="submit" class="btn btn-success" ng-disabled="outerForm.$invalid" value="Ok" />
+        </div>
+    </form>
+
+</div>
