@@ -238,6 +238,7 @@
     <Content Include="angularJSApp\components\uploadSlotsToCalendar\uploadSlotsToCalendarViewHelp.html" />
     <Content Include="angularJSApp\components\welcome\welcomeViewHelp.html" />
     <Content Include="angularJSApp\images\adventCalendarSE-logo.gif" />
+    <Content Include="angularJSApp\images\adventCalendarSE-logoXS.gif" />
     <Content Include="angularJSApp\images\calendar-demo.jpg" />
     <Content Include="angularJSApp\images\calendarBackgrounds\border.png" />
     <Content Include="angularJSApp\images\calendarBackgrounds\paper-background.jpg" />
@@ -274,7 +275,7 @@
     <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload-all.js" />
     <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload-shim.js" />
     <Content Include="angularJSApp\shared\directives\ng-file-upload\ng-file-upload.js" />
-    <Content Include="angularJSApp\shared\directives\ngFiles.js" />
+    <Content Include="angularJSApp\shared\directives\positionSlots.js" />
     <Content Include="angularJSApp\shared\factories\authHttpResponseInterceptorFactory.js" />
     <Content Include="angularJSApp\shared\controllers\baseController.js" />
     <Content Include="angularJSApp\shared\factories\calendarFactory.js" />

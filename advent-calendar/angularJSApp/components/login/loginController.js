@@ -14,7 +14,12 @@ app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessi
             sessionService.SetCurrentLoggedInUserRoleName(response.currentLoggedInUserRoleName); /*se ApplicationOAuthProvider.cs, där */
             $location.path('/');
         }, function (response) {
-            $scope.loginForm.errorMessage = response.error_description;
+            if (response.error_description !== "The user name or password is incorrect.") {
+                $scope.loginForm.errorMessage = response.error_description;
+            } else {
+                $scope.loginForm.errorMessage = "Felaktigt användarnamn eller lösenord!";
+                
+            }
         });
     }
 }]);

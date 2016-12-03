@@ -25,7 +25,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="~/angularJSApp/images/adventCalendarSE-logo.gif" alt=""></a>
+                <a class="navbar-brand" ui-sref="stateAbout">
+                    <img class="img-responsive visible-xs" src="~/angularJSApp/images/adventCalendarSE-logoXS.gif" alt="">
+                    <img class="img-responsive hidden-xs" src="~/angularJSApp/images/adventCalendarSE-logo.gif" alt="">
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="navbar" class="collapse navbar-collapse">
@@ -39,9 +42,17 @@
                             <li><a ui-sref="stateCalendar">Visa kalendern</a></li>
                         </ul>
                     </li>
-                    <a ui-sref="stateRegisterUserAdministrator" class="btn btn-info navbar-btn" ng-if="!LoggedIn()">Registrera</a>
-                    <a ui-sref="stateLogin" class="btn btn-default navbar-btn" ng-if="!LoggedIn()">Logga in</a>
-                    <a class="btn btn-success navbar-btn" ng-click="LogOut()" ng-if="LoggedIn()">Logga ut</a>
+                    <li>
+                        <p class="navbar-btn">
+                            <a ui-sref="stateRegisterUserAdministrator" class="btn btn-info" ng-if="!LoggedIn()">Registrera</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="navbar-btn">
+                            <a ui-sref="stateLogin" class="btn btn-default" ng-if="!LoggedIn()">Logga in</a>
+                            <a class="btn btn-success" ng-click="LogOut()" ng-if="LoggedIn()">Logga ut</a>
+                        </p>
+                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->
