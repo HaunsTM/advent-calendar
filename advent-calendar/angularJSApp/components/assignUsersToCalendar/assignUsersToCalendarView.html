@@ -8,18 +8,22 @@
 
         <div class="panel panel-success" data-ng-repeat="calendarUser in calendarUsers">
 
+            <div class="panel-heading">Användare: {{calendarUser.userName}}</div>
             <div class="panel-body">
                 <ng-form name="innerForm">
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <label for="userName" class="control-label">Namn på kalenderanvändare</label>
-                            <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName" />
+
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-6">
+                            <div class="form-group">
+                                <label for="userName" class="control-label">Namn på kalenderanvändare:</label>
+                                <input type="text" class="form-control" id="userName" placeholder="Användare" ng-model="calendarUser.userName" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <label for="userPassword" class="control-label">Lösenord</label>
-                            <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="calendarUser.userPassword">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <div class="form-group">
+                                <label for="userPassword" class="control-label">Lösenord:</label>
+                                <input type="password" class="form-control" id="userPassword" placeholder="Lösenord" ng-model="calendarUser.userPassword">
+                            </div>
                         </div>
                     </div>
                 </ng-form>
@@ -27,9 +31,11 @@
 
         </div>
 
-        <div class="form-group">
-            <button class="btn btn-default" ng-click="AddNewUser()">Lägg till användare</button>
-            <input type="submit" class="btn btn-success" ng-disabled="outerForm.$invalid" value="Ok" />
+        <div class="col-sm-6">
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="AddNewUser()">Lägg till användare</button>
+                <input type="submit" class="btn btn-success" ng-disabled="outerForm.$invalid" value="Ok" />
+            </div>
         </div>
     </form>
 
