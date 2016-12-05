@@ -104,6 +104,6 @@ app.controller('calendarController', ['$scope', '$uibModal', 'calendarFactory', 
         GetCalendarData($scope.currentYear);
     };
 
-    // run while your controller loads
+    // anropa när control har lästs in
     InitializeController();
 }]);

@@ -15,7 +15,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', 'Upload', funct
 
         var upload = Upload.upload(request);
 
-        // returns a promise
+        // returnerar ett promise
         return upload;
     }
 
@@ -58,8 +58,8 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', 'Upload', funct
             result.resolve(response);
         })
         .error(function (error, status) {
-            //error – {string|Object} – The response body transformed with the transform functions.
-            //status – {number} – HTTP status code of the response.
+            //error – {string|Object} – Body för responseobjektet.
+            //status – {number} – HTTP statuskod för responseobjektet.
             result.reject({ error: error, status: status });
         });
 

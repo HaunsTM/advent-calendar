@@ -2,9 +2,9 @@
 app.controller('welcomeController', ['$scope', '$state', 'sessionService', function ($scope, $state, sessionService) {
 
     var initializeController = function () {
-        //are we logged in or not?
+        //har vi loggat in eller inte?
         if (sessionService.GetToken() !== undefined) {
-            //yes, go to calendar page
+            //ja,, gå till kalendersidan
             $state.go('stateCalendar');
         }
         else
@@ -21,7 +21,7 @@ app.controller('welcomeController', ['$scope', '$state', 'sessionService', funct
 
     }
 
-    // run while your controller loads
+    // anropa när control laddas
     initializeController();
 
 }]);

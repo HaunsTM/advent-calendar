@@ -7,7 +7,7 @@ app.controller('uploadSlotsToCalendarController', ['$scope', '$state', 'Upload',
     var initiateSlotArray = function() {
         var firstSlotNumber = 1;
         var lastSlotNumber = 24;
-        //let's create an array
+        //låt oss skapa en array
         for (var i = firstSlotNumber; i < lastSlotNumber + 1; i++) {
             $scope.slots.push({
                 slotNumber: i,
@@ -23,14 +23,14 @@ app.controller('uploadSlotsToCalendarController', ['$scope', '$state', 'Upload',
         initiateSlotArray();
     }
 
-    // run while your controller loads
+    // anropa när control anropas
     initializeController();
 
     $scope.UploadSlots = function () {
-
+        //TODO: Det här borde egentligen ligga i factory
         angular.forEach($scope.slots, function (slot) {
             
-            //do we have a valid file for upload?
+            //har vi en korrekt fil i upload? 
             if (slot.imageFile) {
 
                 var formData = {
@@ -49,22 +49,22 @@ app.controller('uploadSlotsToCalendarController', ['$scope', '$state', 'Upload',
                     }
                 });
 
-                // returns a promise
+                // returnerar ett promise
                 upload.then(function(resp) {
-                        // file is uploaded successfully
+                        // filen har laddats upp
                         console.log('file ' +
                             resp.config.data.file.name +
                             'is uploaded successfully. Response: ' +
                             resp.data);
 
-                        //what should we do when we have uploaded our slots?
+                        //vad ska vi göra när vi har laddat upp luckan?
                         $state.go('stateAssignUsersToCalendar');
                     },
                     function(resp) {
-                        // handle error
+                        // hantera felet
                     },
                     function(evt) {
-                        // progress notify
+                        // skriv ut hur det går
                         console.log('progress: ' +
                             parseInt(100.0 * evt.loaded / evt.total) +
                             '% file :' +

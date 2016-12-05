@@ -133,10 +133,10 @@ app.directive('positionSlots', ['$window', '$timeout', function ($window, $timeo
 
         function onResize() {
 
-            // Reset timeout
+            // Återställ timeout
             $timeout.cancel(scope.resizing);
 
-            // Add a timeout to not call the resizing function every pixel
+            // För att undvika resizing-beräkningar vid varje pixel används en time-outkonstruktion
             scope.resizing = $timeout(function () {
                 scope.oldWidth = scope.newWidth;
                 scope.newWidth = svgElement.getBoundingClientRect().width;

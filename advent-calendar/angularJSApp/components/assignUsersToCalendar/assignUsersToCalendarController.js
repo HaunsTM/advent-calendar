@@ -31,7 +31,7 @@ app.controller('assignUsersToCalendarController', ['$scope', '$state', 'register
                             "From assignUsersToCalendarController.js, RegisterStandardUsers() reported following successful response: " +
                             successfulResponse);
 
-                //what should we do when we have uploaded our slots?
+                //vad ska vi göra när vi har laddat upp control?
                 $state.go('stateCalendar');
             }, function (errorResponse) {
                 console.log(new Date().toString() + " **ERROR** " + "From server, current logged in user role: " +

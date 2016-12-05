@@ -50,18 +50,18 @@ app.controller('createCalendarController', ['$scope', '$state', 'calendarFactory
 
         calendarFactory.UploadCalendar(formData)
             .then(
-                function(answer) {
-                    // do something
+                function (answer) {
+
                     $scope.calendar = answer;
 
-                    //what should we do when we have uploaded our calendar?
+                    //vad ska vi göra när vi har laddat upp kalendern?
                     $state.go('stateUploadSlotsToCalendar');
                 },
                 function(error) {
-                    // report something
+                    // hantera felet
                 },
                 function(progress) {
-                    // report progress
+                    // raportera hur progressionen fortskrider
                 });
     };
 
@@ -70,7 +70,7 @@ app.controller('createCalendarController', ['$scope', '$state', 'calendarFactory
         $scope.calendar.year = calendarEntityService.defaultCalendarYear;
     };
 
-    // run while your controller loads
+    // anropa när control har lästs in
     InitializeController();
 
 }]);
