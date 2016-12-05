@@ -27,13 +27,13 @@ body {
 }
 
 .containerHelp {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 105px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
 .containerForm {
-    height: calc(100vh - 130px);
+    height: calc(100vh - 105px);
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -53,11 +53,10 @@ footer {
 .svg-container {
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: contain;
-    height: calc(100vh - 130px);
+    background-size: 100% 100%;
+    height: calc(100vh - 105px);
     display: block;
 }
-
     .svg-container > svg > g:hover {
         cursor: pointer;
     }
