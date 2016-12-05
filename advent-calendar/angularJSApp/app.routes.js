@@ -107,6 +107,6 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             }
         });
 
-    $locationProvider.html5Mode(true).hashPrefix('!'); // This is for Hashbang Mode
+    $locationProvider.html5Mode(true).hashPrefix('!'); // För Hashbang Mode
     $httpProvider.interceptors.push('authHttpResponseInterceptorFactory');
 }]);
