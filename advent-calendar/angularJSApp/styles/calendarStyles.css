@@ -1,49 +1,99 @@
-﻿.scaling-svg-container {
- position: relative; 
- height: 0; 
- width: 100%; 
- padding: 0;
- padding-bottom: 100%; 
- /* override this inline for aspect ratio other than square */
+﻿html {
+    position: relative;
+    min-height: 100%;
 }
 
-.scaling-svg {
- position: absolute; 
- height: 100%; 
- width: 100%; 
- left: 0; 
- top: 0;
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 30px;
+    background: black;
+    background-image: url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
-.slotImageOuterBox {
-    display: flex;
-    justify-content: space-around;
-
-    border-radius: 25px;
-    background: darkseagreen;
-    padding: 20px;
-
-    margin-bottom: 10px;
+@media (min-width: 768px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath768.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath992.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath1200.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
 }
 
-
-.slotImageFormGroup {
-    background:mediumaquamarine;
-    border: 5px dashed cadetblue;
-    width: 200px;
-    height: 65px;
-    
-    border-radius: 25px;
-    text-align: center;
-    padding-top: 25px;
-    margin: 10px;
+.navbar-brand {
+    padding: 0px;
 }
 
-.slotImagePreview {
-    
-    background:mediumaquamarine;
-    min-height: 50px;
-    max-width: 150px;
-    height: auto;
-    border-radius: 25px;
+   .navbar-brand > img {
+        height: 100%;
+        padding: 7px 15px;
+        width: auto;
+    }
+
+.container {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+}
+
+.containerHelp {
+    height: calc(100vh - 105px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.containerForm {
+    height: calc(100vh - 105px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+    .containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar {
+        display: none;
+    }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 30px;
+}
+
+.svg-container {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    height: calc(100vh - 105px);
+    display: block;
+}
+    .svg-container > svg > g:hover {
+        cursor: pointer;
+    }
+
+.modal-dialog {
+    width: 90vw;
+    max-width: 400px;
+}
+
+.modal-content {
+    padding: 5% 10%;
+    background-color: transparent;
+    background-image: url("/angularJSApp/images/calendarBackgrounds/pergament01.gif");
+    background-size: 100% 100%;
+    border: 0 !important;
+    box-shadow: none;
+}
+
+.modal-content img {
+    max-height: 50vh;
 }

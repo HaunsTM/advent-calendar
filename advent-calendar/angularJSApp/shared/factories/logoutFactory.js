@@ -5,12 +5,13 @@ app.factory('logoutFactory', ['$http', '$q', 'sessionService', function ($http, 
         var result = $q.defer();
         $http({
             method: 'POST',
-            url: sessionService.apiUrl + '/Account/Logout'
+            url: '/api/Account/Logout'
         })
         .success(function (response) {
             result.resolve(response);
         })
         .error(function (response) {
+                debugger;
             result.reject(response);
         });
 

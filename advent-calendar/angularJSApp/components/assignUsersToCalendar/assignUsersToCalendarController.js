@@ -1,5 +1,5 @@
 ﻿"use strict";
-app.controller('assignUsersToCalendarController', ['$scope', 'registerFactory', function ($scope, registerFactory) {
+app.controller('assignUsersToCalendarController', ['$scope', '$state', 'registerFactory', function ($scope, $state, registerFactory) {
 
     var emptyCalendarUserTemplate = {
         userName: undefined,
@@ -26,9 +26,17 @@ app.controller('assignUsersToCalendarController', ['$scope', 'registerFactory', 
                     Password: calendarUser.userPassword
             })
             .then(function (successfulResponse) {
+                        console.log(new Date().toString() +
+                            " **DEBUG** " +
+                            "From assignUsersToCalendarController.js, RegisterStandardUsers() reported following successful response: " +
+                            successfulResponse);
 
+                //vad ska vi göra när vi har laddat upp control?
+                $state.go('stateCalendar');
             }, function (errorResponse) {
-                $scope.registerUserAdministratorForm.errorMessage = errorResponse;
+                console.log(new Date().toString() + " **ERROR** " + "From server, current logged in user role: " +
+                            "From assignUsersToCalendarController.js, RegisterStandardUsers() reported following failure: " +
+                            errorResponse);
             });
         });
 

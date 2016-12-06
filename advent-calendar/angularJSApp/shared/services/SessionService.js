@@ -4,13 +4,37 @@
 
 app.service('sessionService', ['$localStorage', function ($localStorage) {
 
-    this.getToken = function () {
+    this.GetToken = function () {
         return $localStorage.adventCalendarAppToken;
     }
 
-    this.setToken = function (token) {
+    this.SetToken = function (token) {
         $localStorage.adventCalendarAppToken = token;
     }
 
-    this.apiUrl = 'http://localhost:5586';
+    this.GetCurrentLoggedInUserRoleName = function () {
+        var applicationUserRole;
+        switch ($localStorage.currentLoggedInUserRoleName) {
+            //the switches are just for documentation of available options
+            case 'SUPER_ADMINISTRATOR':
+                applicationUserRole = 'SUPER_ADMINISTRATOR';
+                break;
+            case 'USER_ADMINISTRATOR':
+                applicationUserRole = 'USER_ADMINISTRATOR';
+                break;
+            case 'STANDARD_USER':
+                applicationUserRole = 'STANDARD_USER';
+                break;
+            default:
+                applicationUserRole = undefined;
+        }
+        return applicationUserRole;
+    }
+
+    this.SetCurrentLoggedInUserRoleName = function (loggedInUserRoleName) {
+        console.log(new Date().toString() + " **DEBUG** " + "From server, current logged in user role: " + loggedInUserRoleName);
+        return $localStorage.currentLoggedInUserRoleName = loggedInUserRoleName;
+    }
+
+    this.apiUrl = '';// 'http://localhost:5586';
 }]);

@@ -6,8 +6,8 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '/about', //det som syns i webbläsaren
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html', //var mallfilen finns
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/about/aboutViewHelp.html', //var mallfilen finns
+                    controller: 'aboutController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/about/aboutView.html',
@@ -19,8 +19,8 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '/assignUsersToCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarViewHelp.html',
+                    controller: 'assignUsersToCalendarController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/assignUsersToCalendar/assignUsersToCalendarView.html',
@@ -31,7 +31,7 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
         .state('stateCalendar', {
             url: '/calendar',
             views: {
-                "containerThree": {
+                "containerCalendar": {
                     templateUrl: '/angularJSApp/components/calendar/calendarView.html',
                     controller: 'calendarController'
                 }
@@ -41,8 +41,8 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '/createCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/createCalendar/createCalendarViewHelp.html',
+                    controller: 'createCalendarController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/createCalendar/createCalendarView.html',
@@ -54,8 +54,8 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '/login',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/login/loginViewHelp.html',
+                    controller: 'loginController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/login/loginView.html',
@@ -63,25 +63,12 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
                 }
             }
         })
-        .state('stateLogout', {
-            url: '/logout',
-            views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
-                    templateUrl: '/angularJSApp/components/logout/logoutView.html',
-                    controller: 'logoutController'
-                }
-            }
-        })
         .state('stateRegisterUserAdministrator', {
             url: '/registerUserAdministrator',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/registerUserAdministrator/registerUserAdministratorViewHelp.html',
+                    controller: 'registerUserAdministratorController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/registerUserAdministrator/registerUserAdministratorView.html',
@@ -93,25 +80,12 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '/uploadSlotsToCalendar',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
+                    templateUrl: '/angularJSApp/components/uploadSlotsToCalendar/uploadSlotsToCalendarViewHelp.html',
+                    controller: 'uploadSlotsToCalendarController'
                 },
                 "containerTwo": {
                     templateUrl: '/angularJSApp/components/uploadSlotsToCalendar/uploadSlotsToCalendarView.html',
                     controller: 'uploadSlotsToCalendarController'
-                }
-            }
-        })
-        .state('stateWelcome', {
-            url: '/welcome',
-            views: {
-                "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
-                },
-                "containerTwo": {
-                    templateUrl: '/angularJSApp/components/welcome/welcomeView.html',
-                    controller: 'welcomeController'
                 }
             }
         })
@@ -123,16 +97,16 @@ app.config(['$stateProvider', '$httpProvider', '$locationProvider', function ($s
             url: '*path',
             views: {
                 "containerOne": {
-                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+                    templateUrl: '/angularJSApp/components/welcome/WelcomeViewHelp.html',
                     controller: 'welcomeController'
                 },
                 "containerTwo": {
-                    templateUrl: '/angularJSApp/components/empty/emptyView.html',
-                    controller: 'emptyController'
+                    templateUrl: '/angularJSApp/components/welcome/WelcomeView.html',
+                    controller: 'welcomeController'
                 }
             }
         });
 
-    $locationProvider.html5Mode(true).hashPrefix('!'); // This is for Hashbang Mode
+    $locationProvider.html5Mode(true).hashPrefix('!'); // För Hashbang Mode
     $httpProvider.interceptors.push('authHttpResponseInterceptorFactory');
 }]);

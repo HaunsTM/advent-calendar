@@ -70,7 +70,7 @@ namespace advent_calendar.Models
             : base("DefaultConnection")
         {
 #if DEBUG
-            //Database.SetInitializer<ApplicationDbContext>(new AdventCalendarDBInitializer<ApplicationDbContext>());
+            Database.SetInitializer<ApplicationDbContext>(new AdventCalendarDBInitializer<ApplicationDbContext>());
 #endif
         }
         

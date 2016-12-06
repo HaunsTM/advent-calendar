@@ -7,7 +7,7 @@ app.factory('loginFactory', ['$http', '$q', 'sessionService', function ($http, $
 
         $http({
             method: 'POST',
-            url: sessionService.apiUrl + '/token',
+            url: '/token',
             transformRequest: function (obj) {
                 var str = [];
                 for (var p in obj)
@@ -17,8 +17,12 @@ app.factory('loginFactory', ['$http', '$q', 'sessionService', function ($http, $
             data: params,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8;' }
         })
-        .success(function (response) {
-            result.resolve(response);
+        .success(function (successfulResponse) {
+            console.log(new Date().toString() +
+                            " **DEBUG** " +
+                            "From loginFactory.js, reported following successful successfulResponse: " +
+                            successfulResponse);
+            result.resolve(successfulResponse);
         })
         .error(function (response) {
             result.reject(response);

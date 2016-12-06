@@ -1,7 +1,6 @@
 ﻿"use strict";
 app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessionService', function ($scope, $location, loginFactory, sessionService) {
 
-    $scope.Message = "This is loginController page";
     $scope.loginForm = {
         userName: undefined,
         userPassword: undefined,
@@ -11,10 +10,16 @@ app.controller('loginController', ['$scope', '$location', 'loginFactory', 'sessi
     $scope.login = function () {
         loginFactory($scope.loginForm.userName, $scope.loginForm.userPassword)
         .then(function (response) {
-            sessionService.setToken(response.access_token);
+            sessionService.SetToken(response.access_token);
+            sessionService.SetCurrentLoggedInUserRoleName(response.currentLoggedInUserRoleName); /*se ApplicationOAuthProvider.cs, där */
             $location.path('/');
         }, function (response) {
-            $scope.loginForm.errorMessage = response.error_description;
+            if (response.error_description !== "The user name or password is incorrect.") {
+                $scope.loginForm.errorMessage = response.error_description;
+            } else {
+                $scope.loginForm.errorMessage = "Felaktigt användarnamn eller lösenord!";
+                
+            }
         });
     }
 }]);

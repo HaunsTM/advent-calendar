@@ -1,29 +1,22 @@
 ﻿"use strict";
-app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $http, sessionService) {
+app.factory('calendarFactory', ['$q', '$http', 'sessionService', 'Upload', function ($q, $http, sessionService, Upload) {
 
     var fac = {};
 
     fac.UploadCalendar = function (formData) {
-        var result = $q.defer();
         var request = {
             method: 'POST',
-            url: 'api/Calendars/UploadCalendar',
+            url: '/api/Calendars/UploadCalendar',
             data: formData,
             headers: {
-                'Content-Type': undefined,
-                'Authorization': 'Bearer ' + sessionService.getToken()
-    }
+                'Authorization': 'Bearer ' + sessionService.GetToken()
+            }
         };
 
-        $http(request)
-            .success(function (response) {
-                result.resolve(response);
-            })
-            .error(function (response) {
-                result.reject(response);
-            });
+        var upload = Upload.upload(request);
 
-        return result.promise;
+        // returnerar ett promise
+        return upload;
     }
 
     fac.GetCalendar =  function (yearForCurrentLoggedUsersCalendar) {
@@ -31,7 +24,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         var request = {
             method: 'GET',
             url: 'api/Calendars/GetCalendarByYearAndCurrentLoggedInUser',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.getToken() },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionService.GetToken() },
             params: { year: yearForCurrentLoggedUsersCalendar }
         };
 
@@ -46,7 +39,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         return result.promise;
     }
 
-    fac.OpenSlot = function (calendarYear, slotNumber) {
+    fac.GetSlotFromServer = function (calendarYear, slotNumber) {
 
         var result = $q.defer();
 
@@ -56,7 +49,7 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
             params: { calendarYear: calendarYear, slotNumber: slotNumber },
             headers: {
                 'Content-Type': undefined,
-                'Authorization': 'Bearer ' + sessionService.getToken()
+                'Authorization': 'Bearer ' + sessionService.GetToken()
             }
         };
 
@@ -64,8 +57,10 @@ app.factory('calendarFactory', ['$q', '$http', 'sessionService', function ($q, $
         .success(function (response) {
             result.resolve(response);
         })
-        .error(function (response) {
-            result.reject(response);
+        .error(function (error, status) {
+            //error – {string|Object} – Body för responseobjektet.
+            //status – {number} – HTTP statuskod för responseobjektet.
+            result.reject({ error: error, status: status });
         });
 
         return result.promise;

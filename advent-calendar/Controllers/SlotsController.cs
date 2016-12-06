@@ -37,7 +37,7 @@ namespace advent_calendar.Controllers
         private ApplicationUser CurrentLoggedInUsersUserAdministrator(ApplicationUser currentLoggedInUser)
         {
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
-            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_STANDARD_USER"])
+            if (currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STANDARD_USER"])
             {
                 return currentLoggedInUser.IsAdministratedBy;
             }
@@ -80,8 +80,8 @@ namespace advent_calendar.Controllers
             var currentLoggedInUser = this.CurrentLoggedInUser();
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInUser);
 
-            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_SUPER_ADMINISTRATOR"] ||
-                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["STRING_USER_ADMINISTRATOR"]))
+            if (!(currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"] ||
+                  currentLoggedInUserRole.Name == ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation.");
@@ -172,7 +172,7 @@ namespace advent_calendar.Controllers
             bool activeStatusAfterUpdate = false;
             
                 var stillActiveSlots = from s in db.Slots
-                    where s.Active == activeStatusToSearchFor && s.Calendar.Id == calendar.Id
+                    where s.Active == activeStatusToSearchFor && s.Number==slotNumber && s.Calendar.Id == calendar.Id
                     select s;
 
                 foreach (var stillActiveSlot in stillActiveSlots)
@@ -207,18 +207,16 @@ namespace advent_calendar.Controllers
         {
             var currentLoggedInUser = this.CurrentLoggedInUser();
             var currentLoggedInUsersUserAdministrator = this.CurrentLoggedInUsersUserAdministrator(currentLoggedInUser);
-            Calendar wantedCalendar;
-            CalendarViewModel wantedCalendarViewModel;
 
 
-
-            wantedCalendar = await (from wC in db.Calendars
-                from u in db.Users
-                where
-                wC.Active == true && wC.Year == calendarYear &&
-                u.Id == currentLoggedInUser.Id
-                select wC).FirstOrDefaultAsync();
-                
+            var wantedCalendar = await
+                    db.Calendars
+                    .Where(cal => cal.Active == true) //the calendar has to be active
+                    .Where(cal => cal.Year == calendarYear) //get calendar for current year
+                    .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUsersUserAdministrator.Id)) //get calendars by the current logged in users' administrator
+                    .Select(cal => new {Id = cal.Id})
+                    .FirstOrDefaultAsync();
+            
 
             if (wantedCalendar == null)
             {
@@ -227,11 +225,9 @@ namespace advent_calendar.Controllers
             else
             {
                 Slot wantedSlot;
-                wantedCalendarViewModel = new CalendarViewModel(wantedCalendar);
-                wantedCalendar = null;
 
                 wantedSlot = await (from wS in db.Slots
-                    where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendarViewModel.Id
+                    where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendar.Id
                     select wS).FirstOrDefaultAsync();
                         
                 
