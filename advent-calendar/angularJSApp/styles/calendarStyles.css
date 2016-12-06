@@ -12,6 +12,25 @@ body {
     background-repeat: no-repeat;
 }
 
+@media (min-width: 768px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath768.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath992.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath1200.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+    background-position: 0 50px;
+  }
+}
+
 .navbar-brand {
     padding: 0px;
 }

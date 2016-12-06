@@ -244,6 +244,9 @@
     <Content Include="angularJSApp\images\calendarBackgrounds\paper-background.jpg" />
     <Content Include="angularJSApp\images\calendarBackgrounds\pergament01.gif" />
     <Content Include="angularJSApp\images\calendarBackgrounds\snow-man.jpg" />
+    <Content Include="angularJSApp\images\calendarBackgrounds\wreath1200.gif" />
+    <Content Include="angularJSApp\images\calendarBackgrounds\wreath768.gif" />
+    <Content Include="angularJSApp\images\calendarBackgrounds\wreath992.gif" />
     <Content Include="angularJSApp\images\cute-bells.gif" />
     <Content Include="angularJSApp\images\help\upload-slot.jpg" />
     <Content Include="angularJSApp\images\hideawayExamples\12.JPG" />
