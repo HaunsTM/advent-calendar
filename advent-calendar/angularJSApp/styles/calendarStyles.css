@@ -12,30 +12,46 @@ body {
     background-repeat: no-repeat;
 }
 
-@media (min-width: 768px) {
-  body {
-    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath768.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
-    background-position: 0 50px;
-  }
+@media (min-width: 788px) {
+    body {
+        background-image: url("/angularJSApp/images/calendarBackgrounds/wreath768.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+        background-position: 0 50px;
+    }
+    .navbar + .container {
+        margin-top: 20px;
+    }
+    .containerHelp {
+        height: calc(100vh - 103px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .containerForm {
+        height: calc(100vh - 103px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 }
-@media (min-width: 992px) {
-  body {
-    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath992.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
-    background-position: 0 50px;
-  }
+
+@media (min-width: 1012px) {
+    body {
+        background-image: url("/angularJSApp/images/calendarBackgrounds/wreath992.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+        background-position: 0 50px;
+    }
 }
-@media (min-width: 1200px) {
-  body {
-    background-image: url("/angularJSApp/images/calendarBackgrounds/wreath1200.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
-    background-position: 0 50px;
-  }
+
+@media (min-width: 1220px) {
+    body {
+        background-image: url("/angularJSApp/images/calendarBackgrounds/wreath1200.gif"), url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
+        background-position: 0 50px;
+    }
 }
 
 .navbar-brand {
     padding: 0px;
 }
 
-   .navbar-brand > img {
+    .navbar-brand > img {
         height: 100%;
         padding: 7px 15px;
         width: auto;
@@ -45,21 +61,10 @@ body {
     background-image: url("/angularJSApp/images/calendarBackgrounds/paper-background.jpg");
 }
 
-.containerHelp {
-    height: calc(100vh - 105px);
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
 
-.containerForm {
-    height: calc(100vh - 105px);
-    overflow-y: scroll;
-    overflow-x: hidden;
+.containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar {
+    display: none;
 }
-
-    .containerHelp::-webkit-scrollbar, .containerForm::-webkit-scrollbar {
-        display: none;
-    }
 
 footer {
     position: absolute;
@@ -76,6 +81,7 @@ footer {
     height: calc(100vh - 105px);
     display: block;
 }
+
     .svg-container > svg > g:hover {
         cursor: pointer;
     }
@@ -94,6 +100,6 @@ footer {
     box-shadow: none;
 }
 
-.modal-content img {
-    max-height: 50vh;
-}
+    .modal-content img {
+        max-height: 50vh;
+    }
