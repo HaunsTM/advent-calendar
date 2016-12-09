@@ -28,8 +28,6 @@ namespace advent_calendar.Controllers
     public class AccountController : ApiController
     {
 
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
@@ -48,6 +46,22 @@ namespace advent_calendar.Controllers
         {
             get { return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
+        }
+
+        private bool AssignRoleToUser(int userId, string applicationUserRoleName)
+        {
+            bool assigned = false;
+            using (var db = new ApplicationDbContext())
+            {
+                var currentUser = db.Users.Single(u => u.Id == userId);
+                var currentApplicationUserRole =
+                    db.ApplicationUserRoles.Single(aUR => aUR.Name == applicationUserRoleName);
+
+                currentUser.ApplicationUserRole = currentApplicationUserRole;
+                db.SaveChanges();
+                assigned = true;
+            }
+            return assigned;
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
@@ -325,60 +339,16 @@ namespace advent_calendar.Controllers
         }
 
         #region Available application user roles
-        
+
         private ApplicationUserRole CurrentLoggedInUserRole(int currentLoggedInUserId)
         {
-            var currentLoggedInUserRole =
-                db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
-
-            return currentLoggedInUserRole;
-        }
-
-        public Models.POCO.ApplicationUserRole SuperAdministratorRole
-        {
-            get
+            using (var db = new ApplicationDbContext())
             {
-                Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringSuperAdministrator = ConfigurationManager.AppSettings["SUPER_ADMINISTRATOR"];
-                using (var db = new ApplicationDbContext())
-                {
-                    applicationUserRole = (from aUR in db.ApplicationUserRoles
-                        where aUR.Name == stringSuperAdministrator
-                        select aUR).FirstOrDefault();
-                }
-                return applicationUserRole;
-            }
-        }
+                var currentLoggedInUserRole =
+                        db.Users.Where(u => u.Id == currentLoggedInUserId).Select(p => p.ApplicationUserRole).FirstOrDefault();
 
-        public Models.POCO.ApplicationUserRole UserAdministratorRole
-        {
-            get
-            {
-                Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringUserAdministrator = ConfigurationManager.AppSettings["USER_ADMINISTRATOR"];
-                using (var db = new ApplicationDbContext())
-                {
-                    applicationUserRole = (from aUR in db.ApplicationUserRoles
-                        where aUR.Name == stringUserAdministrator
-                        select aUR).FirstOrDefault();
-                }
-                return applicationUserRole;
-            }
-        }
+                return currentLoggedInUserRole;
 
-        public Models.POCO.ApplicationUserRole StandardUserRole
-        {
-            get
-            {
-                Models.POCO.ApplicationUserRole applicationUserRole;
-                var stringStandardUser = ConfigurationManager.AppSettings["STANDARD_USER"];
-                using (var db = new ApplicationDbContext())
-                {
-                    applicationUserRole = (from aUR in db.ApplicationUserRoles
-                        where aUR.Name == stringStandardUser
-                        select aUR).FirstOrDefault();
-                }
-                return applicationUserRole;
             }
         }
 
@@ -394,7 +364,7 @@ namespace advent_calendar.Controllers
 
         #endregion
 
-            // POST api/Account/Register
+        // POST api/Account/Register
         [System.Web.Http.AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -404,7 +374,7 @@ namespace advent_calendar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() {UserName = model.Email, Email = model.Email};
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -431,8 +401,7 @@ namespace advent_calendar.Controllers
             var user = new ApplicationUser()
             {
                 UserName = model.Email,
-                Email = model.Email,
-                ApplicationUserRole = this.UserAdministratorRole
+                Email = model.Email
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -441,6 +410,7 @@ namespace advent_calendar.Controllers
             {
                 return GetErrorResult(result);
             }
+            AssignRoleToUser(user.Id, ConfigurationManager.AppSettings["USER_ADMINISTRATOR"]);
 
             return Ok();
         }
@@ -448,13 +418,14 @@ namespace advent_calendar.Controllers
         #endregion
 
         #region Standard user
-        
+
 
         // POST api/Account/GetRegisteredStandardUsersByLoggedInAdministrator
         [System.Web.Http.Authorize]
         [Route("GetRegisteredStandardUsersByLoggedInAdministrator")]
         public async Task<IHttpActionResult> GetRegisteredStandardUsersByLoggedInAdministrator()
         {
+            List<ApplicationUser> standardUsersByLoggedInAdministrator;
             //we have to make sure that the logged in user is an administrator
             var currentLoggedInAdministratorId = Convert.ToInt32(User.Identity.GetUserId());
             var currentLoggedInUserRole = this.CurrentLoggedInUserRole(currentLoggedInAdministratorId);
@@ -465,10 +436,13 @@ namespace advent_calendar.Controllers
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Forbidden,
                     "Lack of sufficient privileges to perform operation." + " " + "You are not administrator."));
             }
-
-            var standardUsersByLoggedInAdministrator =
-                db.Users.Where(u => u.Id == currentLoggedInAdministratorId).Select(s => s.IsAdministratedBy).ToList();
-
+            using (var db = new ApplicationDbContext())
+            {
+                standardUsersByLoggedInAdministrator =
+                    db.Users.Where(u => u.Id == currentLoggedInAdministratorId)
+                        .Select(s => s.IsAdministratedBy)
+                        .ToList();
+            }
             return Ok(standardUsersByLoggedInAdministrator);
         }
 
@@ -500,19 +474,21 @@ namespace advent_calendar.Controllers
             try
             {
                 //UserManager uses it's own DbContext to load data from the database. We will need to retrieve the user from the same dbContext that you use to add a reference to.
-       
+
                 var currentLoggedInAdministrator = await UserManager.FindByIdAsync(currentLoggedInAdministratorId);
-                var newApplicationUser = new ApplicationUser() { UserName = model.UserName, ApplicationUserRole = this.StandardUserRole, IsAdministratedBy = currentLoggedInAdministrator };
-            
-            IdentityResult result = await UserManager.CreateAsync(newApplicationUser, model.Password);
+                var newApplicationUser = new ApplicationUser() { UserName = model.UserName, IsAdministratedBy = currentLoggedInAdministrator };
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-            
+                IdentityResult result = await UserManager.CreateAsync(newApplicationUser, model.Password);
 
-            return Ok();
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+
+                AssignRoleToUser(newApplicationUser.Id, ConfigurationManager.AppSettings["STANDARD_USER"]);
+
+                return Ok();
 
             }
             catch (Exception ex)
@@ -552,7 +528,7 @@ namespace advent_calendar.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
