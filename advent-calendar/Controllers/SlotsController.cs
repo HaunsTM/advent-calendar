@@ -50,10 +50,10 @@ namespace advent_calendar.Controllers
         private ApplicationUserRole CurrentLoggedInUserRole(ApplicationUser currentLoggedInUser)
         {
             ApplicationUserRole currentLoggedInUserRole;
-            
-                currentLoggedInUserRole = (from cLIUR in db.ApplicationUserRoles
-                    where cLIUR.Id == currentLoggedInUser.ApplicationUserRole.Id
-                    select cLIUR).FirstOrDefault();
+
+            currentLoggedInUserRole = (from cLIUR in db.ApplicationUserRoles
+                                       where cLIUR.Id == currentLoggedInUser.ApplicationUserRole.Id
+                                       select cLIUR).FirstOrDefault();
             currentLoggedInUserRole = currentLoggedInUser.ApplicationUserRole;
             return currentLoggedInUserRole;
         }
@@ -63,11 +63,12 @@ namespace advent_calendar.Controllers
             bool activeStatusToSearchFor = true;
             Calendar currentCalendar = null;
 
-            currentCalendar = (from c in db.Calendars
-                from u in db.Users
-                where (c.Year == calendarYear && c.Active == activeStatusToSearchFor) &&
-                      u.Id == calendarsUser.Id
-                select c).FirstOrDefault();
+            //http://geekswithblogs.net/BobHardister/archive/2012/12/27/linq-c-many-to-many-query-using-entity-framework.aspx
+            currentCalendar =
+            (from c in db.Calendars.Where(c => c.Year == calendarYear && c.Active == activeStatusToSearchFor)
+                from junctionTable in c.ApplicationUsers.Where(u => u.Id == calendarsUser.Id)
+                select c).Single();
+
             return currentCalendar;
 
         }
@@ -170,16 +171,16 @@ namespace advent_calendar.Controllers
             bool done = false;
             bool activeStatusToSearchFor = true;
             bool activeStatusAfterUpdate = false;
-            
-                var stillActiveSlots = from s in db.Slots
-                    where s.Active == activeStatusToSearchFor && s.Number==slotNumber && s.Calendar.Id == calendar.Id
-                    select s;
 
-                foreach (var stillActiveSlot in stillActiveSlots)
-                {
-                    stillActiveSlot.Active = activeStatusAfterUpdate;
-                }
-                // Submit the changes to the database.
+            var stillActiveSlots = from s in db.Slots
+                                   where s.Active == activeStatusToSearchFor && s.Number == slotNumber && s.Calendar.Id == calendar.Id
+                                   select s;
+
+            foreach (var stillActiveSlot in stillActiveSlots)
+            {
+                stillActiveSlot.Active = activeStatusAfterUpdate;
+            }
+            // Submit the changes to the database.
             try
             {
                 db.SaveChanges();
@@ -214,9 +215,9 @@ namespace advent_calendar.Controllers
                     .Where(cal => cal.Active == true) //the calendar has to be active
                     .Where(cal => cal.Year == calendarYear) //get calendar for current year
                     .Where(cal => cal.ApplicationUsers.All(y => y.Id == currentLoggedInUsersUserAdministrator.Id)) //get calendars by the current logged in users' administrator
-                    .Select(cal => new {Id = cal.Id})
+                    .Select(cal => new { Id = cal.Id })
                     .FirstOrDefaultAsync();
-            
+
 
             if (wantedCalendar == null)
             {
@@ -227,10 +228,10 @@ namespace advent_calendar.Controllers
                 Slot wantedSlot;
 
                 wantedSlot = await (from wS in db.Slots
-                    where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendar.Id
-                    select wS).FirstOrDefaultAsync();
-                        
-                
+                                    where wS.Active == true && wS.Number == slotNumber && wS.Calendar.Id == wantedCalendar.Id
+                                    select wS).FirstOrDefaultAsync();
+
+
                 if (wantedSlot == null)
                 {
                     return Content(HttpStatusCode.NotFound, String.Format("Slot {{calendar year: {0}; slot number: {1}}} doesn't exist", calendarYear.ToString(), slotNumber.ToString()));
@@ -239,15 +240,15 @@ namespace advent_calendar.Controllers
                 {
                     if (wantedSlot.EarliestDateOfAllowedOpeningTime > DateTime.Now)
                     {
-                        return Content(HttpStatusCode.Forbidden, 
-                            String.Format("The slot {{calendar year: {0}; slot number: {1}}} must not be opened before {2}!", 
-                                calendarYear.ToString(), 
+                        return Content(HttpStatusCode.Forbidden,
+                            String.Format("The slot {{calendar year: {0}; slot number: {1}}} must not be opened before {2}!",
+                                calendarYear.ToString(),
                                 slotNumber.ToString(),
                                 wantedSlot.EarliestDateOfAllowedOpeningTime.ToShortDateString()));
                     }
                     else
                     {
-                        wantedSlot.Opened=DateTime.Now;
+                        wantedSlot.Opened = DateTime.Now;
                         var wantedSlotViewModel = new SlotViewModel(wantedSlot);
                         await db.SaveChangesAsync();
                         wantedSlot = null;
